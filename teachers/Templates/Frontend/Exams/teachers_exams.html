@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Εξετάσεις</title>
+    <link rel="stylesheet" href="{% style 'students/Frontend/teachers_exams.css' %}" />
+    <link rel="stylesheet" href="{% style 'tables/list_table_page.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherFrontendNavbar request %}
+    <div class="search-bar">
+        Αναζήτηση μαθητή και dropdown box(δεν θυμαμαι πως το λενε ακριβως) με τμήμα
+    </div>
+    <div class="header">
+        <h3>Εξετάσεις</h3>
+        <a href="{% url 'teacher_add_grades' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Mάθημα</th>
+            <th>Καθηγητής</th>
+            <th>Ακαδημαικό Έτος</th>
+            <th>Εξάμηνο</th>
+            <th>Βαθμός Θεωρίας</th>
+            <th>Βαθμός Εργαστηρίου</th>
+            <th></th>
+        </tr>
+        {% for exam in objects %}
+        <tr class="datarow">
+            <td>
+                {{exam.id}}
+            </td>
+            <td>
+                {{exam.subject}}
+            </td>
+            <td>
+                {{exam.teacher}}
+            </td>
+            <td>
+                {{exam.schoolyear}}
+            </td>
+            <td>
+                {{exam.semester}}
+            </td>
+            <td>
+                {{exam.theorygrade}}
+            </td>
+            <td>
+                {{exam.labgrade}}
+            </td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

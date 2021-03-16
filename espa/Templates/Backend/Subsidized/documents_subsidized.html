@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Δικαιολογητικά {{ instance.companyname }}</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% style 'espa/Backend/Navbar/header.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="header">
+        <h3>Δικαιολογητικά {{ company.companyname }}</h3>
+        <a href="{% url 'add_subsidized_business' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th></th>
+            <th>#</th>
+            <th>Όνομα Εγγράφου</th>
+            <th>Ημερομηνία Καταχώρησης</th>
+            <th>Επιθεωρήθηκε</th>
+            <th></th>
+        </tr>
+        {% for document in instance %}
+        <tr class="datarow">
+            <td>
+                <input type="checkbox" name="checkboxs"/>
+            </td>
+            <td>
+                {{document.id}}
+            </td>
+            <td>
+                <a href="{{ document.file.url }}">{{document.file.name}}</a>
+            </td>
+            <td>
+                {{document.entrydate|date:"d/m/y"}}
+            </td>
+            <td>
+                {% if document.inspected == True %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}"  width="30px" height="30px"/>
+                {% elif document.inspected == False %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}"  width="30px" height="30px"/>
+                {% endif %}
+            </td>
+            <td>
+                {% if document.inspected == False %}
+                    <a href="{% url 'inspect_business_document' document.id %}" onclick="return confirm('Είστε σιγουροί πως θέλετε να ορίσετε αυτό το έγγραφη ως επιθεωρημένο;')"><img src="{% image 'general/icons/notepad-tick-icon.png' %}" width="30px" height="30px" title="Ορισμός ως επιθεωρημένο"></a>
+                {% elif document.inspected == True %}
+                    <a href="{% url 'inspect_business_document' document.id %}" onclick="return confirm('Είστε σιγουροί πως θέλετε να ορίσετε αυτό το έγγραφη ως μη επιθεωρημένο;')"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" width="30px" height="30px" title="Ορισμός ως μη επιθεωρημένο"></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    <form method="POST">{% csrf_token %}
+        <input type="submit" />
+    </form>
+
+    </table>
+</body>
+</html>

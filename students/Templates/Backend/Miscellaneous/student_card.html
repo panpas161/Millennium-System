@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load tags %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ΚΑΡΤΑ ΣΠΟΥΔΑΣΤΗ - {{lastname}} {{firstname}}</title>
+<style type="text/css">
+body,td,th {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFF;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: none;
+}
+
+/* This button was generated using CSSButtonGenerator.com */
+
+input {
+	text-transform: uppercase;
+}
+
+textarea {
+	text-transform: uppercase;
+}
+
+
+
+    .box{
+        background:url("{% image 'students/miscellaneous/student_card_front_2.jpg' %}") no-repeat top left;
+        background-size: 280px 201px;
+    }
+
+
+
+
+
+.box1 {        background:url("{% image 'students/miscellaneous/student_card_front_2.jpg' %}") no-repeat top left;
+        background-size: 280px 201px;
+}
+.box11 {background:url("{% image 'students/miscellaneous/student_card_front_2.jpg' %}") no-repeat top left;
+        background-size: 280px 201px;
+}
+.box2 {background:url("{% image 'students/miscellaneous/student_card_back_3.jpg' %}") no-repeat top left;
+        background-size: 280px 201px;
+}
+</style>
+
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:-5px;">
+  <tr>
+      <td width="50%" align="center" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" align="right" valign="top"><table width="280" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="280" height="201" align="center" valign="top" class="box1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="110" align="left" valign="top">                  <img src="{% media photoname %}" width="64" height="82" style="padding-left:23px; padding-top:20px;" />
+                  </td>
+                <td width="10" align="left" valign="top">&nbsp;</td>
+                <td align="left" valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="0">
+                  <tr>
+                    <td height="15" align="left" valign="top">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">ΟΝΟΜΑ</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                      {{firstname}}</div></td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">ΕΠΙΘΕΤΟ</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                      {{lastname}}</div></td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">ΗΜ. ΓΕΝΝΗΣΗΣ</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">31-03-1972</div></td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">ΤΟΜΕΑΣ</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                      {{specialty}}}</div></td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">ΠΕΡΙΟΧΗ ΔΙΑΜΟΝΗΣ</td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                        {{ location }}</div></td>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="0">
+                      <tr>
+                        <td width="50%" align="left" valign="top">ΚΩΔ. ΣΠΟΥΔ.</td>
+                        <td width="50%" align="left" valign="top">ΗΜ. ΛΗΞΗΣ</td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                          {{id}}</div></td>
+                        <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:80%;">30-05-2021</div></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="50%" align="left" valign="top"><table width="280" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="280" height="201" align="center" valign="top" class="box2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="23">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="40" align="center" valign="middle" bgcolor="#FFFFFF">
+
+                <iframe src="barcode_gen.php?id=1452" width="100%" height="40" frameborder="0" scrolling="no"></iframe>
+
+
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><span style="padding-left:25px; padding-right:-50px;">
+                  <img src="temp_qr_quodes/16047860861604786086-X9AWVPAYCU93C1F82DU9.png" />                  </span></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+    </tr>
+</table>
+</body>
+</html>

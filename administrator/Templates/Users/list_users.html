@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Χρηστών</title>
+    <link rel="stylesheet" href="{% style 'administrator/list_users.css' %}">
+</head>
+<body>
+    {% include '../Navbar/admin_navbar.html' %}
+    <table width="100%">
+        <tr>
+            <th>Username</th>
+            <th>Όνομα</th>
+            <th>Επώνυμο</th>
+            <th>Email</th>
+            <th>Τελευταία Σύνδεση</th>
+            <th>Ενεργός</th>
+        </tr>
+        {% for object in objects%}
+            <tr>
+                <td>{{object.username}}</td>
+                <td>{{object.first_name}}</td>
+                <td>{{object.last_name}}</td>
+                <td>{{object.email}}</td>
+                <td>{{object.last_login}}</td>
+                <td>{{object.is_active}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

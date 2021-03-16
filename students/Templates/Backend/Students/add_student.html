@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Προσθήκη Νέου Σπουδαστή</title>
+    <link rel="stylesheet" href="{% style 'students/add_student.css' %}"/>
+    <script src="{% script 'students/add_student.js' %}"></script>
+</head>
+<body>
+    {% include '../Navbar/navbar_students.html' %}
+    <form method="POST">{% csrf_token %}
+        <div class="studentlabel">
+            ΣΤΟΙΧΕΙΑ ΣΠΟΥΔΑΣΤΗ
+        </div>
+        <div class="form">
+            {{ studentmodel }}
+        </div>
+        <div>
+            <label for="vouchersame">Ίδιος Εγγυητής</label>
+            <input type="checkbox" name="vouchersame" id="vouchersame" onchange="VoucherDisplay('')" checked/>
+        </div>
+        <div class="voucherlabel" id="voucherlabel" style="display: none">
+            ΣΤΟΙΧΕΙΑ ΕΓΓΥΗΤΗ
+        </div>
+        <div class="voucherform" id="voucherform" style="display: none">
+            {{vouchermodel}}
+        </div>
+         <div class="bottomdiv">
+                <label class="bottomlabels">Σύνολα</label>
+                <label class="bottomlabels">Δόσεις</label>
+                <div class="totals">
+                    <label style="color:yellow;">Κόστος: </label><label id="cost_show">0</label>
+                    <br />
+                    <label style="color:red;">Έκπτωση: </label><label id="discount_show">0</label>
+                    <br />
+                    <label style="color:green">Τελικό Σύνολο: </label><label id="total_show">0</label>
+                    <div class="checkfpa">
+                        <label for="fpabox">ΦΠΑ</label>
+                        <input type="checkbox" id="fpacheckbox" name="fpabox" onchange="calculateFPA(true)" checked />
+                    </div>
+                </div>
+             <div class="installments">
+        <label for="prokataboli">Προκαταβολή</label>
+                    <br />
+                    <input type="number" name="prokataboli" class="prokataboli-input" />
+                    <br />
+                    <label for="doseis">Δόσεις</label>
+                    <br />
+                    <select name="installment_number">
+                        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option>
+                    </select>
+                    <br />
+                    Αρχικός Μήνας:
+                    <br />
+                    <select name="installment_month">
+                        <option>Ιανουάριος</option>
+                        <option>Φεβρουάριος</option>
+                        <option>Μάρτιος</option>
+                        <option>Απρίλιος</option>
+                        <option>Μαϊος</option>
+                        <option>Ιούνιος</option>
+                        <option>Ιούλιος</option>
+                        <option>Αύγουστος</option>
+                        <option>Σεπτέμβριος</option>
+                        <option>Οκτώβριος</option>
+                        <option>Νοέμβριος</option>
+                        <option>Δεκέμβριος</option>
+                    </select>
+                    <br />
+                    <button style="margin-top:20px;">Υπολογισμός</button>
+        </div>
+         </div>
+
+        <div class="submit">
+            <input type="submit" value="Υποβολή" />
+        </div>
+
+    </form>
+
+</body>
+</html>

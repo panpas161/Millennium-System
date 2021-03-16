@@ -1,0 +1,38 @@
+.header
+{
+    background: #17a2b8;
+    text-align: center;
+    margin:-0.3% -0.3% 5px -0.3%;
+    height: 53px;
+    line-height: 3.2;
+}
+.form
+{
+    display: grid;
+    text-align: center;
+
+}
+.program select
+{
+    width: 500px;
+    text-align: center;
+}
+.departmentname select
+{
+    width: 500px;
+    text-align: center;
+}
+.labels
+{
+    display: grid;
+    grid-template-columns: repeat(6,16.6%);
+}
+.inputs
+{
+    display: grid;
+    grid-template-columns: repeat(6,16.6%);
+}
+.days
+{
+    display: grid;
+}

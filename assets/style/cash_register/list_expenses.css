@@ -1,0 +1,36 @@
+.header
+{
+    background-color: #1a569d;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 97% 3%;
+    margin:4px -0.3% -0.3% -0.3%;
+}
+.labels
+{
+    display: grid;
+    grid-template-columns: repeat(8,12.5%);
+    margin:5px -0.3% -0.3% -0.3%;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+.addicon
+{
+    margin-top:10px;
+}
+.list
+{
+    display: grid;
+    margin:10px -0.3% -0.3% -0.3%;
+    grid-template-columns: repeat(8,12.5%);
+    text-align: center;
+    height: 120px;
+}
+.list div
+{
+    display: grid;
+}
+.buttons
+{
+    grid-template-columns: repeat(2,50%);
+}

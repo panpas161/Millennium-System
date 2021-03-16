@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    {% load tags %}
+    <link rel="stylesheet" href="{% style 'students/navbar.css' %}" />
+    <script src="{% script 'students/navbar.js' %}"></script>
+    {% block nav %}
+    {% if messages %}
+            {% for message in messages %}
+                <div class="successmessages" id="successmessage">
+                    <div class="cancel" onclick="hideMessages()">X</div>
+                    {{message}}
+                </div>
+            {% endfor %}
+    {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="successmessages" id="successmessage">
+                    <div class="cancel" onclick="hideMessages()">X</div>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="navbar_container">
+            <div onclick="openNav()">
+                <a class="menuitem">☰</a>
+            </div>
+            <div>
+                <a href="{% url 'list-students' %}" class="menuitem">Σπουδαστές</a>
+            </div>
+            <div>
+                <a href="{% url 'list_specialties' %}" class="menuitem">Ειδικότητες</a>
+            </div>
+            <div>
+                <a href="{% url 'list_departments' %}" class="menuitem">Τμήματα</a>
+            </div>
+            <div>
+                <a href="#" class="menuitem">Πρόγραμμα</a>
+            </div>
+            <div>
+                <a href="#" class="menuitem"></a>
+            </div>
+            {% include 'dropdown_user_one.html' %}
+
+        </div>
+    {% include 'sidenavbar_one.html'%}
+    {% endblock %}
+</html>

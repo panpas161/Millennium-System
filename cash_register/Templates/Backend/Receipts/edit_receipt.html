@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Επεξεργασία Απόδειξης</title>
+    <link rel="stylesheet" href="{% style 'cash_register/edit_receipt.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderRegisterBackendNavbar request %}
+    {{form}}
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Συμμετεχόντων ΕΦΕΤ</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% style 'efet/efet_students_list.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderEfetNavbar request %}
+    <div class="header">
+        <h3>Συμμετέχοντες ΕΦΕΤ</h3>
+        <a href="{% url 'add_efet_student' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Επώνυμο</th>
+            <th>Όνομα</th>
+            <th>Πατρώνυμο</th>
+            <th>ΑΦΜ</th>
+            <th>ΑΜΚΑ</th>
+            <th>Τηλέφωνο</th>
+            <th>Κινητό</th>
+            <th>Email</th>
+            <th>Email Επιχ.</th>
+            <th>Τμήμα</th>
+            <th>Επανεξέταση</th>
+            <th></th>
+        </tr>
+        {% for student in objects %}
+        <tr class="datarow">
+            <td>
+                {{student.id}}
+            </td>
+            <td>
+                {{student.lastname}}
+            </td>
+            <td>
+                {{student.name}}
+            </td>
+            <td>
+                {{student.fathersname}}
+            </td>
+            <td>
+                {{student.afm}}
+            </td>
+            <td>
+                {{student.adt}}
+            </td>
+            <td>
+                {{student.phonenumber}}
+            </td>
+            <td>
+                {{student.cellphone}}
+            </td>
+            <td>
+                {{student.email}}
+            </td>
+            <td>
+                {{student.location}}
+            </td>
+            <td>
+                {{student.location}}
+            </td>
+            <td>
+                {{ student.specialty.filter.first }}
+            </td>
+            <td>
+                <div class="buttons">
+                    <a href="{% url 'edit-student' student.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
+                    <a href="{% url 'delete-student' student.id %}"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
+                    <a href="{% url 'installments_tab' student.id %}"><img src="{% image 'students/icons/installments-tab-icon.png' %}" title="Καρτέλα Δόσεων" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/student-card-icon.png' %}" title="Κάρτα Σπουδαστή" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/student-card-icon.png' %}" title="Κάρτα Σπουδαστή" width="25px" height="20px"/></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+<style>
+    body
+    {
+        margin:-0.3% -0.3% -0.3% -0.3%;
+    }
+</style>

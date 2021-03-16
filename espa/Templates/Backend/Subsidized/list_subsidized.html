@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Επιχειρήσεων ΕΣΠΑ</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% style 'espa/Backend/Navbar/header.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="header">
+        <h3>Επιχειρήσεις</h3>
+        <a href="{% url 'add_subsidized_business' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" />
+    </form>
+
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th></th>
+            <th>#</th>
+            <th>Επώνυμο</th>
+            <th>Όνομα</th>
+            <th>Τύπος Επιχείρησης</th>
+            <th>Επωνυμία</th>
+            <th>Τοποθεσία</th>
+            <th>Τηλέφωνο</th>
+            <th>Κινητό</th>
+            <th>Email</th>
+            <th>Συστάθηκε Από</th>
+            <th></th>
+        </tr>
+        {% for subsidized in objects %}
+        <tr class="datarow">
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                {{subsidized.id}}
+            </td>
+            <td>
+                {{subsidized.lastname}}
+            </td>
+            <td>
+                {{subsidized.firstname}}
+            </td>
+            <td>
+                {{ subsidized.companytype }}
+            </td>
+            <td>
+                {{subsidized.companyname}}
+            </td>
+            <td>
+                {{subsidized.location}}
+            </td>
+            <td>
+                {{subsidized.phonenumber}}
+            </td>
+            <td>
+                {{subsidized.cellphone}}
+            </td>
+            <td>
+                {{subsidized.email}}
+            </td>
+            <td>
+                {{subsidized.referrer}}
+            </td>
+            <td>
+                <div class="buttons">
+                    <a href="{% url 'edit_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
+                    <a href="{% url 'delete_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
+                    <a href="{% url 'view_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Επισκόπηση" width="25px" height="20px"/></a>
+                    <a href="{% url 'documents_subsidized_businesses' subsidized.id %}"><img src="{% image 'general/icons/multiple_documents_icon.png' %}" title="Δικαιολογητικά" width="25px" height="20px"/></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

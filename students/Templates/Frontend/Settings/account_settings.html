@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Ρυθμίσεις Λογαριασμού - {{request.user}}</title>
+    <link rel="stylesheet" href="{% style 'forms/settings_form_one.css' %}" />
+    {% loadBootstrap %}
+</head>
+<body>
+    {% load render %}
+    {% renderStudentFrontendNavbar request %}
+    <div>
+        panw deksia <a href="{% url 'students_change_password' %}">Αλλαγή Κωδικού</a>
+    </div>
+    <form>
+        {% csrf_token %}
+        <div class="form">
+            <div class="form-group">
+                <div class="col-md-12 fields">
+                    {{form}}
+                    <input type="text" value="{{user.user}}" class="" disabled/>
+                    <input type="text" value="{{user.firstname}}" class="" disabled/>
+                    <input type="text" value="{{user.lastname}}" class="" disabled/>
+                    <input type="submit" class="form-control submit" />
+              </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

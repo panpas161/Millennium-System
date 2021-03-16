@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% style 'administrator/admin_navbar.css' %}">
+</head>
+<body>
+    {% block nav %}
+        <div class="navigation">
+            <a href="{% url 'home' %}">Πίσω</a>
+        </div>
+        <div class="header">
+            <div class="sidenavbutton" onclick="openNav()">
+                <a class="menuitem">☰</a>
+            </div>
+            <div class="title">
+                <a>Πίνακας Ελέγχου</a>
+            </div>
+            <div class="loginactions">
+
+            </div>
+        </div>
+        {% include 'sidenavbar_one.html' %}
+    {% endblock %}
+</body>
+</html>

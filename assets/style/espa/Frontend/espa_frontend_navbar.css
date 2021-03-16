@@ -1,0 +1,41 @@
+body
+{
+    background: #e9ecef !important;
+}
+.navbar
+{
+    display: grid !important;
+    grid-template-rows:70px 50px;
+    grid-template-columns: 100%;
+    text-align: center;
+    background: white;
+}
+.navbar-head
+{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+}
+.user-details
+{
+    display: grid;
+    grid-template-columns: 30px 30px 5px;
+}
+.tabs
+{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+}
+.dropdown
+{
+    display: none;
+    background: white;
+    grid-template-rows: repeat(3,33.3%);
+    position: absolute !important;
+    right:59px;
+    top:50px;
+}
+#dropdown-button:hover
+{
+    color:red;
+    cursor:pointer;
+}

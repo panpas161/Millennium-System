@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Διαγραφή Ενδιαφερόμενου ΕΣΠΑ</title>
+    {% loadBootstrap %}
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="col-md-12">
+        Η παρακάτω ενδιαφερόμενη επιχείρηση θα διαγραφθεί:
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="border:1px solid black;">
+                    ID:
+                </div>
+                <div class="col-md-12">
+                    {{ instance.id }}
+                </div>
+                <div class="col-md-12" style="border:1px solid black;">
+                    Όνομα:
+                </div>
+                <div class="col-md-12">
+                    {{ instance.firstname }}
+                </div>
+                <div class="col-md-12" style="border:1px solid black">
+                    Επίθετο:
+                </div>
+                <div class="col-md-12">
+                    {{ instance.lastname }}
+                </div>
+                <div class="col-md-12" style="border:1px solid black;">
+                    Επωνυμία
+                </div>
+                <div class="col-md-12">
+                </div>
+                <div class="col-md-12">
+                    {{ instance.companytype }}
+                </div>
+                <div class="col-md-12">
+                    {{ instance.companyname }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <input type="submit" value="Επιβεβαίωση">
+        </div>
+    </form>
+</body>
+</html>
+<style>
+    .col-md-12
+    {
+        text-align: center;
+    }
+</style>

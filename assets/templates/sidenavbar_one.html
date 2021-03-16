@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% style 'sidenavbar/sidenavbar_one.css' %}">
+    <script src="{% script 'sidenavbar/sidenavbar_one.js' %}"></script>
+</head>
+<body>
+    {% block navone %}
+        <div id="sidenavone" class="sidenavone">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a href="{% url 'home' %}">Αρχική</a>
+              <a href="{% url 'list-students' %}">Σπουδαστές</a>
+              <a href="{% url 'list_receipts' %}">Ταμείο</a>
+              <a href="{% url 'list_robotic_students' %}">Ρομποτική</a>
+              <a href="{% url 'list_teachers' %}">Καθηγητές</a>
+              <a href="{% url 'list_farmers' %}">Αγροτικά</a>
+              <a href="{% url 'list_efet_students' %}">ΕΦΕΤ</a>
+              <a href="{% url 'list_interested_businesses' %}">Επιδοτήσεις ΕΣΠΑ</a>
+              <a href="#">Τεχνικός Ασφαλείας</a>
+              <a href="{% url 'list_blankpixel_clients' %}">Blankpixel</a>
+              <a href="#">Ρυθμίσεις</a>
+        </div>
+    {% endblock %}
+</body>
+</html>

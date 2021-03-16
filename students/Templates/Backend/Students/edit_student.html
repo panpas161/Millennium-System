@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Επεξεργασία σπουδαστή - {{id}}</title>
+</head>
+<body>
+    {% include '../Navbar/navbar_students.html' %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form">
+            {{ form}}
+        </div>
+        <div class="submit">
+            <input type="submit" value="Αλλαγή" />
+        </div>
+    </form>
+
+</body>
+</html>
+<style>
+    .form
+    {
+        display:grid;
+        grid-template-columns: repeat(2,50%);
+    }
+</style>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Αποδείξεων</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% style 'blankpixel/list_clients' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderBlankpixelNavbar request %}
+    <div class="header">
+        <h3>Πελάτες</h3>
+        <a href="{% url 'add_receipt' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Μέθοδος Πληρωμής</th>
+            <th>Περιγραφή</th>
+            <th>Όνομα πελάτη</th>
+            <th>Εισπράκτορας</th>
+            <th>Ποσό</th>
+            <th>Ημερομηνία</th>
+            <th></th>
+        </tr>
+        {% for receipt in objects %}
+        <tr class="datarow">
+            <td>
+                {{receipt.id}}
+            </td>
+            <td>
+                {{receipt.paymentmethod}}
+            </td>
+            <td>
+                {{receipt.reason}}
+            </td>
+            <td>
+                {{receipt.client}}
+            </td>
+            <td>
+                {{receipt.recipient}}
+            </td>
+            <td>
+                {{receipt.amount}}
+            </td>
+            <td>
+                {{receipt.date}}
+            </td>
+            <td>
+                <a href="{% url 'edit_receipt' receipt.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                <a href="DELETESPECIALTY"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

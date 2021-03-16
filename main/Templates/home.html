@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <Title>Αρχική</Title>
+        {% load tags %}
+        <script src="{% script 'main/home.js' %}"></script>
+        <link rel="stylesheet" href="{% style 'main/home.css' %}" />
+    </head>
+    <body>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="successmessages" id="successmessage">
+                    <div class="cancel" onclick="hideMessages()">X</div>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <nav class="navbar navbar-expand-md bg-light justify-content-center" id="navigation">
+            <div class="nav-item" onclick="changeTab('registar')">
+                <a class="nav-link">
+                    Ταμείο 
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onClick="changeTab('students')">
+                    Σπουδαστές
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onClick="changeTab('robotics')">
+                    Ρομποτική
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onClick="changeTab('agrotika')">
+                    Αγροτικά
+                </a>
+            </div>
+            <div class="nav-item" id="dropdown">
+                    <button class="btn dropdown-toggle text-center" data-toggle="dropdown" style="color:darkturquoise;">Βεβαιώσεις</button>
+                    <a class="logoutbutton" href="{% url 'logout' %}">Αποσύνδεση</a>
+                    <div class="dropdown-menu" style="float:unset;left:unset;">
+                        <a class="dropdown-item" onClick="changeTab('efet')">
+                            ΕΦΕΤ
+                        </a>
+                        <a class="dropdown-item" onclick="changeTab('securityex')">
+                            Τεχνικός ασφαλείας
+                        </a>
+                        <a class="dropdown-item" onclick="changeTab('voucher')">
+                            Voucher
+                        </a>
+                        <a class="dropdown-item" onclick="changeTab('laek')">
+                            ΛΑΕΚ
+                        </a>
+                    </div>
+            </div>
+        </nav>
+        <div  class="container" id="registar" style="display:none">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{% url 'list_receipts' %}" class="btn btn-block btn-reg">Λίστα Αποδείξεων</a>
+                    <button class="btn btn-block btn-reg">LIVE Ταμείο</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-reg">Λίστα Εξόδων</button>
+                </div>
+            </div>
+        </div>  
+        <div id="robotics" class="container text-center" style="display: none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-rob">Λίστα Μαθητών</button>
+                    <button class="btn btn-block btn-rob">Νεα εγγραφή Μαθητή</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-rob">Ενδιαφερόμενοι</button>
+                    <button class="btn btn-block btn-rob">Νέος Ενδιαφερόμενος</button>
+                </div>
+            </div>
+        </div>
+        <div id="students" class="container" style="display: none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{% url 'list-students' %}" class="btn btn-block btn-stud">Λίστα Σπουδαστών</a>
+                    <a href="{% url 'add-student' %}" class="btn btn-block btn-stud">Νέα εγγραφή Σπουδαστή</a>
+                    <button class="btn btn-block btn-stud">Ενδιαφερόμενοι</button>
+                    <button class="btn btn-block btn-stud">Νέος Ενδιαφερόμενος</button>
+                    <button class="btn btn-block btn-stud">Special Occasions</button>
+                    <button class="btn btn-block btn-stud">Εξετάσεις</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-stud">Club Αποφοίτων</button>
+                    <button class="btn btn-block btn-stud">Νέος Απόφοιτος</button>
+                    <button class="btn btn-block btn-stud">Τηλεφωνικός Κατάλογος</button>
+                    <button class="btn btn-block btn-stud">Μηνύματα Email</button>
+                    <button class="btn btn-block btn-stud">Σύστημα Καθηγητών</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="agrotika" style="display:none">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-agr">Λίστα Αγροτικά</button>
+                    <button class="btn btn-block btn-agr">Νέα Αίτηση Αγροτικά</button>
+                    <button class="btn btn-block btn-agr">Λίστα Συνεργατών</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-agr">LIVE Στατιστικά</button>
+                    <button class="btn btn-block btn-agr">LIVE Στατιστικά Light</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="efet" style="display:none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-efet">Λίστα ΕΦΕΤ</button>
+                    <button class="btn btn-block btn-efet">Νέα Αίτηση ΕΦΕΤ</button>
+                    <button class="btn btn-block btn-efet">ΕΦΕΤ Κωδ. Τμημάτων</button>
+                    <button class="btn btn-block btn-efet">LIVE Στατιστικά Light</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-efet">Εξετάσεις ΟΚΤ 2015</button>
+                    <button class="btn btn-block btn-efet">Μη. Συμ. Εξετ.</button>
+                    <button class="btn btn-block btn-efet">Λίστα Επιχειρήσεων</button>
+                    <button class="btn btn-block btn-efet">Ακυρωμένες αιτήσεις</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="securityex" style="display:none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-sec">Λίστα Τεχνικών Ασφαλείας</button>
+                    <button class="btn btn-block btn-sec">Νέα Αίτηση Τεχνικών Ασφαλείας</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-sec">LIVE Στατιστικά Light</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="voucher" style="display:none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-vouc"></button>
+                    <button class="btn btn-block btn-vouc"></button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-block btn-vouc"></button>
+                    <button class="btn btn-block btn-vouc"></button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="laek" style="display:none;">
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+        <div class="container" id="jobcarrier" style="display:none;">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-block">Επιχειρήσεις</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="bottomdiv">
+            <div class="row">
+                <div class="col">
+                    <button class="btn">Σύστημα Follow-up</button>
+                    <button class="btn">Λίστα Α.Π.Υ</button>
+                    <button class="btn">Job Carrier</button>
+                    <button class="btn">Blank Pixel</button>
+                    <button class="btn">Voucher 600$</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

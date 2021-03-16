@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Ειδικοτήτων</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% style 'students/list_students.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderStudentBackendNavbar request %}
+    <div class="header">
+        <h3>Σπουδαστές</h3>
+        <a href="{% url 'add-student' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Επώνυμο</th>
+            <th>Όνομα</th>
+            <th>Πατρώνυμο</th>
+            <th>ΑΦΜ</th>
+            <th>ΑΔΤ/Αρ. Διαβ.</th>
+            <th>Τηλέφωνο</th>
+            <th>Κινητό</th>
+            <th>Email</th>
+            <th>Τόπος</th>
+            <th>Ειδικότητα</th>
+            <th></th>
+        </tr>
+        {% for student in objects %}
+        <tr class="datarow">
+            <td>
+                {{student.id}}
+            </td>
+            <td>
+                {{student.lastname}}
+            </td>
+            <td>
+                {{student.firstname}}
+            </td>
+            <td>
+                {{student.fathersname}}
+            </td>
+            <td>
+                {{student.afm}}
+            </td>
+            <td>
+                {{student.adt}}
+            </td>
+            <td>
+                {{student.phonenumber}}
+            </td>
+            <td>
+                {{student.cellphone}}
+            </td>
+            <td>
+                {{student.email}}
+            </td>
+            <td>
+                {{student.location}}
+            </td>
+            <td>
+                {{ student.specialty.filter.first }}
+            </td>
+            <td>
+                <div class="buttons">
+                    <a href="{% url 'edit-student' student.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
+                    <a href="{% url 'delete-student' student.id %}"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
+                    <a href="{% url 'installments_tab' student.id %}"><img src="{% image 'students/icons/installments-tab-icon.png' %}" title="Καρτέλα Δόσεων" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/student-card-icon.png' %}" title="Κάρτα Σπουδαστή" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/photo-icon.png' %}" title="Ανέβασμα Φωτογραφίας" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/eye.png' %}" title="Επιστολή Οφειλής" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/aristeio.png' %}" title="Εκτύπωση Αριστείου" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/ypeythini_dilosi.png' %}" title="Εκτύπωση Υπεύθυνης Δήλωσης" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/epainos-icon.png' %}" title="Εκτύπωση Έπαινου Προόδου" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/participation-icon.png' %}" title="Εκτύπωση Βεβαίωσης Συμμετοχής" width="25px" height="20px"/></a>
+                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/certification-icon.png' %}" title="Εκτύπωση Βεβαίωσης Σεμιναρίου" width="25px" height="20px"/></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

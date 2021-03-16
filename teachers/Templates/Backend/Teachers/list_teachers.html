@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Καθηγητών</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherBackendNavbar request %}
+    <div class="header">
+        <h3>Καθηγητές</h3>
+        <a href="{% url 'add_teacher' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Επώνυμο</th>
+            <th>Όνομα</th>
+            <th>Τηλέφωνο</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th></th>
+        </tr>
+        {% for teacher in objects %}
+        <tr class="datarow">
+            <td>
+                {{teacher.id}}
+            </td>
+            <td>
+                {{teacher.lastname}}
+            </td>
+            <td>
+                {{teacher.firstname}}
+            </td>
+            <td>
+                {{teacher.phonenumber}}
+            </td>
+            <td>
+                {{teacher.email}}
+            </td>
+            <td>
+                {{teacher.username}}
+            </td>
+            <td>
+                <a href="{% url 'edit_teacher' teacher.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                <a href="{% url 'delete_teacher' teacher.id %}"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

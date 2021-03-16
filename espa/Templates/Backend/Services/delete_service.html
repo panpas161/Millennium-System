@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Διαγραφή Υπηρεσίας {{ instance.service }}</title>
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="col-md-12">
+        Η παρακάτω υπηρεσία θα διαγραφθεί:
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="border:1px solid black;">
+                    ID:
+                </div>
+                <div class="col-md-12">
+                    {{ instance.id }}
+                </div>
+                <div class="col-md-12" style="border:1px solid black;">
+                    Υπηρεσία:
+                </div>
+                <div class="col-md-12">
+                    {{ instance.service }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <input type="submit" value="Επιβεβαίωση">
+        </div>
+    </form>
+</body>
+</html>
+<style>
+    .col-md-12
+    {
+        text-align: center;
+    }
+</style>

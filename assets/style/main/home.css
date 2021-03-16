@@ -1,0 +1,76 @@
+a:hover
+{
+    cursor:pointer;
+}
+.btn
+{
+    border-radius: 50px;
+}
+.btn:hover
+{
+    transition:transform 2s,height 3s;
+    height:50px
+}
+#navigation
+{
+    margin-bottom: 15px;
+}
+#bottomdiv
+{
+    position: absolute;
+    bottom:0;
+}
+.btn-reg
+{
+background-color:green;
+    color:white;
+}
+.btn-stud
+{
+    background-color:#e23c2e;
+    color:white;
+}
+.btn-rob
+{
+    background-color:#3c14b2;
+    color:white;
+}
+.btn-agr
+{
+    background-color:#ffa85b;
+    color:white;
+}
+.btn-efet
+{
+    background-color:#f93b9d;
+    color:white;
+}
+.btn-sec
+{
+    background-color:#90bd2b;
+    color:white;
+}
+.logoutbutton
+{
+    position: absolute;
+    right: 0;
+    font-size: 10px;
+    text-align: center;
+    top:33%;
+    color: black;
+}
+.successmessages
+{
+    text-align: center;
+    background-color: green;
+    height:67px;
+}
+.cancel
+{
+    text-align: right;
+}
+.cancel:hover
+{
+    cursor: pointer;
+    color:red;
+}

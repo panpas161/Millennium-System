@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Προσθήκη Πελάτη</title>
+</head>
+<body>
+    <form method="POST">
+            <div class="topfooter">
+
+            </div>
+            <div class="details">
+                <div class="col1">
+                    <label>Όνομα</label>
+                    <br />
+                    <label>Επώνυμο</label>
+                    <br />
+                    <label>ΑΦΜ</label>
+                    <br />
+                    <label>Τηλέφωνο</label>
+                </div>
+                <div class="col2">
+                    <input type="text" />
+                    <input type="text" />
+                    <input type="text" />
+                    <input type="text" />
+                </div>
+                <div class="col3">
+                    <label>Email</label>
+                    <br />
+                    <label>Τοποθεσία</label>
+                    <br />
+                    <label>ID</label>
+                    <br />
+                    <label>Ημερομηνία Καταχώρησης</label>
+                </div>
+                <div class="col4">
+                    <input type="text" />
+                    <input type="text" />
+                    <input type="text" style="text-align:center;" value=5fc0373f4f55a disabled/>
+                    <input type="text" style="text-align:center" value=26/11/2020 disabled>
+                </div>
+            </div>
+            <div class="services-title">
+                <h3 style="grid-column:3; margin-left:57px;">ΕΠΙΛΕΓΜΕΝΕΣ ΥΠΗΡΕΣΙΕΣ</h3>
+            </div>
+            <div class="services-subtitle">
+                <h5>Υπηρεσία</h5>
+                <h5>Αρχικό Κόστος €</h5>
+                <h5>Έκπτωση €</h5>
+                <h5>Τελικό Ποσό €</h5>
+                <div class="services">
+                    Κατασκευή και Ανάπτυξη Ιστοσελίδας<br>Service2<br>Service3<br>                </div>
+                <div class="cost">
+                    <input type='number' class='cost-input' onchange='PricePerService()' value=0 /><input type='number' class='cost-input' onchange='PricePerService()' value=0 /><input type='number' class='cost-input' onchange='PricePerService()' value=0 />                </div>
+                <div class="discount">
+                <input type='number' class='discount-input' onchange='PricePerService()' value=0 /><input type='number' class='discount-input' onchange='PricePerService()' value=0 /><input type='number' class='discount-input' onchange='PricePerService()' value=0 />                </div>
+                <div class="total-value">
+                    <label class='totalprice'>0</label><br /><label class='totalprice'>0</label><br /><label class='totalprice'>0</label><br />                </div>
+            </div>
+            <div class="bottomdiv">
+                <label class="bottomlabels">Σύνολα</label>
+                <label class="bottomlabels">Δόσεις</label>
+                <div class="totals">
+                    <label style="color:yellow;">Κόστος: </label><label id="cost_show">0</label>
+                    <br />
+                    <label style="color:red;">Έκπτωση: </label><label id="discount_show">0</label>
+                    <br />
+                    <label style="color:green">Τελικό Σύνολο: </label><label id="total_show">0</label>
+                    <div class="checkfpa">
+                        <label for="fpabox">ΦΠΑ</label>
+                        <input type="checkbox" id="fpacheckbox" name="fpabox" onchange="calculateFPA(true)" checked />
+                    </div>
+                </div>
+                <div class="installments">
+                    <label for="prokataboli">Προκαταβολή</label>
+                    <br />
+                    <input type="number" name="prokataboli" class="prokataboli-input" />
+                    <br />
+                    <label for="doseis">Δόσεις</label>
+                    <br />
+                    <select>
+                        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option>                    </select>
+                    <br />
+                    Αρχικός Μήνας:
+                    <br />
+                    <select>
+                        <option>Ιανουάριος</option>
+                        <option>Φεβρουάριος</option>
+                        <option>Μάρτιος</option>
+                        <option>Απρίλιος</option>
+                        <option>Μαϊος</option>
+                        <option>Ιούνιος</option>
+                        <option>Ιούλιος</option>
+                        <option>Αύγουστος</option>
+                        <option>Σεπτέμβριος</option>
+                        <option>Οκτώβριος</option>
+                        <option>Νοέμβριος</option>
+                        <option>Δεκέμβριος</option>
+                    </select>
+                    <br />
+                    <button style="margin-top:20px;">Υπολογισμός</button>
+                </div>
+            </div>
+            <div class="submitdiv">
+                <input type="submit" value="Ολοκλήρωση"/>
+                <input type="reset" value="Επαναφορά Φόρμας" />
+            </div>
+        </form>
+</body>
+</html>
+<style>
+    .details
+{
+    display:grid;
+    grid-template-columns: repeat(4,25%);
+    height: 214px;
+}
+.details input
+{
+    width:98%;
+    margin-left:5px;
+    margin-bottom:16px;
+    margin-top:5px;
+    line-height:2;
+}
+.topfooter
+{
+    background-color:blue;
+    height:200px;
+}
+.details label
+{
+    line-height:3.1;
+}
+.details
+{
+}
+.col1,.col3
+{
+    background-color:#dce5ff;
+}
+.col1 label, .col3 label
+{
+    margin-left:20px;
+}
+.services-title
+{
+    display:grid;
+    align-items:center;
+    grid-template-columns:repeat(5,20%);
+    border:1px solid black;
+    margin-top:5px;
+}
+.services-subtitle
+{
+    display:grid;
+    grid-template-columns:repeat(4,25%);
+    border:1px solid black;
+}
+.services-subtitle h5
+{
+    margin-left:170px;
+}
+.services
+{
+    text-align:center;
+    border:1px solid black;
+    line-height: 2.1;
+}
+.cost-input,.discount-input
+{
+    width: 20%;
+    margin-left: 150px;
+    margin-top: 10px;
+}
+.cost,.discount
+{
+    border:1px solid black;
+}
+.total-value
+{
+    border:1px solid black;
+    text-align:center;
+    line-height: 2.0;
+}
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.bottomdiv
+{
+    display:grid;
+    background-color:black;
+    grid-template-columns:repeat(2,50%);
+    color:white;
+    grid-template-rows:31px 200px;
+    margin-top:2px;
+}
+.bottomlabels
+{
+    text-align:center;
+    font-size:25px;
+}
+.totals
+{
+    line-height:2;
+    text-align:center;
+    margin-top:25px;
+    font-size:20px;
+    padding-bottom:5px;
+}
+.installments
+{
+    margin-top:15px;
+    text-align:center;
+    line-height:1.4;
+}
+.submitdiv
+{
+    text-align:center;
+    margin-top:12px;
+    color:blue;
+}
+.cost-input,.discount-input,.prokataboli-input,.doseis-input
+{
+    text-align:center;
+}
+.prokataboli-input,.doseis-input
+{
+    width:5%;
+}
+</style>

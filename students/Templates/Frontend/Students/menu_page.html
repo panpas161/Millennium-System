@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+        <title>Σύστημα Μαθητών - {{user.lastname}} {{user.name}}</title>
+    <link rel="stylesheet" href="{% style 'students/Frontend/menu_page.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderStudentFrontendNavbar request %}
+    <div class="main">
+        <div class="button">
+        <a href="#" class="btn btn-lg">ttest</a>
+        </div>
+        <div class="button">
+                <a href="#" class="btn btn-lg">ttest</a>
+            </div>
+        <div class="button">
+                <a href="#" class="btn btn-lg">ttest</a>
+            </div>
+        <div class="button">
+                <a href="#" class="btn btn-lg">ttest</a>
+        </div>
+    </div>
+</body>
+</html>

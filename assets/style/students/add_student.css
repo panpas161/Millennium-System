@@ -1,0 +1,100 @@
+.form
+{
+    display:grid;
+    grid-template-columns: 15% 35% 15% 35%;
+    line-height: 1.4;
+}
+.details input
+{
+    width:98%;
+    margin-left:5px;
+    margin-bottom:16px;
+    margin-top:5px;
+    line-height:2;
+}
+.details label
+{
+    line-height:3.1;
+}
+.col1 label, .col3 label
+{
+    margin-left:20px;
+}
+.services-subtitle h5
+{
+    margin-left:170px;
+}
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.bottomdiv
+{
+    display:grid;
+    background-color:black;
+    grid-template-columns:repeat(2,50%);
+    color:white;
+    grid-template-rows:31px 200px;
+    margin-top:2px;
+}
+.bottomlabels
+{
+    text-align:center;
+    font-size:25px;
+}
+.totals
+{
+    line-height:2;
+    text-align:center;
+    margin-top:25px;
+    font-size:20px;
+    padding-bottom:5px;
+}
+.installments
+{
+    margin-top:15px;
+    text-align:center;
+    line-height:1.4;
+}
+.prokataboli-input
+{
+    width:5%;
+}
+.form label
+{
+    background-color: #1a569d;
+    border: 1px solid black;
+    padding-left: 14px;
+}
+.studentlabel
+{
+    margin-top:5px;
+    text-align: center;
+    color:white;
+    background-color: black;
+    height: 50px;
+    line-height: 3;
+}
+.voucherlabel
+{
+    text-align: center;
+    color:white;
+    background-color: black;
+    height: 50px;
+    line-height: 3;
+}
+.voucherform
+{
+    display:grid;
+    grid-template-columns: 15% 35% 15% 35%;
+    line-height: 1.4;
+}
+.voucherform label
+{
+	background-color: #1a569d;
+	border: 1px solid black;
+	padding-left: 14px;
+}

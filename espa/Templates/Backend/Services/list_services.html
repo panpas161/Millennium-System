@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Υπηρεσιών ΕΣΠΑ</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% style 'espa/Backend/Navbar/header.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="header">
+        <h3>Υπηρεσίες</h3>
+        <a href="{% url 'add_espa_service' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th></th>
+            <th>#</th>
+            <th>Υπηρεσία</th>
+            <th></th>
+        </tr>
+        {% for service in objects %}
+        <tr class="datarow">
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                {{service.id}}
+            </td>
+            <td>
+                {{service.service}}
+            </td>
+            <td>
+                <div class="buttons">
+                    <a href="{% url 'edit_espa_service' service.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
+                    <a href="{% url 'delete_espa_service' service.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτή τη υπηρεσία;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+</body>
+</html>

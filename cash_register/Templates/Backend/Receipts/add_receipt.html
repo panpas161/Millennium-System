@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Έκδοση Απλής Απόδειξης</title>
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
+    {% loadBootstrap %}
+</head>
+<body>
+    {% include '../Navbar/main_navbar.html' %}
+    <div class="header">
+        Προσθήκη Καθηγητή
+    </div>
+        <form method="POST">
+            {% csrf_token %}
+        <div class="form">
+            <div class="form-group">
+              <div class="col-md-12 inputs">
+                  {{form}}
+                  <input type="submit" class="form-control submit" />
+              </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+<style>
+.header
+{
+    background: #bd2130;
+    text-align: center;
+}
+
+</style>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Πίνακας Ελέγχου</title>
+    <link rel="stylesheet" href="{% style 'administrator/home_page.css' %}" />
+</head>
+<body>
+    {% include '../Navbar/admin_navbar.html' %}
+    <div class="page">
+        <div class="sidenavbar">
+            <div class="nav-item"><img src="x"/><label>Χρήστες</label></div>
+            <div class="nav-item"><img src="x" /><label>Groups</label></div>
+            <div class="nav-item"><img src="x" /><label>Λογαριασμοί</label></div>
+            <div style="display: none;">
+                Μαθητές
+                Καθηγητες
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.form
+{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    margin-top:1px;
+}
+.form-group
+{
+    grid-column: 2;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.submit
+{
+    background: black;
+    margin-top:5px;
+    margin-bottom:5px;
+    background: black !important;
+    color:white !important;
+}
+.inputs
+{
+    display: grid;
+}
+.fields
+{
+    text-align: center;
+}

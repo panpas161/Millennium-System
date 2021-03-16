@@ -1,0 +1,22 @@
+.header
+{
+    background: #417690;
+    margin:-0.3% -0.3% 0 -0.3%;
+    display: grid;
+    grid-template-columns: 2% 94% 4%;
+}
+.title
+{
+    text-align: center;
+    padding:14px;
+}
+.title a
+{
+    color: #f5dd5d;
+}
+.menuitem
+{
+	font-size: 28px;
+	text-align: center;
+	margin-left: 6px;
+}

@@ -1,0 +1,25 @@
+.successmessages
+{
+    text-align: center;
+    background-color: green;
+    height:67px;
+    margin: -0.3% -0.3% -0.3% -0.3%;
+}
+.cancel
+{
+    text-align: right;
+}
+.cancel:hover
+{
+    cursor: pointer;
+    color:red;
+}
+.navbar_container
+{
+    display: grid;
+    background-color: #38414a;
+    height: 58px;
+    grid-template-columns: 2% 14% 14% 14% 14% 14% 14% 14%;
+    text-align: center;
+    line-height: 3.4;
+}

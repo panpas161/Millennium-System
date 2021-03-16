@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Βαθμολογία Εξετάσεων - {{lastname}} {{firstname}}</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderStudentFrontendNavbar request %}
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Μάθημα</th>
+            <th>Καθηγητής</th>
+            <th>Ακαδημαικό Έτος</th>
+            <th>Εξάμηνο</th>
+            <th>Βαθμός Θεωρίας</th>
+            <th>Βαθμός Εργαστηρίου</th>
+            <th></th>
+        </tr>
+        {% for exam in objects %}
+        <tr class="datarow">
+            <td>
+                {{exam.id}}
+            </td>
+            <td>
+                {{exam.subject}}
+            </td>
+            <td>
+                {{exam.teacher}}
+            </td>
+            <td>
+                {{exam.schoolyear}}
+            </td>
+            <td>
+                {{exam.semester}}
+            </td>
+            <td>
+                {{exam.theorygrade}}
+            </td>
+            <td>
+                {{exam.labgrade}}
+            </td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

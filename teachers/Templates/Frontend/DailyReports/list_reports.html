@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Ημερήσια Δελτία Μαθημάτων</title>
+    <link rel="stylesheet" href="{% style 'tables/list_table_page.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherFrontendNavbar request %}
+    <div class="header">
+        Ημερήσια Δελτία Μαθημάτων
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Τμήμα</th>
+            <th>Διδακτέα Ύλη</th>
+            <th>Ημερομηνία</th>
+            <th>Προγραμ. Ώρες</th>
+            <th>Έναρξη</th>
+            <th>Λήξη</th>
+            <th>Αμοιβή &euro; /Ώρα</th>
+            <th>Σύνολο Ώρων</th>
+            <th>Σύνολο</th>
+            <th></th>
+        </tr>
+        {% for report in objects %}
+        <tr class="datarow">
+            <td>
+                {{report.id}}
+            </td>
+            <td>
+                {{report.subject}}
+            </td>
+            <td>
+                {{report.remarks}}
+            </td>
+            <td>
+                {{report.date}}
+            </td>
+            <td>
+                {{report.start_time}} - {{report.end_time}}
+            </td>
+            <td>
+                {{report.start_time}}
+            </td>
+            <td>
+                {{report.end_time}}
+            </td>
+            <td>
+                {{report.wage_per_hour}}
+            </td>
+            <td>
+                {{report.total_hours}}
+            </td>
+            <td>
+                {{report.total_wage}}
+            </td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

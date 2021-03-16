@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Αίτηση Αλλαγής Βαθμολογίας</title>
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherFrontendNavbar request %}
+    Χρησιμοποιήστε την παρακάτω φόρμα για την αλλαγή βαθμολογίας ενός σπουδαστή λόγω κάποιου σφάλματος, Η γραμματεία θα κρίνει αν πρέπει να εγκριθεί η όχι
+    <form>
+        {{form}}
+        <input type="submit" />
+    </form>
+</body>
+</html>

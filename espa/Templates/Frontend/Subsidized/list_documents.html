@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Δικαιολογητικά</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderEspaFrontendNavbar request %}
+        <div class="header">
+        <h3>Δικαιολογητικά</h3>
+        <a href="{% url 'espa_upload_documents' %}"><img src="{% image 'general/icons/add-icon.png' %}" title="Ανέβασμα Δικαιολογητικών" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Όνομα Εγγράφου</th>
+            <th>Ημερομηνία Καταχώρησης</th>
+            <th>Επιθεωρήθηκε</th>
+        </tr>
+        {% for document in objects %}
+        <tr class="datarow">
+            <td>
+                {{document.id}}
+            </td>
+            <td>
+                <a href="{{ document.file.url }}">{{document.file.name}}</a>
+            </td>
+            <td>
+                {{document.entrydate|date:"d/m/Y"}}
+            </td>
+            <td>
+                {% if document.inspected == True %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}"  width="30px" height="30px"/>
+                {% elif document.inspected == False %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}"  width="30px" height="30px"/>
+
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+<style>
+    table
+    {
+        width: 100%;
+        text-align: center;
+    }
+</style>

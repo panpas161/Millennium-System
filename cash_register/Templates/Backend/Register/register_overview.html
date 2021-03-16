@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Επισκόπηση Ταμείου</title>
+    <link rel="stylesheet" href="{% style 'cash_register/register_overview.css' %}" />
+    <script src="{% script 'cash_register/register_overview.js' %} "></script>
+</head>
+<body>
+    {% load render %}
+    {% renderRegisterBackendNavbar request %}
+    <div class="income">
+        <div class="today-income income-item">
+            <div class="header">
+                <b>Σημερινό Κέρδος</b>
+            </div>
+            <div class="totalrevenue" id="totalrevenue">
+                {{todaytotalrevenue}}&euro;
+            </div>
+            <div class="overview">
+                <label>Σημερινά Έσοδα</label>
+                <label>Σημερινά Έξοδα</label>
+                <label>{{todayreceiptsamount}}&euro;</label>
+                <label class="expense">{{todayexpenseamount}}&euro;</label>
+            </div>
+        </div>
+        <div class="week-income income-item">
+        </div>
+        <div class="month-income income-item">
+        </div>
+        <div class="overall-income income-item">
+        </div>
+    </div>
+</body>
+</html>

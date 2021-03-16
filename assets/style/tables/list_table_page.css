@@ -1,0 +1,45 @@
+.list-table-header
+{
+    background: coral;
+}
+.datarow
+{
+    border:1px dotted black;
+    background: white;
+}
+.list-table td
+{
+    text-align: center;
+    height: 50px;
+}
+.list-table
+{
+    border-collapse: collapse;
+    margin:0.3px -0.3% -0.3% -0.3%;
+}
+
+/*.datarow:nth-child(3)*/
+/*{*/
+/*    background: cornflowerblue;*/
+/*}*/
+/*.datarow:nth-child(2)*/
+/*{*/
+/*    background: greenyellow;*/
+/*}*/
+
+
+/*
+ The following is about the page if the file is needed to contain only table-centered code then the file stops here.
+ */
+body
+{
+    margin:0 -0.3% -0.3% -0.3%;
+    background: #e9ecef;
+}
+.header
+{
+    text-align: center;
+    padding: 1px;
+    display: grid;
+    grid-template-columns: 97% 3%;
+}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Σύστημα Καθηγητών - {{user.lastname}} {{user.firstname}}</title>
+    <link rel="stylesheet" href="{% style 'students/Frontend/teachers_home.css' %}" />
+
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherFrontendNavbar request %}
+</body>
+</html>

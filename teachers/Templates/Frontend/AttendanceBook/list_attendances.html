@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Παρουσιολόγιο</title>
+    <link rel="stylesheet" href="{% style 'tables/list_table_page.css' %}" />
+</head>
+<body>
+    {% load render %}
+    {% renderTeacherFrontendNavbar request %}
+<table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Τμήμα</th>
+            <th>Ονοματεπώνυμο</th>
+            <th>Ημερομηνία</th>
+            <th>Παρουσία</th>
+            <th>Προετοιμάσια</th>
+            <th>Απόδοση στη τάξη</th>
+            <th>Γενική Συμπεριφορά</th>
+            <th>Ομαδικότητα</th>
+            <th>Μ.Ο.</th>
+            <th></th>
+        </tr>
+        {% for report in objects %}
+        <tr class="datarow">
+            <td>
+                {{report.id}}
+            </td>
+            <td>
+                mathima
+            </td>
+            <td>
+                {{report.student}}
+            </td>
+            <td>
+                {{report.date}}
+            </td>
+            <td>
+                {{report.preparation}}
+            </td>
+            <td>
+                {{report.performance}}
+            </td>
+            <td>
+                {{report.behaviour}}
+            </td>
+            <td>
+                {{report.cooperation}}
+            </td>
+            <td>
+                MO
+            </td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

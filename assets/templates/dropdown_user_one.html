@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block div %}
+        <div>
+            <img src="" width="40px" height="40px" style="border-radius: 5px;margin-top:9px;"/> {{request.user}}<a>&#9660;</a>
+            <div class="user-dropdown">
+                {{usertype}}
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
+<style>
+.user-dropdown
+{
+	position: absolute;
+	right: 65px;
+	background: white;
+	width: 79px;
+	top: 58px;
+}
+</style>

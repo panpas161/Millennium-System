@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Επισκόπηση Ενδιαφερόμενης Επιχείρησης {{ companyname }}</title>
+</head>
+<body>
+    {% load render %}
+    {% renderEspaBackendNavbar request %}
+    <div class="details">
+        <h2>Πληροφορίες</h2>
+    </div>
+{#    <div class="services">#}
+{#        <h2>Υπηρεσίες</h2>#}
+{#        <div>#}
+{#            <table>#}
+{#                {% for service in instance.services.all %}#}
+{#                    <tr>#}
+{#                    <td>#}
+{#                        {{ service }}#}
+{#                    </td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="comments">
+        <h3>Σχόλια</h3>
+        <div>
+            <table>
+                {% for comment in instance.comments.all %}
+                    <tr>
+                    <td>
+                        {{ comment }}
+                    </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+.details,.services,.comments
+{
+    text-align: center;
+}
+table
+{
+    width: 100%;
+}
+body
+{
+    margin:0 -0.3% -0.3% -0.3%;
+    background: #e9ecef;
+}
+</style>

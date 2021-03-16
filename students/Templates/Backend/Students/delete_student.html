@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Διαγραφή σπουδαστή - {{firstname}} {{lastname}}</title>
+</head>
+<body>
+    {% load render %}
+    {% renderStudentBackendNavbar request %}
+    <div>
+        Είστε Σίγουροι πως θέλετε να διαγράψετε τον παρακάτω σπουδαστή;
+    </div>
+    <div>
+        <div>
+            {{firstname}}
+        </div>
+        <div>
+            {{lastname}}
+        </div>
+        <div>
+            {{fathersname}}
+        </div>
+        <div>
+            {{afm}}
+        </div>
+        <div>
+            {{adt}}
+        </div>
+        <div>
+            {{phonenumber}}
+        </div>
+        <div>
+            {{email}}
+        </div>
+        <div>
+            {{location}}
+        </div>
+    </div>
+    <a>Ακύρωση</a>
+    <form method="POST">{% csrf_token %}
+        <input type="submit" value="Διαγραφή">
+    </form>
+</body>
+</html>
