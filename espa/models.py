@@ -1,5 +1,5 @@
 from django.db import models
-from staff.models import Staff
+from associate.models import Associate
 from Millennium_System import settings
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
@@ -16,7 +16,7 @@ class InterestedBusiness(models.Model):
     phonenumber = models.CharField(max_length=40,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=40,null=True,blank=True,verbose_name="Κινητό")
     email = models.EmailField(null=True,blank=True)
-    referrer = models.OneToOneField(Staff,on_delete=models.CASCADE,null=True,blank=True,verbose_name="Συστάθηκε Από")
+    referrer = models.ForeignKey(Associate,on_delete=models.CASCADE,null=True,blank=True,verbose_name="Συστάθηκε Από")
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
 
 class EspaUser(models.Model):
@@ -43,7 +43,7 @@ class SubsidizedBusiness(models.Model):
     cellphone = models.CharField(max_length=40,verbose_name="Κινητό",null=True,blank=True)
     email = models.EmailField()
     services = models.ManyToManyField(EspaService,verbose_name="Υπηρεσίες")
-    referrer = models.ForeignKey(Staff,on_delete=models.CASCADE,verbose_name="Συστάθηκε Από",blank=True,null=True)
+    referrer = models.ForeignKey(Associate,on_delete=models.CASCADE,verbose_name="Συστάθηκε Από",blank=True,null=True)
     username = models.CharField(max_length=50,null=True,blank=True)
     password = models.CharField(max_length=50,null=True,blank=True)
     approved = models.BooleanField(verbose_name="Εγκρίθηκε",default=False)

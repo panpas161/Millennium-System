@@ -1,0 +1,7 @@
+asgiref
+Django
+django-filter
+Pillow
+django-multiselectfield
+pymsql
+django-safe-filefield

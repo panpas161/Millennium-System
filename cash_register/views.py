@@ -4,7 +4,11 @@ from .models import Receipt,Expense
 from django.shortcuts import redirect
 from django.contrib import messages
 from .functions import receipts
+from assets.decorators.decorators import staff_only
+from django.contrib.auth.decorators import login_required
 #receipts
+@login_required(login_url="login")
+@staff_only
 def listReceiptsView(request):
     objects = Receipt.objects.all().order_by("-id")
     data = {
@@ -12,6 +16,8 @@ def listReceiptsView(request):
     }
     return render(request,"Backend/Receipts/list_receipts.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def addReceiptView(request):
     form = ReceiptModelForm()
     data = {
@@ -25,6 +31,8 @@ def addReceiptView(request):
             return redirect("list_receipts")
     return render(request,"Backend/Receipts/add_receipt.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def editReceiptView(request,pk):
     forminstance = Receipt.objects.get(id=pk)
     form = ReceiptModelForm(instance=forminstance)
@@ -39,6 +47,8 @@ def editReceiptView(request,pk):
             return redirect("list_receipts")
     return render(request,"Backend/Receipts/edit_receipt.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def deleteReceiptView(request,pk):
     instance = Receipt.objects.get(id=pk)
     data = {
@@ -50,6 +60,8 @@ def deleteReceiptView(request,pk):
         return redirect("list_receipts")
     return render(request,"Backend/Receipts/delete_receipt.html",data)
 #expenses
+@login_required(login_url="login")
+@staff_only
 def listExpensesView(request):
     expenses = Expense.objects.all().order_by("-id")
     data = {
@@ -57,6 +69,8 @@ def listExpensesView(request):
     }
     return render(request,"Backend/Expenses/list_expenses.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def addExpenseView(request):
     form = ExpenseModelForm()
     data = {
@@ -70,6 +84,8 @@ def addExpenseView(request):
             return redirect("list_expenses")
     return render(request,"Backend/Expenses/add_expense.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def editExpenseView(request,pk):
     forminstance = Expense.objects.get(id=pk)
     form = ExpenseModelForm(instance=forminstance)
@@ -84,6 +100,8 @@ def editExpenseView(request,pk):
             return redirect("list_expenses")
     return render(request,"Backend/Expenses/edit_expense.html",data)
 
+@login_required(login_url="login")
+@staff_only
 def deleteExpenseView(request,pk):
     instance = Expense.objects.get(id=pk)
     data = {
@@ -96,6 +114,8 @@ def deleteExpenseView(request,pk):
     return render(request,"Backend/Expenses/delete_expense",data)
 
 #register
+@login_required(login_url="login")
+@staff_only
 def registerOverviewView(request):
     data = {
         'todayreceiptsamount':receipts.receiptSumToday(),

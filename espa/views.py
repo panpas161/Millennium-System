@@ -11,10 +11,12 @@ from django.shortcuts import HttpResponse,HttpResponseRedirect
 from administrator.functions.auth import addUser,assignToGroup
 from .filters import *
 from assets.functions.pagination import getPage
+from django.contrib.auth.models import User
+import os
 
 #Backend
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def listInterestedBusinessesView(request):
     businessobjects = InterestedBusiness.objects.order_by("-id")
     page_get = request.GET.get("page")
@@ -34,7 +36,7 @@ def listInterestedBusinessesView(request):
     return render(request,"Backend/Interested/list_interested.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def addInterestedBusinessView(request):
     form = InterestedBusinessForm
     if request.method == "POST":
@@ -49,7 +51,7 @@ def addInterestedBusinessView(request):
     return render(request,"Backend/Interested/add_interested.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def editInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     form = InterestedBusinessForm(instance=instance)
@@ -65,7 +67,7 @@ def editInterestedBusinessView(request,pk):
     return render(request,"Backend/Interested/edit_interested.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def deleteInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     data = {
@@ -78,7 +80,7 @@ def deleteInterestedBusinessView(request,pk):
     return render(request,"Backend/Interested/delete_interested.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def viewInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     data = {
@@ -86,8 +88,16 @@ def viewInterestedBusinessView(request,pk):
     }
     return render(request,"Backend/Interested/view_interested.html",data)
 
+def approveInterestedBusiness(request,pk):
+    instance = InterestedBusiness.objects.get(id=pk)
+    #move interested to subsidized business here
+    object = SubsidizedBusiness()
+    object.save()
+    instance.delete()
+    return redirect
+
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def listSubsidizedBusinessView(request):
     businessobjects = SubsidizedBusiness.objects.order_by("-id")
     page = getPage(request, businessobjects, SubsidizedBusinessFilter)
@@ -99,7 +109,7 @@ def listSubsidizedBusinessView(request):
     return render(request,"Backend/Subsidized/list_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def addSubsidizedBusinessView(request):
     form = SubsidizedBusinessForm
     data = {
@@ -122,7 +132,7 @@ def addSubsidizedBusinessView(request):
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def editSubsidizedBusinessView(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     form = SubsidizedBusinessForm(instance=instance)
@@ -138,7 +148,7 @@ def editSubsidizedBusinessView(request,pk):
     return render(request,"Backend/Subsidized/edit_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def deleteSubsidizedBusinessView(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     data = {
@@ -151,7 +161,7 @@ def deleteSubsidizedBusinessView(request,pk):
     return render(request,"Backend/Subsidized/delete_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def viewSubsidizedBusinessView(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     data = {
@@ -160,7 +170,7 @@ def viewSubsidizedBusinessView(request,pk):
     return render(request,"Backend/Subsidized/view_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def documentsSubsidizedBusinessView(request,pk):
     company = SubsidizedBusiness.objects.get(id=pk)
     documentobjects = Document.objects.filter(company=SubsidizedBusiness.objects.get(id=pk)).order_by("-id")
@@ -172,7 +182,7 @@ def documentsSubsidizedBusinessView(request,pk):
     return render(request,"Backend/Subsidized/documents_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Admin','Staff','Associate'])
 def listServicesView(request):
     serviceobjects = EspaService.objects.order_by("-id")
     page = getPage(request, serviceobjects, ServicesFilter)
@@ -222,7 +232,7 @@ def deleteServiceView(request,pk):
     return redirect("list_espa_services")
 
 @login_required(login_url="login")
-@staff_only
+@allowed_roles(roles=['Associate','Staff','Admin'])
 def inspectDocumentView(request,pk):
     instance = Document.objects.get(id=pk)
     if instance.inspected == False:
@@ -276,3 +286,9 @@ def uploadDocuments(request):
             savedform.save()
             return redirect('espauser_list_documents')
     return render(request,"Frontend/Subsidized/upload_documents.html",data)
+
+def deleteDocument(request,pk):
+    instance = Document.objects.get(id=pk)
+    os.remove(instance.file.path)
+    instance.delete()
+    return redirect

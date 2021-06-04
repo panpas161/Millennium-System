@@ -121,7 +121,7 @@ urlpatterns = [
     #------------BLANKPIXEL MODEL------------
     path('blankpixel/clients/list',blankpixelviews.listClientsView,name="list_blankpixel_clients"),
     path('blankpixel/domains/list',blankpixelviews.listDomainsView,name="list_blankpixel_domains"),
-    #------------CERTIFICATIONS MODEL------------
+    #------------ESPA MODEL------------
     #Backend
     #interested
     path('espa/interested/list',espaviews.listInterestedBusinessesView,name="list_interested_businesses"),
@@ -137,6 +137,7 @@ urlpatterns = [
     path('espa/businesses/view/<pk>',espaviews.viewSubsidizedBusinessView,name="view_subsidized_business"),
     path('espa/businesses/documents/<pk>',espaviews.documentsSubsidizedBusinessView,name="documents_subsidized_businesses"),
     path('espa/businesses/documents/inspect/<pk>',espaviews.inspectDocumentView,name="inspect_business_document"),
+    path('espa/businesses/documents/delete/<pk>',espaviews.deleteDocument,name="delete_business_document"),
     #services
     path('espa/services/list',espaviews.listServicesView,name="list_espa_services"),
     path('espa/services/add',espaviews.addServiceView,name="add_espa_service"),

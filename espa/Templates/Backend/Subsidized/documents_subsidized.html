@@ -51,12 +51,14 @@
                     <a href="{% url 'inspect_business_document' document.id %}" onclick="return confirm('Είστε σιγουροί πως θέλετε να ορίσετε αυτό το έγγραφη ως μη επιθεωρημένο;')"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" width="30px" height="30px" title="Ορισμός ως μη επιθεωρημένο"></a>
                 {% endif %}
             </td>
+            <td>
+                <a href="{% url 'delete_business_document' document.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το έγγραφο;');"><img src="{% image 'general/icons/delete-icon.png' %}" width="30px" height="30px" title="Διαγραφή Εγγράφου"></a>
+            </td>
         </tr>
         {% endfor %}
     <form method="POST">{% csrf_token %}
         <input type="submit" />
     </form>
-
     </table>
 </body>
 </html>

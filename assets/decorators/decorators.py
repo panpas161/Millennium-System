@@ -11,8 +11,7 @@ def allowed_groups(roles=[]):
             for i in range(0,len(roles)):
                 if isInGroup(request,roles[i]):
                     return view_func(request,*args,**kwargs)
-                else:
-                    return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+            return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
         return wrapper
     return decorator
 
@@ -22,8 +21,7 @@ def allowed_roles(roles=[]):
             for i in range(0,len(roles)):
                 if hasRole(request,roles[i]):
                     return view_func(request,*args,**kwargs)
-                else:
-                    return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+            return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
         return wrapper
     return decorator
 
@@ -34,8 +32,7 @@ def staff_only(view_func):
         for i in range(0, len(staff_roles)):
             if hasRole(request, staff_roles[i]):
                 return view_func(request, *args, **kwargs)
-        else:
-            return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+        return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
     return wrapper
 
 def homeRedirect(viewfunc):
@@ -44,8 +41,7 @@ def homeRedirect(viewfunc):
         for i in range(0,len(staff_roles)):
             if hasRole(request,staff_roles[i]):
                 return viewfunc(request,*args,**kwargs)
-        else:
-            return redirectToHome(request)
+        return redirectToHome(request)
     return wrapper
 
 #if user is logged in redirect him to his group's home page
