@@ -3,5 +3,5 @@ Django
 django-filter
 Pillow
 django-multiselectfield
-pymsql
+pymysql
 django-safe-filefield

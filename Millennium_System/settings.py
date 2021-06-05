@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'blankpixel',
     'staff',
     'espa',
-    'associate'
+    'associate',
+    'landing_page'
 ]
 
 MIDDLEWARE = [

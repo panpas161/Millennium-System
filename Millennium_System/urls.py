@@ -26,21 +26,22 @@ from efet import views as efetviews
 from farmingcert import views as farmingviews
 from espa import views as espaviews
 from teachers import views as teacherviews
+from landing_page import views as landingviews
 from Millennium_System import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainviews.homeView, name="home"),
-    #------------LOGIN MODEL------------
+    #------------LOGIN APP------------
     path('login/', loginviews.loginView, name="login"),
     path('logout', loginviews.logoutView, name="logout"),
-    #------------ADMINISTRATOR MODEL------------
+    #------------ADMINISTRATOR APP------------
     path('admin/home',adminviews.homePageView,name="admin_home"),
     #users
     path('admin/users/list/',adminviews.listUsersView,name="admin_list_users"),
     path('admin/users/add/<str:pk>',adminviews.addUserView,name="admin_add_user"),
     path('admin/users/edit/<str:pk>',adminviews.editUserView,name="admin_edit_user"),
-    #------------STUDENTS MODEL(backend)------------
+    #------------STUDENTS APP(backend)------------
     path('students/list/', studentviews.listStudentsView, name="list-students"),
     path('students/add/', studentviews.addStudentView, name="add-student"),
     path('students/edit/<str:pk>/', studentviews.editStudentView, name="edit-student"),
@@ -58,14 +59,14 @@ urlpatterns = [
     #departments
     path('students/departments/list', studentviews.listDepartmentsView,name="list_departments"),
     path('students/departments/add', studentviews.addDepartmentView,name="add_department"),
-    #------------STUDENTS MODEL(frontend)------------
+    #------------STUDENTS APP(frontend)------------
     #students
     path('students/home/',studentviews.mainStudentView, name="students_front_home"),
     path('students/installments/', studentviews.installmentsFrontTabView, name="students_front_installments"),
     path('students/exams/',studentviews.examsStudentView,name="student_front_exams_tab"),
     #settings
     path('students/settings/general',studentviews.examsStudentView,name="student_settings_general"),
-    #------------TEACHERS MODEL------------
+    #------------TEACHERS APP------------
     # backend
     path('teachers/list/', teacherviews.listTeachersView, name="list_teachers"),
     path('teachers/add/', teacherviews.addTeacherView, name="add_teacher"),
@@ -84,7 +85,7 @@ urlpatterns = [
     path('teachers/attendances/add',teacherviews.teacherAddAttendanceView,name="teacher_attendance_add"),
     path('teachers/attendances/edit/<str:pk>',teacherviews.teacherEditAttendanceView,name="teacher_attendance_edit"),
     path('teachers/attendances/delete/<str:pk>',teacherviews.teacherDeleteAttendanceView,name="teacher_attendance_delete"),
-    #------------CASH_REGISTER MODEL------------
+    #------------CASH_REGISTER APP------------
     #receipts
     path('cash_register/receipts/list/',cashregisterviews.listReceiptsView,name="list_receipts"),
     path('cash_register/receipts/add',cashregisterviews.addReceiptView,name="add_receipt"),
@@ -97,17 +98,17 @@ urlpatterns = [
     path('cash_register/expenses/delete/<str:pk>',cashregisterviews.deleteExpenseView,name="delete_expense"),
     #register
     path('cash_register/overview',cashregisterviews.registerOverviewView,name="register_overview"),
-    #------------ROBOTICS MODEL------------
+    #------------ROBOTICS APP------------
     path('robotics/students/list',roboticviews.listRoboticStudents,name="list_robotic_students"),
     path('robotics/students/add',roboticviews.addRoboticStudent,name="add_robotic_student"),
     path('robotics/students/edit/<str:pk>',roboticviews.editRoboticStudent,name="edit_robotic_students"),
     path('robotics/students/delete/<str:pk>',roboticviews.deleteRoboticStudent,name="delete_robotic_students"),
-    #------------SECURITYEXPERTS MODEL------------
+    #------------SECURITYEXPERTS APP------------
     path('farmers/list',farmingviews.listFarmers,name="list_farmers"),
     path('farmers/add',farmingviews.addFarmer,name="add_farmer"),
     path('farmers/edit',farmingviews.editFarmer,name="edit_farmer"),
     path('farmers/delete',farmingviews.deleteFarmer,name="delete_farmer"),
-    #------------EFET MODEL------------
+    #------------EFET APP------------
     #students
     path('efet/students/list', efetviews.listStudents, name="list_efet_students"),
     path('efet/students/add', efetviews.addStudent, name="add_efet_student"),
@@ -118,10 +119,10 @@ urlpatterns = [
     path('efet/business/add',efetviews.addBusinessView,name="add_efet_business"),
     path('efet/business/edit/<str:pk>',efetviews.editBusinessView,name="edit_efet_business"),
     path('efet/business/delete/<str:pk>',efetviews.deleteBusinessView,name="delete_efet_business"),
-    #------------BLANKPIXEL MODEL------------
+    #------------BLANKPIXEL APP------------
     path('blankpixel/clients/list',blankpixelviews.listClientsView,name="list_blankpixel_clients"),
     path('blankpixel/domains/list',blankpixelviews.listDomainsView,name="list_blankpixel_domains"),
-    #------------ESPA MODEL------------
+    #------------ESPA APP------------
     #Backend
     #interested
     path('espa/interested/list',espaviews.listInterestedBusinessesView,name="list_interested_businesses"),
@@ -147,6 +148,9 @@ urlpatterns = [
     path('espa/home',espaviews.homePageView,name="espa_home"),
     path('espa/documents/list',espaviews.listDocuments,name="espauser_list_documents"),
     path('espa/documents/upload',espaviews.uploadDocuments,name="espa_upload_documents"),
+    #------------LANDING PAGES APP------------
+    path('landing/espa',landingviews.espaLawyerView,name="landing_page_espa_lawyer"),
+    path('landing/espa/register',landingviews.espaLawyerRegisterView,name="landing_page_espa_lawyer_register")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \

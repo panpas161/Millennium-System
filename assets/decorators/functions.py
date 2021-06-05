@@ -2,12 +2,13 @@ from django.shortcuts import redirect,HttpResponse
 from ..functions.authentication import getUserRoles
 from system_settings.config import roles
 
-def hasRole(request,role):
-    validroles = getUserRoles(request)
-    if validroles is not None:
-        if role in validroles:
-            return True
-    return False
+#if something doesn't work try adding this again
+# def hasRole(request,role):
+#     validroles = getUserRoles(request)
+#     if validroles is not None:
+#         if role in validroles:
+#             return True
+#     return False
 
 def redirectToHome(request):
     validroles = getUserRoles(request)

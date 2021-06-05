@@ -110,7 +110,7 @@ def espaFrontendNavbarView(request):
 
         'usertype':usertype,
         'request':request,
-        'companyname':request.user.espauser.subsidizedbusiness.companyname,
+        'companyname':request.user.subsidizedbusiness.companyname,
         'messages': messages.get_messages(request),
     }
     return render_to_string("Frontend/Navbar/espa_frontend_navbar.html",data)

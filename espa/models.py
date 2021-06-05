@@ -19,13 +19,6 @@ class InterestedBusiness(models.Model):
     referrer = models.ForeignKey(Associate,on_delete=models.CASCADE,null=True,blank=True,verbose_name="Συστάθηκε Από")
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
 
-class EspaUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(null=True,blank=True)
-
-    def __str__(self):
-        return str(self.user)
-
 class EspaService(models.Model):
     service = models.CharField(max_length=50,verbose_name="Υπηρεσία")
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
@@ -48,7 +41,7 @@ class SubsidizedBusiness(models.Model):
     password = models.CharField(max_length=50,null=True,blank=True)
     approved = models.BooleanField(verbose_name="Εγκρίθηκε",default=False)
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
-    espauser = models.OneToOneField(EspaUser,on_delete=models.CASCADE,null=True,blank=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return self.companyname

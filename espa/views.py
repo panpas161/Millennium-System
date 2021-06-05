@@ -7,7 +7,7 @@ from assets.decorators.decorators import allowed_roles,staff_only
 from django.contrib.auth.decorators import login_required
 from assets.functions.forms import checkAddForm
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from django.shortcuts import HttpResponse,HttpResponseRedirect
+from django.shortcuts import HttpResponse
 from administrator.functions.auth import addUser,assignToGroup
 from .filters import *
 from assets.functions.pagination import getPage
@@ -257,7 +257,7 @@ def homePageView(request):
 @login_required(login_url="login")
 @allowed_roles(roles=["EspaUser"])
 def listDocuments(request):
-    objects = Document.objects.filter(company=request.user.espauser.subsidizedbusiness)
+    objects = Document.objects.filter(company=request.user.subsidizedbusiness)
    # business = SubsidizedBusiness.objects.get(espauser=request.user.espauser)
     files = []
     for object in objects:
@@ -281,7 +281,7 @@ def uploadDocuments(request):
         form = UploadDocumentForm(request.POST, request.FILES)
         if form.is_valid():
             savedform = form.save(commit=False)
-            savedform.company = request.user.espauser.subsidizedbusiness
+            savedform.company = request.user.subsidizedbusiness
             savedform.inspected = False
             savedform.save()
             return redirect('espauser_list_documents')
