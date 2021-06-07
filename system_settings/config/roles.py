@@ -19,6 +19,12 @@ try:#try statement is purely to ignore if Group.objects.get function returns doe
 except:
     pass
 
+#Add admin roles here
+
+ADMIN_ROLES = [
+    "Admin"
+]
+
 #Add staff roles here
 STAFF_ROLES = [
     "Admin",

@@ -130,6 +130,7 @@ urlpatterns = [
     path('espa/interested/edit/<pk>',espaviews.editInterestedBusinessView,name="edit_interested_business"),
     path('espa/interested/delete/<pk>',espaviews.deleteInterestedBusinessView,name="delete_interested_business"),
     path('espa/interested/view/<pk>', espaviews.viewInterestedBusinessView, name="view_interested_business"),
+    path('espa/interested/approve/<pk>',espaviews.approveInterestedBusiness,name="approve_interested_business"),
     #subsidized
     path('espa/business/list',espaviews.listSubsidizedBusinessView,name="list_subsidized_businesses"),
     path('espa/businesses/add',espaviews.addSubsidizedBusinessView,name="add_subsidized_business"),
@@ -139,6 +140,7 @@ urlpatterns = [
     path('espa/businesses/documents/<pk>',espaviews.documentsSubsidizedBusinessView,name="documents_subsidized_businesses"),
     path('espa/businesses/documents/inspect/<pk>',espaviews.inspectDocumentView,name="inspect_business_document"),
     path('espa/businesses/documents/delete/<pk>',espaviews.deleteDocument,name="delete_business_document"),
+    path('espa/businesses/documents/add/<pk>',espaviews.addDocumentView,name="add_business_document"),
     #services
     path('espa/services/list',espaviews.listServicesView,name="list_espa_services"),
     path('espa/services/add',espaviews.addServiceView,name="add_espa_service"),
@@ -149,7 +151,7 @@ urlpatterns = [
     path('espa/documents/list',espaviews.listDocuments,name="espauser_list_documents"),
     path('espa/documents/upload',espaviews.uploadDocuments,name="espa_upload_documents"),
     #------------LANDING PAGES APP------------
-    path('landing/espa',landingviews.espaLawyerView,name="landing_page_espa_lawyer"),
+    path('landing/espa/',landingviews.espaLawyerView,name="landing_page_espa_lawyer"),
     path('landing/espa/register',landingviews.espaLawyerRegisterView,name="landing_page_espa_lawyer_register")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \

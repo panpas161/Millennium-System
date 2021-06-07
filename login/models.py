@@ -1,9 +1,10 @@
 from django.contrib.auth.models import Group
-from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractUser
 from system_settings.config import roles
+from system_settings.config import values
+from espa.models import EspaService
 
-
+#AUTHENTICATION
+#create initial groups
 try:
     groups = roles.INITIAL_GROUPS
     for groupobj in groups:
@@ -13,27 +14,13 @@ try:
 except:
     pass
 
-
-
-# try:
-#     studentgroup = Group.objects.filter(name="Student")
-#
-#     if not studentgroup.exists():
-#         Group.objects.create(name="Student")
-#
-#     staffgroup = Group.objects.filter(name="Staff")
-#
-#     if not staffgroup.exists():
-#         Group.objects.create(name="Staff")
-#
-#     espagroup = Group.objects.filter(name="Espa")
-#
-#     if not espagroup.exists():
-#         Group.objects.create(name="Espa")
-#
-#     admingroup = Group.objects.filter(name="Administrator")
-#
-#     if not admingroup.exists():
-#         Group.objects.create(name="Administrator")
-# except:
-#     pass
+#MODEL VALUES
+#create initial espa services
+try:
+    espaserviceobjects = values.DEFAULT_ESPA_SERVICES
+    for espaservice in espaserviceobjects:
+        service = EspaService.objects.filter(service=espaservice)
+        if not service.exists():
+            EspaService.objects.create(service=espaservice)
+except:
+    pass

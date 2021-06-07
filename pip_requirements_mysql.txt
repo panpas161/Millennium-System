@@ -5,3 +5,4 @@ Pillow
 django-multiselectfield
 pymysql
 django-safe-filefield
+unidecode

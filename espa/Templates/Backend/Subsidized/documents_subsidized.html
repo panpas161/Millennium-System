@@ -12,7 +12,7 @@
     {% renderEspaBackendNavbar request %}
     <div class="header">
         <h3>Δικαιολογητικά {{ company.companyname }}</h3>
-        <a href="{% url 'add_subsidized_business' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+        <a href="{% url 'add_business_document' company.id %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
     <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">

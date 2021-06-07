@@ -32,6 +32,7 @@
             <th>Κινητό</th>
             <th>Email</th>
             <th>Συστάθηκε Από</th>
+            <th>Υπηρεσίες</th>
             <th></th>
         </tr>
         {% for subsidized in objects %}
@@ -68,6 +69,9 @@
             </td>
             <td>
                 {{subsidized.referrer}}
+            </td>
+            <td>
+                {{subsidized.services.count}}
             </td>
             <td>
                 <div class="buttons">

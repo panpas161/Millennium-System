@@ -7,6 +7,13 @@ def hasRole(request,role):
             return True
     return False
 
+def isAdmin(request):
+    admin_roles = roles.ADMIN_ROLES
+    for i in range(0, len(admin_roles)):
+        if hasRole(request, admin_roles[i]):
+            return True
+    return False
+
 def isStaff(request):
     staff_roles = roles.STAFF_ROLES
     for i in range(0, len(staff_roles)):

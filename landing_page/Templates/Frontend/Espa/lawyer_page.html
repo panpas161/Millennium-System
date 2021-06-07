@@ -1,3 +1,13 @@
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="successmessages" id="successmessage">
+            <div class="cancel" onclick="hideMessages()">X</div>
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,3 +18,21 @@
 Εκδήλωση ενδιαφέροντος <a href="{% url 'landing_page_espa_lawyer_register' %}">εδώ</a>
 </body>
 </html>
+<style>
+    .successmessages
+{
+    text-align: center;
+    background-color: green;
+    height:67px;
+    margin: -0.3% -0.3% -0.3% -0.3%;
+}
+.cancel
+{
+    text-align: right;
+}
+.cancel:hover
+{
+    cursor: pointer;
+    color:red;
+}
+</style>

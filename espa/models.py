@@ -6,6 +6,12 @@ from multiselectfield import MultiSelectField
 from django.core.validators import FileExtensionValidator
 # Create your models here.
 
+class EspaService(models.Model):
+    service = models.CharField(max_length=50,verbose_name="Υπηρεσία")
+    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+    def __str__(self):
+        return self.service
+
 class InterestedBusiness(models.Model):
     firstname = models.CharField(max_length=40,verbose_name="Όνομα")
     lastname = models.CharField(max_length=40,verbose_name="Επώνυμο")
@@ -15,15 +21,13 @@ class InterestedBusiness(models.Model):
     comments = models.TextField(null=True,blank=True,verbose_name="Σχόλια")
     phonenumber = models.CharField(max_length=40,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=40,null=True,blank=True,verbose_name="Κινητό")
-    email = models.EmailField(null=True,blank=True)
+    email = models.EmailField(null=True)
+    services = models.ManyToManyField(EspaService,verbose_name="Υπηρεσίες",null=True,blank=False)
     referrer = models.ForeignKey(Associate,on_delete=models.CASCADE,null=True,blank=True,verbose_name="Συστάθηκε Από")
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
 
-class EspaService(models.Model):
-    service = models.CharField(max_length=50,verbose_name="Υπηρεσία")
-    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
     def __str__(self):
-        return self.service
+        return self.companyname
 
 class SubsidizedBusiness(models.Model):
     firstname = models.CharField(max_length=40,verbose_name="Όνομα")
