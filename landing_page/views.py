@@ -3,13 +3,13 @@ from espa.forms import InterestedBusinessForm
 from django.contrib import messages
 from django.shortcuts import redirect
 
-def espaLawyerView(request):
+def espaMainView(request):
     data = {
 
     }
-    return render(request,"Frontend/Espa/lawyer_page.html",data)
+    return render(request,"Frontend/Espa/espa_landing_page.html",data)
 
-def espaLawyerRegisterView(request):
+def espaRegisterView(request):
     form = InterestedBusinessForm
     if request.method == "POST":
         form = InterestedBusinessForm(request.POST)
@@ -20,4 +20,4 @@ def espaLawyerRegisterView(request):
     data = {
         'form': form
     }
-    return render(request,"Frontend/Espa/lawyer_register.html",data)
+    return render(request,"Frontend/Espa/espa_register.html",data)

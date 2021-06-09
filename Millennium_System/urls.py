@@ -132,7 +132,7 @@ urlpatterns = [
     path('espa/interested/view/<pk>', espaviews.viewInterestedBusinessView, name="view_interested_business"),
     path('espa/interested/approve/<pk>',espaviews.approveInterestedBusiness,name="approve_interested_business"),
     #subsidized
-    path('espa/business/list',espaviews.listSubsidizedBusinessView,name="list_subsidized_businesses"),
+    path('espa/businesses/list',espaviews.listSubsidizedBusinessView,name="list_subsidized_businesses"),
     path('espa/businesses/add',espaviews.addSubsidizedBusinessView,name="add_subsidized_business"),
     path('espa/businesses/edit/<pk>',espaviews.editSubsidizedBusinessView,name="edit_subsidized_business"),
     path('espa/businesses/delete/<pk>',espaviews.deleteSubsidizedBusinessView,name="delete_subsidized_business"),
@@ -146,13 +146,18 @@ urlpatterns = [
     path('espa/services/add',espaviews.addServiceView,name="add_espa_service"),
     path('espa/services/edit/<pk>',espaviews.editServiceView,name="edit_espa_service"),
     path('espa/services/delete/<pk>',espaviews.deleteServiceView,name="delete_espa_service"),
+    #espa_associates
+    path('espa/associates/list/',espaviews.listEspaAssociatesView,name="list_espa_associates"),
+    path('espa/associates/add/',espaviews.addEspaAssociateView,name="add_espa_associate"),
+    path('espa/associates/edit/<pk>',espaviews.editEspaAssociateView,name="edit_espa_associate"),
+    path('espa/associates/delete/<pk>',espaviews.deleteEspaAssociateView,name="delete_espa_associate"),
     #Frontend
     path('espa/home',espaviews.homePageView,name="espa_home"),
     path('espa/documents/list',espaviews.listDocuments,name="espauser_list_documents"),
     path('espa/documents/upload',espaviews.uploadDocuments,name="espa_upload_documents"),
     #------------LANDING PAGES APP------------
-    path('landing/espa/',landingviews.espaLawyerView,name="landing_page_espa_lawyer"),
-    path('landing/espa/register',landingviews.espaLawyerRegisterView,name="landing_page_espa_lawyer_register")
+    path('landing/espa/',landingviews.espaMainView,name="landing_espa_main"),
+    path('landing/espa/register',landingviews.espaRegisterView,name="landing_espa_register")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \

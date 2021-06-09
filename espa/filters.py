@@ -70,3 +70,14 @@ class DocumentsFrontendFilter(django_filters.FilterSet):
         filter = queryset.filter
         queryset = filter(name__contains=value) or filter(lastname__contains=value) or filter(phonenumber__contains=value) or filter(cellphone__contains=value)
         return queryset
+
+class AssociatesFilter(django_filters.FilterSet):
+    q = CharFilter(method='searchmethod',label="Αναζήτηση")
+    class Meta:
+        model = EspaAssociate
+        fields = []
+
+    def searchmethod(self,queryset,name,value):
+        filter = queryset.filter
+        queryset = filter(name__contains=value)
+        return queryset

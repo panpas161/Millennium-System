@@ -23,6 +23,7 @@ def listInterestedBusinessesView(request):
     if isStaff(request):
         businessobjects = InterestedBusiness.objects.order_by("-id")
     else:
+        #check if referrer is null?
         businessobjects = InterestedBusiness.objects.filter(referrer=request.user).order_by("-id")#maybe request.user is not the best thing to do
     page_get = request.GET.get("page")
     businessfilter = InterestedBusinessFilter(request.GET, queryset=businessobjects)
@@ -101,7 +102,7 @@ def approveInterestedBusiness(request,pk):
         password=getRandomString(15),
         email=instance.email
     )
-    assignToGroup(username, "Espa")
+    assignToGroup(username, "EspaUser")
     object = SubsidizedBusiness(
         firstname=instance.firstname,
         lastname=instance.lastname,
@@ -121,6 +122,8 @@ def approveInterestedBusiness(request,pk):
     for service in instance.services.all():
         object.services.add(service)
     instance.delete()
+    #Add mail functionality
+
     messages.success(request,"Η ενδιαφερόμενη επιχείρηση εγκρίθηκε με επιτυχία!")
     return redirect("list_interested_businesses")
 
@@ -148,7 +151,7 @@ def addSubsidizedBusinessView(request):
             form.save()
             savedform = form.save(commit=False)
             addUser(username=form.cleaned_data['username'], email=form.cleaned_data['email'], password=form.cleaned_data['password'])
-            assignToGroup(form.cleaned_data['username'], 'Espa')
+            assignToGroup(form.cleaned_data['username'], 'EspaUser')
             savedform.user = User.objects.get(username=form.cleaned_data['username'])
             # espausermodel = EspaUser(user=savedform.user,email=form.cleaned_data['email'])
             # espausermodel.save()
@@ -259,6 +262,57 @@ def deleteServiceView(request,pk):
     return redirect("list_espa_services")
 
 @login_required(login_url="login")
+@staff_only
+def listEspaAssociatesView(request):
+    associateobjects = EspaAssociate.objects.order_by("-id")
+    page = getPage(request, associateobjects, AssociatesFilter)
+    data = {
+        'objects':page,
+        'filter':AssociatesFilter
+    }
+    return render(request,"Backend/Associates/list_associates.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def addEspaAssociateView(request):
+    form = EspaAssociateForm
+    data = {
+        'form': form
+    }
+    if request.method == "POST":
+        form = EspaAssociateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Ο συνεργάτης προστέθηκε επιτυχώς!")
+            return redirect("list_espa_associates")
+    return render(request, "Backend/Associates/add_associate.html", data)
+
+@login_required(login_url="login")
+@staff_only
+def editEspaAssociateView(request,pk):
+    instance = EspaAssociate.objects.get(id=pk)
+    form = EspaAssociateForm(instance=instance)
+    data = {
+        'instance': instance,
+        'form': form
+    }
+    if request.method == "POST":
+        form = EspaAssociateForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Τα στοιχεία του συνεργάτη άλλαξαν επιτυχώς!")
+            return redirect('list_espa_associates')
+    return render(request,"Backend/Associates/edit_associates.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def deleteEspaAssociateView(request,pk):
+    instance = EspaAssociate.objects.get(id=pk)
+    instance.delete()
+    messages.success(request, "Ο συνεργάτης διαγράφτηκε επιτυχώς!")
+    return redirect("list_espa_associates")
+
+@login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate'])
 def inspectDocumentView(request,pk):
     instance = Document.objects.get(id=pk)
@@ -300,15 +354,9 @@ def homePageView(request):
 @login_required(login_url="login")
 @allowed_roles(roles=["EspaUser"])
 def listDocuments(request):
-    objects = Document.objects.filter(company=request.user.subsidizedbusiness)
-   # business = SubsidizedBusiness.objects.get(espauser=request.user.espauser)
-    files = []
-    for object in objects:
-        files.append(object.file.name.split("/")[1])
+    objects = Document.objects.filter(company=request.user.subsidizedbusiness).order_by("-id")
     data = {
         'objects':objects,
-        'files':files
-        #'business':business
     }
     return render(request,"Frontend/Subsidized/list_documents.html",data)
 
@@ -328,3 +376,4 @@ def uploadDocuments(request):
             savedform.save()
             return redirect('espauser_list_documents')
     return render(request,"Frontend/Subsidized/upload_documents.html",data)
+

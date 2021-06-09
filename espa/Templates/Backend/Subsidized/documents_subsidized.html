@@ -32,7 +32,7 @@
                 {{document.id}}
             </td>
             <td>
-                <a href="{{ document.file.url }}">{{document.file.name}}</a>
+                <a href="{{ document.file.url }}">{% split document.file.name '/' 1%}</a>
             </td>
             <td>
                 {{document.entrydate|date:"d/m/y"}}
@@ -50,8 +50,6 @@
                 {% elif document.inspected == True %}
                     <a href="{% url 'inspect_business_document' document.id %}" onclick="return confirm('Είστε σιγουροί πως θέλετε να ορίσετε αυτό το έγγραφη ως μη επιθεωρημένο;')"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" width="30px" height="30px" title="Ορισμός ως μη επιθεωρημένο"></a>
                 {% endif %}
-            </td>
-            <td>
                 <a href="{% url 'delete_business_document' document.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το έγγραφο;');"><img src="{% image 'general/icons/delete-icon.png' %}" width="30px" height="30px" title="Διαγραφή Εγγράφου"></a>
             </td>
         </tr>

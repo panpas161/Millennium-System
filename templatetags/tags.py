@@ -28,3 +28,7 @@ def changeElementName(element,current_name,name):
     element = str(element)
     element = element.replace("name=" + "\"" + str(current_name) + "\"","name=" + str(name))
     return mark_safe(element)
+
+@register.simple_tag(name="split")
+def splitString(value,delimiter,pos):
+    return value.split(delimiter)[pos]
