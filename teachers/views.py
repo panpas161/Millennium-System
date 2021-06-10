@@ -2,7 +2,7 @@ from django.shortcuts import render
 from assets.decorators.decorators import staff_only,allowed_roles
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from administrator.functions.auth import addUser,assignToGroup
+from assets.functions.authentication import addUser
 from django.contrib.auth.models import User
 from .models import Teacher
 from django.shortcuts import redirect
@@ -10,6 +10,7 @@ from .forms import TeacherModelForm
 from students.forms import ExamModelForm
 from students.models import Exam
 from .models import SubjectReport,AttendanceReport
+from assets.functions.authentication import hasRole,isStaff
 from assets.functions.authentication import getUserDetails
 from assets.functions.crypto import getRandomString
 from django.core.mail import send_mail
@@ -35,17 +36,21 @@ def addTeacherView(request):
         form = TeacherModelForm(request.POST)
         if form.is_valid():
             savedform = form.save(commit=False)
-            password = getRandomString(string_length=10)
-            addUser(username=request.POST['username'],email=request.POST['email'],password=password)
-            assignToGroup(request.POST['username'],'Teacher')
-            savedform.user = User.objects.get(username=request.POST['username'])
+            password = getRandomString(15)
+            addUser(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+                password=password,
+                role="Teacher"
+            )
+            savedform.user = User.objects.get(username=form.cleaned_data['username'])
             savedform.save()
-            # send_mail(
-            #     "Λογαριασμός στο σύστημα της Millenium",
-            #     "Δημιουργήθηκε με επιτυχία ο λογαριασμός σας με τα παρακάτω στοιχεία:\nΌνομα Χρήστη: " + request.POST['username'] + "\nΚωδικός Πρόσβασης: " + password
-            #     ["email@localhost"],
-            #     request.POST['email']
-            # )
+            send_mail(
+                "Λογαριασμός στο σύστημα της Millenium",
+                "Δημιουργήθηκε με επιτυχία ο λογαριασμός σας με τα παρακάτω στοιχεία:\nΌνομα Χρήστη: " + form.cleaned_data['username'] + "\nΚωδικός Πρόσβασης: " + password
+                ["it@millennium.edu.gr"],
+                form.cleaned_data['email']
+            )
             messages.success(request, "Ο καθηγητής προστέθηκε επιτυχώς!")
             return redirect("list_teachers")
     return render(request, "Backend/Teachers/add_teacher.html", data)
@@ -132,12 +137,13 @@ def teacherExamsView(request):
 @allowed_roles(roles=["Teacher"])
 def teacherReportListView(request):
     user = getUserDetails(request)
-    if usertype == "Teacher":
-        objects = SubjectReport.objects.filter(teacher=user)
-    elif usertype == "Admin" or usertype == "Staff":
+    if isStaff(request):
         objects = SubjectReport.objects.all()
     else:
-        objects = None
+        if hasRole(request,"Teacher"):
+            objects = SubjectReport.objects.filter(teacher=user)
+        else:
+            objects = None
     data = {
         'objects':objects
     }
@@ -172,12 +178,13 @@ def teacherDeleteReportView(request,id):
 def teacherAttendanceListView(request):
     user = getUserDetails(request)
     objects = None
-    # if usertype == "Teacher":
-    #     objects = AttendanceReport.objects.filter(teacher=user)
-    # elif usertype == "Admin" or usertype == "Staff":
-    #     objects = AttendanceReport.objects.all()
-    # else:
-    #     objects = None
+    if isStaff(request):
+        objects = AttendanceReport.objects.all()
+    else:
+        if hasRole(request,"Teacher"):
+            objects = AttendanceReport.objects.filter(teacher=user)
+        else:
+            objects = None #or httpresponse
     data = {
         'objects':objects
     }

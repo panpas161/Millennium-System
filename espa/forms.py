@@ -47,5 +47,5 @@ class EspaAssociateForm(ModelForm):
     class Meta:
         model = EspaAssociate
         fields = '__all__'
-        exclude = ['entrydate']
+        exclude = ['user','entrydate']
         widgets = {}

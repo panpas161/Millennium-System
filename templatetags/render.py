@@ -1,10 +1,8 @@
 from django.template.loader import render_to_string
 from django import template
-from students.models import Student
-from login.functions.users import getStudentID,getUserID
-from staff.models import Staff
 from django.contrib import messages
 from assets.functions.authentication import getUserRoles,translateUserRole
+from assets.functions.authentication import isStaff
 
 register = template.Library()
 #students
@@ -98,7 +96,8 @@ def espaBackendNavbarView(request):
     data = {
         'usertype':usertype,
         'request':request,
-        'messages':messages.get_messages(request)
+        'messages':messages.get_messages(request),
+        'isStaff':isStaff(request),
     }
     return render_to_string("Backend/Navbar/espa_backend_navbar.html",data)
 

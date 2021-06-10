@@ -28,7 +28,7 @@ SECRET_KEY = 'ztd0_ycg@e@4^mtb4y61narbk-i5)j!dh0!0gox)ar1e)m68-u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -180,8 +180,8 @@ PREVIOUS_SCHOOL_YEAR = str(datetime.date.today().year-1) + "-" + str(datetime.da
 CURRENT_SCHOOL_YEAR = str(datetime.date.today().year) + "-" + str(datetime.date.today().year + 1)
 
 #Email Settings
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = '1025'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
+EMAIL_HOST = 'mail.blankpixel.gr'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'palles@blankpixel.gr'
+EMAIL_HOST_PASSWORD = 'n6Xo=e#%AGv]'
+EMAIL_USE_TLS = True

@@ -1,4 +1,6 @@
 from system_settings.config import roles
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 def hasRole(request,role):
     validroles = getUserRoles(request)
@@ -57,3 +59,31 @@ def getUserRoles(request):
 def translateUserRole(role):
     translations = roles.TRANSLATED_ROLES
     return translations[role]
+
+def createGroup(groupname): #add permissions for more security
+    group = Group.objects.filter(name=groupname)
+    if not group.exists():
+        Group.objects.create(name=groupname)
+
+def assignToGroup(username,groupname):
+    createGroup(groupname)
+    group = Group.objects.get(name=groupname)
+    user = User.objects.get(username=username)
+    user.groups.add(group)
+
+#create user and add him to his role's group
+def addUser(username,email,password,role):
+    allroles = roles.ROLES
+    user = User.objects.create_user(username=username,email=email,password=password)
+    user.save()
+    for i in range(0,len(allroles)):
+        if allroles[i]['Name'] == role:
+            group = allroles[i]['Group']
+            break
+    assignToGroup(username,group)
+
+def changeUserPassword(username,password):
+    object = User.objects.get(username=username)
+    object.set_password(password)
+    object.save()
+

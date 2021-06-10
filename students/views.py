@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator,EmptyPage,InvalidPage,PageNotAnInteger
 from .models import Student, Specialty, Installment,Department,Exam
@@ -8,11 +7,9 @@ from .getstudentobjects import getInstallmentsIDS,getInstallmentsPaidSum
 from Millennium_System import settings
 from .filters import StudentFilter
 from django.contrib import messages
-from administrator.functions.auth import addUser,assignToGroup
 from .functions.departments import getSelectedDays,getSelectedTeachers,getSelectedDuration,getSelectedStartTime,getSelectedEndTime
 from assets.functions.users import getUserID,getStudentID
 from assets.decorators.decorators import staff_only,allowed_roles
-from staff.models import Staff
 
 @login_required(login_url="login")
 @staff_only

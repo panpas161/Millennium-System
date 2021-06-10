@@ -35,6 +35,16 @@ def staff_only(view_func):
         return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
     return wrapper
 
+#allow only admins to access a page
+def admin_only(view_func):
+    def wrapper(request,*args,**kwargs):
+        admin_roles = roles.ADMIN_ROLES
+        for i in range(0, len(admin_roles)):
+            if hasRole(request, admin_roles[i]):
+                return view_func(request, *args, **kwargs)
+        return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+    return wrapper
+
 def homeRedirect(viewfunc):
     def wrapper(request,*args,**kwargs):
         staff_roles = roles.STAFF_ROLES

@@ -25,12 +25,14 @@
             <div>
                 <a href="{% url 'list_subsidized_businesses' %}" class="menuitem">Λίστα Επιχειρήσεων</a>
             </div>
-            <div>
-                <a href="{% url 'list_espa_services' %}" class="menuitem">Υπηρεσίες</a>
-            </div>
-            <div>
-                <a href="{% url 'list_espa_associates' %}" class="menuitem">Συνεργάτες</a>
-            </div>
+            {% if isStaff %}
+                <div>
+                    <a href="{% url 'list_espa_services' %}" class="menuitem">Υπηρεσίες</a>
+                </div>
+                <div>
+                    <a href="{% url 'list_espa_associates' %}" class="menuitem">Συνεργάτες</a>
+                </div>
+            {% endif %}
             <div>
             </div>
             <div style="display: grid;grid-template-columns: 23% 22% 0%;">
