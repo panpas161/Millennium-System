@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.core.mail import send_mail
+from assets.functions.mailer import sendEspaCredentials
 from .forms import *
 from .models import *
 from django.shortcuts import redirect
@@ -132,14 +132,7 @@ def approveInterestedBusiness(request,pk):
         object.services.add(service)
     instance.delete()
     #Send mail with credentials
-    send_mail(
-        subject='Στοιχεία Πρόσβασης Για Την Πλατφόρμα ΕΣΠΑ',
-        message='Όνομα Χρήστη: ' + username + '\nΚωδικός: ' + password + "\nEmail: " + instance.email,
-        html_message='Όνομα Χρήστη: ' + username + '<br>Κωδικός: ' + password + "<br>Email: " + instance.email,
-        from_email="it@millennium.edu.gr",
-        recipient_list=[instance.email],
-        fail_silently=False
-    )
+    sendEspaCredentials(username=username,password=password,email=instance.email)
     messages.success(request,"Η ενδιαφερόμενη επιχείρηση εγκρίθηκε με επιτυχία!")
     return redirect("list_interested_businesses")
 
@@ -161,7 +154,10 @@ def listSubsidizedBusinessView(request):
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
 def addSubsidizedBusinessView(request):
-    form = SubsidizedBusinessForm
+    authorized = False
+    if isStaff(request) or hasRole(request,"Associate"):
+        authorized = True
+    form = SubsidizedBusinessForm(authorized=authorized)
     data = {
         'form': form
     }
@@ -177,10 +173,10 @@ def addSubsidizedBusinessView(request):
                 role='EspaUser'
             )
             savedform.user = User.objects.get(username=form.cleaned_data['username'])
-            # espausermodel = EspaUser(user=savedform.user,email=form.cleaned_data['email'])
-            # espausermodel.save()
-            # savedform.espauser = espausermodel
+            if not authorized:
+                savedform.referrer = request.user.espaassociate
             savedform.save()
+            sendEspaCredentials(username=form.cleaned_data['username'],password=form.cleaned_data['password'],email=form.cleaned_data['email'])
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
             return redirect("list_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
@@ -188,8 +184,11 @@ def addSubsidizedBusinessView(request):
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
 def editSubsidizedBusinessView(request,pk):
+    authorized = False
+    if isStaff(request) or hasRole(request, "Associate"):
+        authorized = True
     instance = SubsidizedBusiness.objects.get(id=pk)
-    form = SubsidizedBusinessForm(instance=instance)
+    form = SubsidizedBusinessForm(instance=instance,authorized=authorized)
     data = {
         'form':form
     }
@@ -253,7 +252,7 @@ def createEspaUserCredentials(request,pk):
         role="EspaUser"
     )
     instance.user = User.objects.get(username=username)
-
+    sendEspaCredentials(username=username,password=password,email=instance.email)
     return redirect()
 
 @login_required(login_url="login")
@@ -368,7 +367,7 @@ def deleteEspaAssociateView(request,pk):
     return redirect("list_espa_associates")
 
 @login_required(login_url="login")
-@staff_only
+@admin_only
 def createEspaAssociateCredentials(request,pk):
     associateinstance = EspaAssociate.objects.get(id=pk)
     username = unidecode(associateinstance.associatename)
@@ -380,12 +379,7 @@ def createEspaAssociateCredentials(request,pk):
         role="EspaAssociate"
     )
     associateinstance.user = User.objects.get(username=username)
-    #send mail
-    # send_mail(
-    #     subject='',
-    #     message='',
-    #
-    # )
+    sendEspaCredentials(username=username,password=password,email=associateinstance.email)
     return redirect()
 
 @login_required(login_url="login")
