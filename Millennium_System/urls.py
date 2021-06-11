@@ -151,6 +151,8 @@ urlpatterns = [
     path('espa/associates/add/',espaviews.addEspaAssociateView,name="add_espa_associate"),
     path('espa/associates/edit/<pk>',espaviews.editEspaAssociateView,name="edit_espa_associate"),
     path('espa/associates/delete/<pk>',espaviews.deleteEspaAssociateView,name="delete_espa_associate"),
+    path('espa/associates/credentials/create/<pk>',espaviews.createEspaAssociateCredentials,name="create_espa_associate_creds"),
+    path('espa/associates/credentials/remove/<pk>',espaviews.removeEspaAssociateCredentials,name="remove_espa_associate_creds"),
     #Frontend
     path('espa/home',espaviews.homePageView,name="espa_home"),
     path('espa/documents/list',espaviews.listDocuments,name="espauser_list_documents"),

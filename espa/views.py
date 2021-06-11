@@ -106,11 +106,12 @@ def approveInterestedBusiness(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     username = unidecode(instance.companyname)
     password = getRandomString(15)
+    role = "EspaUser"
     addUser(
         username=username,
         password=password,
         email=instance.email,
-        role="EspaUser"
+        role=role
     )
     object = SubsidizedBusiness(
         firstname=instance.firstname,
@@ -132,7 +133,7 @@ def approveInterestedBusiness(request,pk):
         object.services.add(service)
     instance.delete()
     #Send mail with credentials
-    sendEspaCredentials(username=username,password=password,email=instance.email)
+    sendEspaCredentials(username=username,password=password,email=instance.email,role=role)
     messages.success(request,"Η ενδιαφερόμενη επιχείρηση εγκρίθηκε με επιτυχία!")
     return redirect("list_interested_businesses")
 
@@ -176,7 +177,7 @@ def addSubsidizedBusinessView(request):
             if not authorized:
                 savedform.referrer = request.user.espaassociate
             savedform.save()
-            sendEspaCredentials(username=form.cleaned_data['username'],password=form.cleaned_data['password'],email=form.cleaned_data['email'])
+            sendEspaCredentials(username=form.cleaned_data['username'],password=form.cleaned_data['password'],email=form.cleaned_data['email'],role="EspaUser")
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
             return redirect("list_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
@@ -240,20 +241,22 @@ def documentsSubsidizedBusinessView(request,pk):
     return render(request,"Backend/Subsidized/documents_subsidized.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@admin_only
 def createEspaUserCredentials(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     username = unidecode(instance.companyname)
     password = getRandomString(15)
+    role = "EspaUser"
     addUser(
         username=username,
         password=password,
         email=instance.email,
-        role="EspaUser"
+        role=role
     )
     instance.user = User.objects.get(username=username)
-    sendEspaCredentials(username=username,password=password,email=instance.email)
-    return redirect()
+    instance.save()
+    sendEspaCredentials(username=username,password=password,email=instance.email,role=role)
+    return redirect("")
 
 @login_required(login_url="login")
 @admin_only
@@ -372,22 +375,24 @@ def createEspaAssociateCredentials(request,pk):
     associateinstance = EspaAssociate.objects.get(id=pk)
     username = unidecode(associateinstance.associatename)
     password = getRandomString(15)
+    role = "EspaAssociate"
     addUser(
         username=username,
         password=password,
         email=associateinstance.email,
-        role="EspaAssociate"
+        role=role
     )
     associateinstance.user = User.objects.get(username=username)
-    sendEspaCredentials(username=username,password=password,email=associateinstance.email)
-    return redirect()
+    associateinstance.save()
+    sendEspaCredentials(username=username,password=password,email=associateinstance.email,role=role)
+    return redirect("list_espa_associates")
 
 @login_required(login_url="login")
 @admin_only
-def removeEspaAssociateCredentials(request,pk):
+def removeEspaAssociateCredentials(request,pk): #fix this to delete only user not the whole model using signals
     user = EspaAssociate.objects.get(id=pk).user
     user.delete()
-    return
+    return redirect("list_espa_associates")
 
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
