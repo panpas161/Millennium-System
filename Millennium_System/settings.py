@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'staff',
     'espa',
     'associate',
-    'landing_page'
+    'landing_page',
+    'general_settings'
 ]
 
 MIDDLEWARE = [

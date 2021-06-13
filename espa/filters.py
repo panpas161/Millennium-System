@@ -4,8 +4,8 @@ from .models import *
 
 class SubsidizedBusinessFilter(django_filters.FilterSet):
     q = CharFilter(method='searchmethod',label="Αναζήτηση")
-    start_date = DateFilter(field_name="entrydate",lookup_expr="gte",label="Από")
-    end_date = DateFilter(field_name="entrydate",lookup_expr="lte",label="Έως")
+    # start_date = DateFilter(field_name="entrydate",lookup_expr="gte",label="Από")
+    # end_date = DateFilter(field_name="entrydate",lookup_expr="lte",label="Έως")
     services = ModelChoiceFilter(queryset=EspaService.objects.all())
     class Meta:
         model = SubsidizedBusiness

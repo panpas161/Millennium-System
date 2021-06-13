@@ -43,3 +43,13 @@ body
     display: grid;
     grid-template-columns: 97% 3%;
 }
+
+.pages
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+}

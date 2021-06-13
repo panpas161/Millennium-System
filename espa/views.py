@@ -166,18 +166,24 @@ def addSubsidizedBusinessView(request):
         form = SubsidizedBusinessForm(request.POST)
         if form.is_valid():
             form.save()
+            password = getRandomString(15)
             savedform = form.save(commit=False)
             addUser(
-                username=form.cleaned_data['username'],
+                username=unidecode(form.cleaned_data['companyname']),
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
+                password=password,
                 role='EspaUser'
             )
-            savedform.user = User.objects.get(username=form.cleaned_data['username'])
+            savedform.user = User.objects.get(username=unidecode(form.cleaned_data['companyname']))
             if not authorized:
                 savedform.referrer = request.user.espaassociate
             savedform.save()
-            sendEspaCredentials(username=form.cleaned_data['username'],password=form.cleaned_data['password'],email=form.cleaned_data['email'],role="EspaUser")
+            sendEspaCredentials(
+                username=unidecode(form.cleaned_data['companyname']),
+                password=password,
+                email=form.cleaned_data['email'],
+                role="EspaUser"
+            )
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
             return redirect("list_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
