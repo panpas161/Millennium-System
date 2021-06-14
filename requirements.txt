@@ -1,0 +1,8 @@
+asgiref
+Django
+django-filter
+Pillow
+django-multiselectfield
+psycopg2-binary
+django-safe-filefield
+unidecode
