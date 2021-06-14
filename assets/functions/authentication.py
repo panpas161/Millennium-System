@@ -1,4 +1,4 @@
-from system_settings.config import roles
+from system_settings.config.roles import ROLES,STAFF_ROLES,ADMIN_ROLES,TRANSLATED_ROLES
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 
@@ -10,14 +10,14 @@ def hasRole(request,role):
     return False
 
 def isAdmin(request):
-    admin_roles = roles.ADMIN_ROLES
+    admin_roles = ADMIN_ROLES
     for i in range(0, len(admin_roles)):
         if hasRole(request, admin_roles[i]):
             return True
     return False
 
 def isStaff(request):
-    staff_roles = roles.STAFF_ROLES
+    staff_roles = STAFF_ROLES
     for i in range(0, len(staff_roles)):
         if hasRole(request, staff_roles[i]):
             return True
@@ -34,14 +34,14 @@ def getUserDetails(request):
 
 #Grabs the first valid role
 def getUserRole(request):
-    rolesdict = roles.ROLES
+    rolesdict = ROLES
     for i in range(0,len(rolesdict)):
         if isInGroup(request,rolesdict[i]['Group']) and hasUserModel(request,rolesdict[i]['Model']):
             return rolesdict[i]['Name']
 
 #Grabs all the available roles and returns their name NOT ID
 def getUserRoles(request):
-    rolesdict = roles.ROLES
+    rolesdict = ROLES
     validroles = [None] * len(rolesdict)
     hasvalidrole = False
     k = 0
@@ -57,7 +57,7 @@ def getUserRoles(request):
         return validroles
 
 def translateUserRole(role):
-    translations = roles.TRANSLATED_ROLES
+    translations = TRANSLATED_ROLES
     return translations[role]
 
 def createGroup(groupname): #add permissions for more security
@@ -73,7 +73,7 @@ def assignToGroup(username,groupname):
 
 #create user and add him to his role's group
 def addUser(username,email,password,role):
-    allroles = roles.ROLES
+    allroles = ROLES
     user = User.objects.create_user(username=username,email=email,password=password)
     user.save()
     for i in range(0,len(allroles)):
