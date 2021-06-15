@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+def showProfileView(request):
+    data = {}
+    return render(request,"Profiles/show_profile.html",data)
 
 def editProfileView(request):
     data = {}

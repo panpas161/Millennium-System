@@ -7,7 +7,7 @@ from espa.models import SubsidizedBusiness,EspaAssociate
 from associate.models import Associate
 
 #All roles available here
-try:#try statement is purely to ignore if Group.objects.get function returns doesnotexist error
+try:#ignore if Group.objects.get function returns doesnotexist error
     ROLES = {
         0: {'Name':'Admin','Group':Group.objects.get(name="Administrator"),'Model':Administrator,'HomePage':'home'},
         1: {'Name':'Staff','Group':Group.objects.get(name="Staff"),'Model':Staff,'HomePage':'home'},

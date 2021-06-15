@@ -113,3 +113,23 @@ def espaFrontendNavbarView(request):
         'messages': messages.get_messages(request),
     }
     return render_to_string("Frontend/Navbar/espa_frontend_navbar.html",data)
+
+@register.simple_tag(name="renderProfileNavbar")
+def profileNavbarView(request):
+    role = getUserRoles(request)[0]
+    usertype = translateUserRole(role)
+    data = {
+        'usertype':usertype
+    }
+    return render_to_string("Profiles/navbar.html",data)
+
+@register.simple_tag(name="renderNavbar")
+def renderNavbar(request,path):
+    role = getUserRoles(request)[0]
+    usertype = translateUserRole(role)
+    data = {
+        'usertype':usertype,
+        'request':request,
+        'messages':messages.get_messages(request)
+    }
+    return render_to_string(path,data)

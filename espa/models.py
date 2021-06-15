@@ -1,5 +1,4 @@
 from django.db import models
-from associate.models import Associate
 from Millennium_System import settings
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator

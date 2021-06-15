@@ -27,6 +27,7 @@ from farmingcert import views as farmingviews
 from espa import views as espaviews
 from teachers import views as teacherviews
 from landing_page import views as landingviews
+from general_settings import views as gensettingsview
 from Millennium_System import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -34,13 +35,16 @@ urlpatterns = [
     path('', mainviews.homeView, name="home"),
     #------------LOGIN APP------------
     path('login/', loginviews.loginView, name="login"),
-    path('logout', loginviews.logoutView, name="logout"),
+    path('logout', loginviews.logoutView, name="logout"),\
     #------------ADMINISTRATOR APP------------
     path('admin/home',adminviews.homePageView,name="admin_home"),
     #users
     path('admin/users/list/',adminviews.listUsersView,name="admin_list_users"),
     path('admin/users/add/<str:pk>',adminviews.addUserView,name="admin_add_user"),
     path('admin/users/edit/<str:pk>',adminviews.editUserView,name="admin_edit_user"),
+    #------------GENERAL_SETTINGS APP------------
+    path('settings/profile/main',gensettingsview.showProfileView,name="show_profile"),
+    path('settings/profile/edit',gensettingsview.editProfileView,name="edit_profile"),
     #------------STUDENTS APP(backend)------------
     path('students/list/', studentviews.listStudentsView, name="list-students"),
     path('students/add/', studentviews.addStudentView, name="add-student"),
