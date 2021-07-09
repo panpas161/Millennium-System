@@ -28,6 +28,7 @@ from espa import views as espaviews
 from teachers import views as teacherviews
 from landing_page import views as landingviews
 from general_settings import views as gensettingsview
+from oaed_subsidy import views as oaedsubsidyviews
 from Millennium_System import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -129,22 +130,22 @@ urlpatterns = [
     #------------ESPA APP------------
     #Backend
     #interested
-    path('espa/interested/list',espaviews.listInterestedBusinessesView,name="list_interested_businesses"),
-    path('espa/interested/add',espaviews.addInterestedBusinessView,name="add_interested_business"),
-    path('espa/interested/edit/<pk>',espaviews.editInterestedBusinessView,name="edit_interested_business"),
-    path('espa/interested/delete/<pk>',espaviews.deleteInterestedBusinessView,name="delete_interested_business"),
-    path('espa/interested/view/<pk>', espaviews.viewInterestedBusinessView, name="view_interested_business"),
-    path('espa/interested/approve/<pk>',espaviews.approveInterestedBusiness,name="approve_interested_business"),
+    path('espa/interested/list',espaviews.listInterestedBusinessesView,name="list_espa_interested_businesses"),
+    path('espa/interested/add',espaviews.addInterestedBusinessView,name="add_espa_interested_business"),
+    path('espa/interested/edit/<pk>',espaviews.editInterestedBusinessView,name="edit_espa_interested_business"),
+    path('espa/interested/delete/<pk>',espaviews.deleteInterestedBusinessView,name="delete_espa_interested_business"),
+    path('espa/interested/view/<pk>', espaviews.viewInterestedBusinessView, name="view_espa_interested_business"),
+    path('espa/interested/approve/<pk>',espaviews.approveInterestedBusiness,name="approve_espa_interested_business"),
     #subsidized
-    path('espa/businesses/list',espaviews.listSubsidizedBusinessView,name="list_subsidized_businesses"),
-    path('espa/businesses/add',espaviews.addSubsidizedBusinessView,name="add_subsidized_business"),
-    path('espa/businesses/edit/<pk>',espaviews.editSubsidizedBusinessView,name="edit_subsidized_business"),
-    path('espa/businesses/delete/<pk>',espaviews.deleteSubsidizedBusinessView,name="delete_subsidized_business"),
-    path('espa/businesses/view/<pk>',espaviews.viewSubsidizedBusinessView,name="view_subsidized_business"),
-    path('espa/businesses/documents/<pk>',espaviews.documentsSubsidizedBusinessView,name="documents_subsidized_businesses"),
-    path('espa/businesses/documents/inspect/<pk>',espaviews.inspectDocumentView,name="inspect_business_document"),
-    path('espa/businesses/documents/delete/<pk>',espaviews.deleteDocument,name="delete_business_document"),
-    path('espa/businesses/documents/add/<pk>',espaviews.addDocumentView,name="add_business_document"),
+    path('espa/businesses/list',espaviews.listSubsidizedBusinessView,name="list_espa_subsidized_businesses"),
+    path('espa/businesses/add',espaviews.addSubsidizedBusinessView,name="add_espa_subsidized_business"),
+    path('espa/businesses/edit/<pk>',espaviews.editSubsidizedBusinessView,name="edit_espa_subsidized_business"),
+    path('espa/businesses/delete/<pk>',espaviews.deleteSubsidizedBusinessView,name="delete_espa_subsidized_business"),
+    path('espa/businesses/view/<pk>',espaviews.viewSubsidizedBusinessView,name="view_espa_subsidized_business"),
+    path('espa/businesses/documents/<pk>',espaviews.documentsSubsidizedBusinessView,name="documents_espa_subsidized_businesses"),
+    path('espa/businesses/documents/inspect/<pk>',espaviews.inspectDocumentView,name="inspect_espa_business_document"),
+    path('espa/businesses/documents/delete/<pk>',espaviews.deleteDocument,name="delete_espa_business_document"),
+    path('espa/businesses/documents/add/<pk>',espaviews.addDocumentView,name="add_espa_business_document"),
     #services
     path('espa/services/list',espaviews.listServicesView,name="list_espa_services"),
     path('espa/services/add',espaviews.addServiceView,name="add_espa_service"),
@@ -163,7 +164,12 @@ urlpatterns = [
     path('espa/documents/upload',espaviews.uploadDocuments,name="espa_upload_documents"),
     #------------LANDING PAGES APP------------
     path('landing/espa/',landingviews.espaMainView,name="landing_espa_main"),
-    path('landing/espa/register',landingviews.espaRegisterView,name="landing_espa_register")
+    path('landing/espa/register',landingviews.espaRegisterView,name="landing_espa_register"),
+    #------------OAED_SUBSIDY APP------------
+    path('oaed/subsidized/list',oaedsubsidyviews.listSubsidizedBusinessView,name="list_oaed_subsidized_businesses"),
+    path('oaed/subsidized/add',oaedsubsidyviews.addSubsidizedBusinessView,name="add_oaed_subsidized_business"),
+    path('oaed/subsidized/edit/<pk>',oaedsubsidyviews.editSubsidizedBusinessView,name="edit_oaed_subsidized_business"),
+    path('oaed/subsidized/delete/<pk>',oaedsubsidyviews.deleteSubsidizedBusinessView,name="delete_oaed_subsidized_business"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \

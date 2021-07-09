@@ -20,8 +20,14 @@ def listReceiptsView(request):
 @staff_only
 def addReceiptView(request):
     form = ReceiptModelForm()
+    recipient = request.user.last_name + " " + request.user.first_name
+    client = request.GET.get('client')
+    if client is None:
+        client = ""
     data = {
-        'form': form
+        'form': form,
+        'recipient':recipient,
+        'client':client
     }
     if request.method == "POST":
         form = ReceiptModelForm(request.POST)

@@ -5,7 +5,7 @@ from Millennium_System import settings
 class Receipt(models.Model):
     paymentmethod_choices = ('cash','ΜΕΤΡΗΤΑ'),('deposit','ΚΑΤΑΘΕΣΗ ΣΤΗ ΤΡΑΠΕΖΑ'),('card','ΜΕΣΩ ΚΑΡΤΑΣ'),('check','ΕΠΙΤΑΓΗ')
     paymentway_choices = ('immediate','ΑΜΕΣΗ ΕΞΟΦΛΗΣΗ'),('oncredit','ΕΠΙ ΠΙΣΤΩΣΕΙ')
-    recipient = models.CharField(max_length=25, default="Millennium IT Department",verbose_name="Ονοματεπώνυμο εισπράκτορα")
+    recipient = models.CharField(max_length=25,verbose_name="Ονοματεπώνυμο εισπράκτορα")
     client = models.CharField(max_length=25,verbose_name="Πελάτης")
     reason = models.TextField(verbose_name="Αιτιολογία")
     amount = models.IntegerField(verbose_name="Ποσό")
