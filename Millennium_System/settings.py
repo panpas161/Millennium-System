@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import datetime
-# import pymysql
 import time
 import mimetypes
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -56,7 +55,8 @@ INSTALLED_APPS = [
     'espa',
     'associate',
     'landing_page',
-    'general_settings'
+    'general_settings',
+    'system_settings'
 ]
 
 MIDDLEWARE = [
@@ -100,23 +100,13 @@ WSGI_APPLICATION = 'Millennium_System.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'servermi_milsystem',
+       'NAME': 'milsystem',
        'USER': 'postgres',
        'PASSWORD': 'postgres',
        'HOST': 'localhost',
        'PORT': '5432',
    }
-    # 'default': {
-    #            'ENGINE': 'django.db.backends.mysql',
-    #            'NAME': 'servermi_milsystem',
-    #            'USER': 'root',
-    #            'PASSWORD': '',
-    #            'HOST': 'localhost',
-    #            'PORT': '3306',
-    #        }
 }
-# pymysql.version_info = (1, 4, 6, 'final', 0)
-# pymysql.install_as_MySQLdb()
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
