@@ -416,7 +416,7 @@ def inspectDocumentView(request,pk):
     elif instance.inspected is True:
         instance.inspected = False
         instance.save()
-        messages.success(request, "Το έγγραφο ορίστηκε ως μή επιθεωρημένο ειτυχώς!")
+        messages.success(request, "Το έγγραφο ορίστηκε ως μη επιθεωρημένο ειτυχώς!")
     return redirect("documents_subsidized_businesses",instance.company.id)
 
 @login_required(login_url="login")
