@@ -8,10 +8,10 @@
 </head>
 <body>
     {% load render %}
-    {% renderEspaBackendNavbar request %}
+    {% renderOaedSubsidyBackendNavbar request %}
     <div class="header">
-        <h3>Επιχειρήσεις</h3>
-        <a href="{% url 'add_oaed_subsidized_business' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+        <h3>Επιδοτούμενοι</h3>
+        <a href="{% url 'add_oaed_subsidized_individual' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
     <form method="GET">
         {{ filter.form }}
@@ -24,13 +24,13 @@
             <th>#</th>
             <th>Επώνυμο</th>
             <th>Όνομα</th>
-            <th>Τύπος Επιχείρησης</th>
-            <th>Επωνυμία</th>
+            <th>Πατρώνυμο</th>
+            <th>Μητρώνυμο</th>
             <th>Τοποθεσία</th>
             <th>Τηλέφωνο</th>
             <th>Κινητό</th>
             <th>Email</th>
-            <th>Συστάθηκε Από</th>
+            <th>τεστ</th>
             <th>Υπηρεσίες</th>
             <th></th>
         </tr>

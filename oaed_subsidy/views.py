@@ -1,35 +1,54 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from assets.decorators.decorators import staff_only,allowed_roles
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import SubsidizedIndividualForm
+from .models import *
 
 @login_required(login_url="login")
 @staff_only
-def listSubsidizedBusinessView(request):
+def listSubsidizedIndividualView(request):
     data = {
 
     }
-    return render(request,"Backend/Subsidized/list_subsidized.html",data)
+    return render(request,"Backend/Oaed_Subsidized_Individual/list_subsidized.html",data)
 
 @login_required(login_url="login")
 @staff_only
-def addSubsidizedBusinessView(request):
+def addSubsidizedIndividualView(request):
+    form = SubsidizedIndividualForm
     data = {
-
+        'form':form
     }
-    return render(request,"Backend/Subsidized/add_subsidized.html",data)
+    if request.method == "POST":
+        form = SubsidizedIndividualForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Η υπηρεσία προστέθηκε επιτυχώς!")
+            return redirect("list_oaed_subsidized_individuals")
+    return render(request,"Backend/Oaed_Subsidized_Individual/add_subsidized.html",data)
 
 @login_required(login_url="login")
 @staff_only
-def editSubsidizedBusinessView(request):
+def editSubsidizedIndividualView(request):
     data = {
 
     }
-    return render(request,"Backend/Subsidized/edit_subsidized.html",data)
+    return render(request,"Backend/Oaed_Subsidized_Individual/edit_subsidized.html",data)
 
 @login_required(login_url="login")
 @staff_only
-def deleteSubsidizedBusinessView(request):
-    data = {
+def deleteSubsidizedIndividualView(request,pk):
+    instance = SubsidizedIndividual.objects.get(id=pk)
+    instance.delete()
+    messages.success(request, "Η απόδειξη διαγράφτηκε με επιτυχία!")
+    return redirect("list_receipts")
 
+@login_required(login_url="login")
+@staff_only
+def viewSubsidizedIndividualView(request,pk):
+    instance = SubsidizedIndividual.objects.get(id=pk)
+    data = {
+        'instance':instance
     }
-    return render(request,"Backend/Subsidized/delete_subsidized.html",data)
+    return render(request,"Backend/Oaed_Subsidized_Individual/view_subsidized.html",data)

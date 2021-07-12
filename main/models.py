@@ -3,6 +3,16 @@ from system_settings.config import roles
 from system_settings.config import values
 from espa.models import EspaService
 
+def createDefaultValues(model,default_values,field):
+    try:
+        objects = default_values
+        for object in objects:
+            instance = model.objects.filter(service=object) #change service to field
+            if not instance.exists():
+                model.objects.create(service=object)
+    except:
+        pass
+
 #AUTHENTICATION
 #create initial groups
 try:

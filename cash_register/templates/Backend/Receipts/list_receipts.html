@@ -22,6 +22,7 @@
             <th>Όνομα πελάτη</th>
             <th>Εισπράκτορας</th>
             <th>Ποσό</th>
+            <th>Τύπος Απόδειξης</th>
             <th>Ημερομηνία</th>
             <th></th>
         </tr>
@@ -46,7 +47,10 @@
                 {{receipt.amount}}
             </td>
             <td>
-                {{receipt.date}}
+                {{receipt.type}}
+            </td>
+            <td>
+                {{receipt.entrydate|date:"d/m/y"}}
             </td>
             <td>
                 <a href="{% url 'edit_receipt' receipt.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>

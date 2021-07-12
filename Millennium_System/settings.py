@@ -56,7 +56,9 @@ INSTALLED_APPS = [
     'associate',
     'landing_page',
     'general_settings',
-    'system_settings'
+    'system_settings',
+    'oaed_subsidy',
+    'options'
 ]
 
 MIDDLEWARE = [

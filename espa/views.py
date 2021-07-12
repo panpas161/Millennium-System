@@ -50,7 +50,7 @@ def addInterestedBusinessView(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Ο ενδιαφερόμενος προστέθηκε επιτυχώς!")
-            return redirect("list_interested_businesses")
+            return redirect("list_espa_interested_businesses")
     data = {
         'form':form
     }
@@ -75,7 +75,7 @@ def editInterestedBusinessView(request,pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Τα στοιχεία του ενδιαφερόμενου άλλαξαν επιτυχώς!")
-            return redirect('list_interested_businesses')
+            return redirect('list_espa_interested_businesses')
     return render(request,"Backend/Interested/edit_interested.html",data)
 
 @login_required(login_url="login")
@@ -88,7 +88,7 @@ def deleteInterestedBusinessView(request,pk):
     if request.method == "POST":
         instance.delete()
         messages.success(request,"Η ενδιαφερόμενη επιχείρηση διαγράφθηκε επιτυχώς!")
-        return redirect('list_interested_businesses')
+        return redirect('list_espa_interested_businesses')
     return render(request,"Backend/Interested/delete_interested.html",data)
 
 @login_required(login_url="login")
@@ -133,9 +133,14 @@ def approveInterestedBusiness(request,pk):
         object.services.add(service)
     instance.delete()
     #Send mail with credentials
-    sendEspaCredentials(username=username,password=password,email=instance.email,role=role)
+    sendEspaCredentials(
+        username=username,
+        password=password,
+        email=instance.email,
+        role=role
+    )
     messages.success(request,"Η ενδιαφερόμενη επιχείρηση εγκρίθηκε με επιτυχία!")
-    return redirect("list_interested_businesses")
+    return redirect("list_espa_interested_businesses")
 
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
@@ -185,7 +190,7 @@ def addSubsidizedBusinessView(request):
                 role="EspaUser"
             )
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
-            return redirect("list_subsidized_businesses")
+            return redirect("list_espa_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
 
 @login_required(login_url="login")
@@ -204,7 +209,7 @@ def editSubsidizedBusinessView(request,pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Τα στοιχεία της επιχείρησης άλλαξαν επιτυχώς!")
-            return redirect('list_subsidized_businesses')
+            return redirect('list_espa_subsidized_businesses')
     return render(request,"Backend/Subsidized/edit_subsidized.html",data)
 
 @login_required(login_url="login")
@@ -222,7 +227,7 @@ def deleteSubsidizedBusinessView(request,pk):
             messages.success(request, "Η επιχείρηση διαγράφθηκε επιτυχώς!")
         else:
             messages.error(request,"Η επιχείρηση δεν μπόρεσε να διαγραφθεί!")
-        return redirect("list_subsidized_businesses")
+        return redirect("list_espa_subsidized_businesses")
     return render(request,"Backend/Subsidized/delete_subsidized.html",data)
 
 @login_required(login_url="login")

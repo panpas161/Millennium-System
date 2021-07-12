@@ -6,3 +6,29 @@ DEFAULT_ESPA_SERVICES = [
     'Service1',
     'Service2'
 ]
+
+#OPTIONS
+DEFAULT_MUNICIPALITIES = [
+    "Προποντίδας",
+    "Κασσάνδρας",
+    "Σιθωνίας",
+    "Αριστοτέλη",
+    "Πολυγύρου",
+    "Περιφεριακή Ενότητα Χαλκδικής"
+]
+
+DEFAULT_PREFECTURES = [
+
+]
+
+DEFAULT_DOY = [
+
+]
+
+DEFAULT_FINANCIAL_SITUATION = [
+
+]
+
+DEFAULT_EDUCATION_LEVEL = [
+
+]

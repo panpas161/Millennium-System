@@ -112,7 +112,19 @@ def espaFrontendNavbarView(request):
         'companyname':request.user.subsidizedbusiness.companyname,
         'messages': messages.get_messages(request),
     }
-    return render_to_string("Frontend/Navbar/espa_frontend_navbar.html",data)
+    return render_to_string("Frontend/Navbar/espa_frontend_navbar.html",data)\
+
+@register.simple_tag(name="renderOaedSubsidyBackendNavbar")
+def oaedSubsidyBackendNavbarView(request):
+    role = getUserRoles(request)[0]
+    usertype = translateUserRole(role)
+    data = {
+
+        'usertype':usertype,
+        'request':request,
+        'messages': messages.get_messages(request),
+    }
+    return render_to_string("Backend/Oaed_Navbar/backend_navbar.html",data)
 
 @register.simple_tag(name="renderProfileNavbar")
 def profileNavbarView(request):

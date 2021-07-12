@@ -24,7 +24,7 @@ class SubjectReport(models.Model):
     end_time = models.TimeField()
     wage_per_hour = models.FloatField()
     total_hours = models.IntegerField()
-    total_wage = models.FloatField(null=True)#not null
+    total_wage = models.FloatField()
 
 class AttendanceReport(models.Model):
     student = models.ForeignKey("students.Student",models.CASCADE)

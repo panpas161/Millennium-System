@@ -6,13 +6,17 @@ from django.contrib import messages
 from .functions import receipts
 from assets.decorators.decorators import staff_only
 from django.contrib.auth.decorators import login_required
+from assets.functions.pagination import getPage
+from .filters import *
+
 #receipts
 @login_required(login_url="login")
 @staff_only
 def listReceiptsView(request):
     objects = Receipt.objects.all().order_by("-id")
+    page = getPage(request,objects,ReceiptFilter)
     data = {
-        'objects':objects
+        'objects':page
     }
     return render(request,"Backend/Receipts/list_receipts.html",data)
 
@@ -57,21 +61,18 @@ def editReceiptView(request,pk):
 @staff_only
 def deleteReceiptView(request,pk):
     instance = Receipt.objects.get(id=pk)
-    data = {
-        'object':instance
-    }
-    if request.method == "POST":
-        instance.delete()
-        messages.success(request,"Η απόδειξη διαγράφτηκε με επιτυχία!")
-        return redirect("list_receipts")
-    return render(request,"Backend/Receipts/delete_receipt.html",data)
+    instance.delete()
+    messages.success(request,"Η απόδειξη διαγράφτηκε με επιτυχία!")
+    return redirect("list_receipts")
+
 #expenses
 @login_required(login_url="login")
 @staff_only
 def listExpensesView(request):
     expenses = Expense.objects.all().order_by("-id")
+    page = getPage(request,expenses,ExpenseFilter)
     data = {
-        'expenses':expenses
+        'expenses':page
     }
     return render(request,"Backend/Expenses/list_expenses.html",data)
 

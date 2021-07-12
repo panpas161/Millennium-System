@@ -166,10 +166,10 @@ urlpatterns = [
     path('landing/espa/',landingviews.espaMainView,name="landing_espa_main"),
     path('landing/espa/register',landingviews.espaRegisterView,name="landing_espa_register"),
     #------------OAED_SUBSIDY APP------------
-    path('oaed/subsidized/list',oaedsubsidyviews.listSubsidizedBusinessView,name="list_oaed_subsidized_businesses"),
-    path('oaed/subsidized/add',oaedsubsidyviews.addSubsidizedBusinessView,name="add_oaed_subsidized_business"),
-    path('oaed/subsidized/edit/<pk>',oaedsubsidyviews.editSubsidizedBusinessView,name="edit_oaed_subsidized_business"),
-    path('oaed/subsidized/delete/<pk>',oaedsubsidyviews.deleteSubsidizedBusinessView,name="delete_oaed_subsidized_business"),
+    path('oaed/subsidized/list',oaedsubsidyviews.listSubsidizedIndividualView,name="list_oaed_subsidized_individuals"),
+    path('oaed/subsidized/add',oaedsubsidyviews.addSubsidizedIndividualView,name="add_oaed_subsidized_individual"),
+    path('oaed/subsidized/edit/<pk>',oaedsubsidyviews.editSubsidizedIndividualView,name="edit_oaed_subsidized_individual"),
+    path('oaed/subsidized/delete/<pk>',oaedsubsidyviews.deleteSubsidizedIndividualView,name="delete_oaed_subsidized_individual"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \

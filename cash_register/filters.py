@@ -13,6 +13,7 @@ class ReceiptFilter(django_filters.FilterSet):
     class Meta:
         model = Receipt
         fields = ['paymentmethod','paymentway']
+
 class ExpenseFilter(django_filters.FilterSet):
     q = CharFilter(method='searchmethod',label="Αναζήτηση")
     start_date = DateFilter(field_name="date",lookup_expr="gte",label="Από")
@@ -23,4 +24,4 @@ class ExpenseFilter(django_filters.FilterSet):
         return queryset
     class Meta:
         model = Expense
-        fields = ['category','paymentmethod','type','paymentway']
+        fields = ['category_a','category_b','category_c','paymentmethod','type','paymentway']
