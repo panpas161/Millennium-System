@@ -224,6 +224,14 @@ def editSpecialtiesView(request, pk):
 
 @login_required(login_url="login")
 @staff_only
+def deleteSpecialtyView(request,pk):
+    instance = Specialty.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Η ειδικότητα διαγράφθηκε επιτυχώς!")
+    return redirect("delete_student_specialty")
+
+@login_required(login_url="login")
+@staff_only
 def getInstallmentsView(request,pk):#delete
     data = {
         'installments_list':getInstallmentsIDS(pk)
@@ -271,6 +279,30 @@ def addDepartmentView(request):
 #         'form':form
 #     }
 #     return render(request,"Backend/Departments/add_department_2.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def editDepartmentView(request,pk):
+    instance = Department.objects.get(id=pk)
+    form = DepartmentModelForm(instance=instance)
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = DepartmentModelForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Οι αλλαγές πραγματοποιήθηκαν με επιτυχία!")
+            return redirect("list_student_departments")
+    return render(request,"Backend/Departments/edit_department.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def deleteDepartmentView(request,pk):
+    instance = Department.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Το τμήμα διαγράφθηκε με επιτυχία!")
+    return redirect("list_student_departments")
 #frontend
 @login_required(login_url="login")
 @allowed_roles(roles=["Student"])

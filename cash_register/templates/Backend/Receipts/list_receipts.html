@@ -53,8 +53,8 @@
                 {{receipt.entrydate|date:"d/m/y"}}
             </td>
             <td>
-                <a href="{% url 'edit_receipt' receipt.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
-                <a href="DELETESPECIALTY"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                <a href="{% url 'edit_receipt' receipt.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                <a href="{% url 'delete_receipt' receipt.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
             </td>
         </tr>
         {% endfor %}

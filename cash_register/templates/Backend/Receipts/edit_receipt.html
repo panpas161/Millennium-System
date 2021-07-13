@@ -5,10 +5,22 @@
     <meta charset="UTF-8">
     <title>Επεξεργασία Απόδειξης</title>
     <link rel="stylesheet" href="{% style 'cash_register/edit_receipt.css' %}" />
+    <link rel="stylesheet" href="{% style 'forms/edit_form_one.css' %}" />
+    {% loadBootstrap %}
 </head>
 <body>
     {% load render %}
     {% renderRegisterBackendNavbar request %}
-    {{form}}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form">
+            <div class="form-group">
+              <div class="col-md-12 inputs">
+                  {{form}}
+                  <input type="submit" class="form-control submit" />
+              </div>
+            </div>
+        </div>
+    </form>
 </body>
 </html>

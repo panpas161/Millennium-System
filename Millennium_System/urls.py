@@ -56,14 +56,17 @@ urlpatterns = [
     path('students/student_card/<str:pk>', studentviews.studentCardView, name="student_card"),
     path('students/installments_tab/<str:pk>',studentviews.installmentsTabView, name="installments_tab"),
     #specialties
-    path('students/specialties/list/', studentviews.listSpecialtiesView, name="list_specialties"),
-    path('students/specialties/add/', studentviews.addSpecialtiesView, name="add_specialty"),
-    path('students/specialties/edit/<str:pk>', studentviews.editSpecialtiesView, name="edit_specialty"),
+    path('students/specialties/list/', studentviews.listSpecialtiesView, name="list_student_specialties"),
+    path('students/specialties/add/', studentviews.addSpecialtiesView, name="add_student_specialty"),
+    path('students/specialties/edit/<str:pk>', studentviews.editSpecialtiesView, name="edit_student_specialty"),
+    path('students/specialties/delete/<str:pk>',studentviews.deleteSpecialtyView,name="delete_student_specialty"),
     #installments(temporary maybe?)
     path('students/get_installments/<str:pk>', studentviews.getInstallmentsView,name="get_installments"),
     #departments
-    path('students/departments/list', studentviews.listDepartmentsView,name="list_departments"),
-    path('students/departments/add', studentviews.addDepartmentView,name="add_department"),
+    path('students/departments/list', studentviews.listDepartmentsView,name="list_student_departments"),
+    path('students/departments/add', studentviews.addDepartmentView,name="add_student_department"),
+    path('students/departments/edit/<str:pk>', studentviews.editDepartmentView,name="edit_student_department"),
+    path('students/departments/delete/<str:pk>', studentviews.deleteDepartmentView,name="delete_student_department"),
     #------------STUDENTS APP(frontend)------------
     #students
     path('students/home/',studentviews.mainStudentView, name="students_front_home"),
