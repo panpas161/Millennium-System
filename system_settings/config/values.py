@@ -32,3 +32,9 @@ DEFAULT_FINANCIAL_SITUATION = [
 DEFAULT_EDUCATION_LEVEL = [
 
 ]
+
+#OAED_SUBSIDY
+DEFAULT_DIOFANTOS_ID = [
+    ("diofantos1",5,2),
+    ("test",2,3)
+]

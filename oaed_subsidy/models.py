@@ -1,18 +1,28 @@
 from django.db import models
 from options.models import Municipality,EducationLevel,Doy,FinancialSituation
+from Millennium_System import settings
+
+class Department(models.Model):
+    department_id = models.IntegerField()
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    def __str__(self):
+        return "Τμήμα " + self.department_id
 
 class DiofantosID(models.Model):
     name = models.CharField(max_length=30)
     diof_id1 = models.IntegerField()
     diof_id2 = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
 class SubsidizedIndividual(models.Model):
     firstname = models.CharField(max_length=30,verbose_name="Όνομα")
     lastname = models.CharField(max_length=30,verbose_name="Επώνυμο")
     fathersname = models.CharField(max_length=30,verbose_name="Πατρώνυμο")
     mothersname = models.CharField(max_length=30,verbose_name="Μητρώνυμο")
-    phonenumber1 = models.IntegerField(verbose_name="Τηλέφωνο 1")
-    phonenumber2 = models.IntegerField(verbose_name="Τηλέφωνο 2")
+    phonenumber1 = models.IntegerField(verbose_name="Τηλέφωνο 1",null=True,blank=True)
+    phonenumber2 = models.IntegerField(verbose_name="Τηλέφωνο 2",null=True,blank=True)
     email = models.EmailField()
     municipality = models.ForeignKey(Municipality,on_delete=models.CASCADE,verbose_name="Περιφέρεια")
     diofantos = models.ForeignKey(DiofantosID,on_delete=models.CASCADE,verbose_name="Επιλογή Διόφαντου")
@@ -23,7 +33,11 @@ class SubsidizedIndividual(models.Model):
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     oaed_id = models.CharField(max_length=30,verbose_name="Αριθμός Αίτησης ΟΑΕΔ")
     beneficiary_id = models.CharField(max_length=30,verbose_name="Αριθμός ID Ωφελουμένου")
-    # department = models.ForeignKey()
+    department = models.ForeignKey(Department,on_delete=models.CASCADE,verbose_name="Τμήμα")
+    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+
+    def __str__(self):
+        return self.lastname + " " + self.firstname
 
 class Document(models.Model):
     identification = models.FileField(verbose_name="Ταυτότητα")
@@ -31,3 +45,5 @@ class Document(models.Model):
     id_document = models.FileField(verbose_name="ID")
     gdpr_application = models.FileField(verbose_name="Αίτηση GDPR")
     oaed_application = models.FileField(verbose_name="Αίτηση ΟΑΕΔ")
+    individual = models.ForeignKey(SubsidizedIndividual,on_delete=models.CASCADE)
+    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")

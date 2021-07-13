@@ -220,7 +220,7 @@ def editSpecialtiesView(request, pk):
             form.save()
             messages.success(request, "Τα στοιχεία της ειδικότητας άλλαξαν επιτυχώς!")
             return redirect('list_specialties')
-    return render(request, "Backend/Specialties/edit_specialty", data)
+    return render(request, "Backend/Specialties/edit_specialty.html", data)
 
 @login_required(login_url="login")
 @staff_only
@@ -262,6 +262,15 @@ def addDepartmentView(request):
                     return redirect("list-students")
 
     return render(request,"Backend/Departments/add_department.html",data)
+
+# @login_required(login_url="login")
+# @staff_only
+# def addDepartmentView(request):
+#     form = DepartmentModelForm
+#     data = {
+#         'form':form
+#     }
+#     return render(request,"Backend/Departments/add_department_2.html",data)
 #frontend
 @login_required(login_url="login")
 @allowed_roles(roles=["Student"])

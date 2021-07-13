@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Λίστα Επιχειρήσεων ΕΣΠΑ</title>
     <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
-    <link rel="stylesheet" type='text/css' href="{% style 'espa/Backend/Navbar/header.css' %}">
+    <link rel="stylesheet" type='text/css' href="{% style 'espa/Backend/Subsidized/list_subsidized.css' %}">
 </head>
 <body>
     {% load render %}
@@ -14,7 +14,7 @@
         <h3>Επιχειρήσεις</h3>
         <a href="{% url 'add_espa_subsidized_business' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
-    <form method="GET">
+    <form method="GET" class="search">
         {{ filter.form }}
         <input type="submit" />
     </form>
@@ -33,6 +33,7 @@
             <th>Email</th>
             <th>Συστάθηκε Από</th>
             <th>Υπηρεσίες</th>
+            <th>Στοιχεία Πρόσβασης</th>
             <th></th>
         </tr>
         {% for subsidized in objects %}
@@ -74,11 +75,19 @@
                 {{subsidized.services.count}}
             </td>
             <td>
+                {% if subsidized.user %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}" width="30px" height="30px">
+                {% else %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}" width="30px" height="30px">
+                {% endif %}
+            </td>
+            <td>
                 <div class="buttons">
                     <a href="{% url 'edit_espa_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
                     <a href="{% url 'delete_espa_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
                     <a href="{% url 'view_espa_subsidized_business' subsidized.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Επισκόπηση" width="25px" height="20px"/></a>
                     <a href="{% url 'documents_espa_subsidized_businesses' subsidized.id %}"><img src="{% image 'general/icons/multiple_documents_icon.png' %}" title="Δικαιολογητικά" width="25px" height="20px"/></a>
+                    <a href="{% url 'create_espa_user_credentials' subsidized.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να εκδόσετε στοιχεία πρόσβασης για αυτόν τον συνεργάτη;')"><img src="{% image 'general/icons/key-icon.png' %}" title="Έκδοση Στοιχείων Πρόσβασης" width="25px" height="20px"/></a>
                 </div>
             </td>
         </tr>

@@ -170,25 +170,29 @@ def addSubsidizedBusinessView(request):
     if request.method == "POST":
         form = SubsidizedBusinessForm(request.POST)
         if form.is_valid():
+            if SubsidizedBusiness.objects.filter(companyname=form.cleaned_data['companyname']).exists():
+                print("The company already exists!")
+                return redirect("list_espa_subsidized_businesses")
             form.save()
-            password = getRandomString(15)
-            savedform = form.save(commit=False)
-            addUser(
-                username=unidecode(form.cleaned_data['companyname']),
-                email=form.cleaned_data['email'],
-                password=password,
-                role='EspaUser'
-            )
-            savedform.user = User.objects.get(username=unidecode(form.cleaned_data['companyname']))
-            if not authorized:
-                savedform.referrer = request.user.espaassociate
-            savedform.save()
-            sendEspaCredentials(
-                username=unidecode(form.cleaned_data['companyname']),
-                password=password,
-                email=form.cleaned_data['email'],
-                role="EspaUser"
-            )
+            if request.POST.get("create_credentials") == "on":
+                password = getRandomString(15)
+                savedform = form.save(commit=False)
+                addUser(
+                    username=unidecode(form.cleaned_data['companyname']),
+                    email=form.cleaned_data['email'],
+                    password=password,
+                    role='EspaUser'
+                )
+                savedform.user = User.objects.get(username=unidecode(form.cleaned_data['companyname']))
+                if not authorized:
+                    savedform.referrer = request.user.espaassociate
+                savedform.save()
+                sendEspaCredentials(
+                    username=unidecode(form.cleaned_data['companyname']),
+                    password=password,
+                    email=form.cleaned_data['email'],
+                    role="EspaUser"
+                )
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
             return redirect("list_espa_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_subsidized.html",data)
@@ -267,7 +271,8 @@ def createEspaUserCredentials(request,pk):
     instance.user = User.objects.get(username=username)
     instance.save()
     sendEspaCredentials(username=username,password=password,email=instance.email,role=role)
-    return redirect("")
+    messages.success(request,"Τα στοιχεία πρόσβασης δημιουργήθηκαν επιτυχώς!")
+    return redirect("list_espa_subsidized_businesses")
 
 @login_required(login_url="login")
 @admin_only

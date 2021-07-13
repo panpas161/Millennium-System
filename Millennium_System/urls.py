@@ -146,6 +146,7 @@ urlpatterns = [
     path('espa/businesses/documents/inspect/<pk>',espaviews.inspectDocumentView,name="inspect_espa_business_document"),
     path('espa/businesses/documents/delete/<pk>',espaviews.deleteDocument,name="delete_espa_business_document"),
     path('espa/businesses/documents/add/<pk>',espaviews.addDocumentView,name="add_espa_business_document"),
+    path('espa/businesses/credentials/create/<pk>',espaviews.createEspaUserCredentials,name="create_espa_user_credentials"),
     #services
     path('espa/services/list',espaviews.listServicesView,name="list_espa_services"),
     path('espa/services/add',espaviews.addServiceView,name="add_espa_service"),

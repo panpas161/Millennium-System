@@ -1,4 +1,5 @@
 from django.forms.models import ModelForm
+from django import forms
 from .models import *
 
 class SubsidizedIndividualForm(ModelForm):
@@ -6,5 +7,7 @@ class SubsidizedIndividualForm(ModelForm):
         model = SubsidizedIndividual
         fields = '__all__'
         widgets = {
-
+            'tk':forms.NumberInput(),
+            'oaed_id':forms.NumberInput(),
+            'beneficiary_id':forms.NumberInput()
         }

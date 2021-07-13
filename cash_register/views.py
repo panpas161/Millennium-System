@@ -65,6 +65,15 @@ def deleteReceiptView(request,pk):
     messages.success(request,"Η απόδειξη διαγράφτηκε με επιτυχία!")
     return redirect("list_receipts")
 
+@login_required(login_url="login")
+@staff_only
+def printReceiptView(request,pk):
+    instance = Receipt.objects.get(id=pk)
+    data = {
+        'instance':instance
+    }
+    return render(request,"Backend/Receipts/print_receipt.html",data)
+
 #expenses
 @login_required(login_url="login")
 @staff_only

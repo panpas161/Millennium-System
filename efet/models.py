@@ -1,6 +1,6 @@
 from django.db import models
-from system_settings.efet.models import choices
-# Create your models here.
+# from system_settings.efet.models import choices
+from options.models import *
 
 class efetBusiness(models.Model):
     businesstypes = (
@@ -9,13 +9,13 @@ class efetBusiness(models.Model):
     name = models.CharField(max_length=40,verbose_name="Επωνυμία επιχειρησης")
     type = models.CharField(max_length=20,verbose_name="Νομική Μορφή") #choices
     afm = models.CharField(max_length=40,verbose_name="ΑΦΜ")
-    doy = models.CharField(max_length=30,verbose_name="ΔΟΥ") # choices
+    doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ")
     branch = models.CharField(max_length=30,verbose_name="Κλάδος") #choices
     description = models.TextField(verbose_name="Περιγραφή δραστηριότητας / επαγγέλματος")
     address = models.CharField(max_length=120,verbose_name="Διεύθυνση")
     tk = models.CharField(max_length=10,verbose_name="Τ.Κ.")
     city = models.CharField(max_length=50,verbose_name="Πόλη")
-    prefecture = models.CharField(max_length=50,verbose_name="Νομός") #choices?
+    prefecture = models.ForeignKey(Prefecture,on_delete=models.CASCADE,verbose_name="Νομός")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=30,verbose_name="Κινητό")
     fax = models.CharField(max_length=50,verbose_name="Fax")
@@ -34,7 +34,6 @@ class efetStudent(models.Model):
     sexoptions = (
         ("male","Άνδρας"),("female","Γυναίκα")
     )
-    doyoptions = ()
     firstname = models.CharField(max_length=40,verbose_name="Όνομα")
     lastname = models.CharField(max_length=40,verbose_name="Επώνυμο")
     fathersname = models.CharField(max_length=40,verbose_name="Πατρώνυμο")
@@ -42,7 +41,7 @@ class efetStudent(models.Model):
     birthdate = models.DateField(verbose_name="Ημερομηνία Γέννησης")
     amka = models.CharField(max_length=40,verbose_name="ΑΜΚΑ")
     afm = models.CharField(max_length=40,verbose_name="ΑΦΜ")
-    doy = models.CharField(max_length=40,choices=doyoptions,verbose_name="ΔΟΥ")
+    doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ")
     address = models.CharField(max_length=40,verbose_name="Διεύθυνση")
     adt = models.CharField(max_length=40,verbose_name="Αριθμός Δελτίου Ταυτότητας / Διαβατηρίου")
     arxekd = models.CharField(max_length=40,verbose_name=" Αρχή έκδοσης Αριθμός Δελτίου Ταυτότητας / Διαβατηρίου")

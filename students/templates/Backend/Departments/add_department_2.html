@@ -3,21 +3,16 @@
 <head>
     {% load tags %}
     <meta charset="UTF-8">
-    <title>Προσθήκη Συμμετέχοντα ΕΦΕΤ</title>
+    <title>Προσθήκη Τμήματος</title>
     <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
     {% loadBootstrap %}
 </head>
 <body>
-    {% load render %}
-    {% renderEfetNavbar request %}
-    <div class="header">
-        Προσθήκη ΕΦΕΤ
-    </div>
     <form method="POST">
             {% csrf_token %}
         <div class="form">
             <div class="form-group">
-              <div class="col-md-12">
+              <div class="col-md-12 inputs">
                   {{form}}
                   <input type="submit" class="form-control submit" />
               </div>

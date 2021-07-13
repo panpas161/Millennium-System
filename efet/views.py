@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from .forms import EfetStudentModelForm,EfetBusinessModelForm
 from assets.decorators.decorators import staff_only
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from .models import *
+
 @login_required(login_url="login")
 @staff_only
 def listStudents(request):
@@ -40,6 +41,25 @@ def deleteStudent(request,pk):
 
     }
     return render(request,"efet_students/efet_delete.html",data)
+
+
+@login_required(login_url="login")
+@staff_only
+def viewStudyCertificateView(request,pk):
+    instance = efetStudent.objects.get(id=pk)
+    data = {
+        'instance':instance
+    }
+    return render(request,"efet_students/study_certificate.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def viewParticiationCertificateView(request,pk):
+    instance = efetStudent.objects.get(id=pk)
+    data = {
+        'instance':instance
+    }
+    return render(request,"efet_students/participation_certificate.html",data)
 
 @login_required(login_url="login")
 @staff_only
