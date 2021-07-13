@@ -5,17 +5,11 @@ from uuid import uuid4
 from cash_register.models import Receipt
 from django.contrib.auth.models import User
 from teachers.models import Teacher
-
+from options.models import Prefecture,Doy
 
 class Voucher(models.Model):
     sexoptions = (
-        ("male", "Άνδρας"), ("female", "Γυναίκα")
-    )
-    doyoptions = (
-        ("test","testt"),("testtt","tt")
-    )
-    prefectureoptions = (
-        ("chalkidiki","ΧΑΛΚΙΔΙΚΗ"),("loc2","ll")
+        ("Άνδρας", "Άνδρας"), ("Γυναίκα", "Γυναίκα")
     )
     firstname = models.CharField(max_length=50,verbose_name="Όνομα")
     lastname = models.CharField(max_length=50,verbose_name="Επώνυμο")
@@ -23,13 +17,13 @@ class Voucher(models.Model):
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερ. Γεν")
     afm = models.CharField(max_length=30,verbose_name="ΑΦΜ")
     sex = models.CharField(max_length=7,choices=sexoptions,verbose_name="Φύλο")
-    doy = models.CharField(max_length=30,choices=prefectureoptions,verbose_name="ΔΟΥ")
+    doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ")
     adt = models.CharField(max_length=30,verbose_name="Α.Δ.Τ./ Α.Δ")
     location = models.CharField(max_length=30,verbose_name="Πόλη")
     publishfile = models.CharField(max_length=30,verbose_name="Αρχ. Έκδοσης")
     address = models.CharField(max_length=30,verbose_name="Διεύθυνση")
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
-    prefecture = models.CharField(max_length=30,choices=prefectureoptions,verbose_name="Νομός")
+    prefecture = models.ForeignKey(Prefecture,on_delete=models.CASCADE,verbose_name="Νομός")
     cellphone = models.CharField(max_length=30,verbose_name="Κινητό")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField(verbose_name="Email")
@@ -60,7 +54,7 @@ class Student(models.Model):
             return os.path.join(path, filename)
         return wrapper
     sexoptions = (
-        ("male","Άνδρας"),("female","Γυναίκα")
+        ("Άνδρας","Άνδρας"),("Γυναίκα","Γυναίκα")
     )
     lastname = models.CharField(max_length=30, verbose_name="Επώνυμο")
     firstname = models.CharField(max_length=30, verbose_name="Όνομα")
@@ -79,7 +73,6 @@ class Student(models.Model):
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
     installments = models.IntegerField(null=True,blank=True)
     studentImage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
-    username = models.CharField(max_length=50,null=True,blank=True,verbose_name="Username")# not null nor blank and make it temporary create a form or sth
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
@@ -89,10 +82,10 @@ class Student(models.Model):
 
 class Department(models.Model):
     programchoices = (
-        ("afternoon",'Απόγευμα'),("morning","Πρωί")
+        ("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")
     )
     weekdays = (
-        ("monday","Δευτέρα"),("tuesday","Τρίτη"),("wednesday","Τετάρτη")
+        ("Δευτέρα","Δευτέρα"),("Τρίτη","Τρίτη"),("Τετάρτη","Τετάρτη")
     )
     departmentname = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Όνομα Τμήματος")
     teacher = models.OneToOneField("teachers.Teacher", on_delete=models.CASCADE,blank=True,null=True,verbose_name="Καθηγητής")
@@ -105,13 +98,13 @@ class Department(models.Model):
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
 class Installment(models.Model):
-    student = models.ForeignKey(Student,on_delete=models.CASCADE)#possible foreignkey
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
     payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
     amount = models.IntegerField()
     date = models.DateField()
     paid = models.BooleanField()
-    paymentdate = models.DateField(null=True,blank=True)#when will it be paid? not null nor blank
-    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)#possible foreignkey
+    paymentdate = models.DateField()#when will it be paid? not null nor blank
+    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)
@@ -119,7 +112,7 @@ class Installment(models.Model):
 
 class Exam(models.Model):
     semesteroptions = (
-        ("firstsemester", "Α"), ("secondsemester", "Β"), ("thirdsemester", "Γ")
+        ("Α", "Α"), ("Β", "Β"), ("Γ", "Γ")
     )
     schoolyearoptions = (
         ("previous_school_year", str(settings.PREVIOUS_SCHOOL_YEAR)),
