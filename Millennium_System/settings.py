@@ -152,17 +152,17 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField' #for id in each model
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,"assets")
+STATIC_ROOT = os.path.join(BASE_DIR,"static")
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 IMAGES_URL = '/images/'
-IMAGES_ROOT = os.path.join(BASE_DIR, "assets/images/")
+IMAGES_ROOT = os.path.join(BASE_DIR, "static/images/")
 STYLE_URL = "/styles/"
-STYLE_ROOT = os.path.join(BASE_DIR, "assets/style")
+STYLE_ROOT = os.path.join(BASE_DIR, "static/style")
 SCRIPT_URL = "/scripts/"
-SCRIPT_ROOT = os.path.join(BASE_DIR, "assets/script")
+SCRIPT_ROOT = os.path.join(BASE_DIR, "static/script")
 BOOTSTRAP_URL = "/bootstrap/"
-BOOTSTRAP_ROOT = os.path.join(BASE_DIR,"assets/bootstrap/")
+BOOTSTRAP_ROOT = os.path.join(BASE_DIR,"static/bootstrap/")
 
 #Date settings
 DATE_FORMAT = '%d/%m/%Y'
