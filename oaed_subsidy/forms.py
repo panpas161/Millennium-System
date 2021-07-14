@@ -16,6 +16,7 @@ class DepartmentForm(ModelForm):
     class Meta:
         model = Department
         fields = '__all__'
+        exclude = ['entrydate']
         widgets = {
 
         }

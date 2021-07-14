@@ -113,3 +113,11 @@ def deleteDepartmentView(request,pk):
     instance.delete()
     messages.success(request,"Το τμήμα διαγράφθηκε επιτυχώς!")
     return redirect("list_oaed_susidy_departments")
+
+@login_required(login_url="login")
+@staff_only
+def scheduleDepartmentView(request):
+    data = {
+        
+    }
+    return render(request,"Backend/Oaed_Department/schedule_department.html",data)

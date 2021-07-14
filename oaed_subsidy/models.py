@@ -39,8 +39,26 @@ class Department(models.Model):
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):
-        # return "Τμήμα " + str(self.department_id)
         return self.name
+
+class DepartmentDay(models.Model):
+    days = (
+        ("Δευτέρα","Δευτέρα"),
+        ("Τρίτη","Τρίτη"),
+        ("Τετάρτη","Τετάρτη"),
+        ("Πέμπτη","Πέμπτη"),
+        ("Παρασκευή","Παρασκευή"),
+        ("Σάββατο","Σάββατο"),
+        ("Κυριακή","Κυριακή")
+    )
+    weekday = models.CharField(max_length=30,choices=days)
+    department = models.OneToOneField(Department,on_delete=models.CASCADE)
+    start_time = models.IntegerField(verbose_name="Ώρα Έναρξης")
+    end_time = models.IntegerField(verbose_name="Ώρα Λήξης")
+    remarks = models.TextField(verbose_name="Σχόλια")
+
+    def __str__(self):
+        return self.department.name + "-" + self.weekday
 
 class Document(models.Model):
     identification = models.FileField(verbose_name="Ταυτότητα")
