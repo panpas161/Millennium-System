@@ -439,9 +439,18 @@ def deleteDocument(request,pk):
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
 def addDocumentView(request,pk):
+    form = UploadDocumentBackendForm
     data = {
-
+        'form':form
     }
+    if request.method == "POST":
+        form = UploadDocumentBackendForm(request.POST,request.FILES)
+        if form.is_valid():
+            savedform = form.save(commit=False)
+            savedform.company = SubsidizedBusiness.objects.get(id=pk)
+            savedform.save()
+            messages.success(request,"Το έγγραφο προστέθηκε με επιτυχία!")
+            return redirect("list_espa_subsidized_businesses")
     return render(request,"Backend/Subsidized/add_document.html",data)
 
 #Frontend

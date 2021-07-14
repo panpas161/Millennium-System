@@ -5,8 +5,9 @@ from Millennium_System import settings
 class Department(models.Model):
     department_id = models.IntegerField()
     entrydate = models.DateField(default=settings.CURRENT_DATE)
+
     def __str__(self):
-        return "Τμήμα " + self.department_id
+        return "Τμήμα " + str(self.department_id)
 
 class DiofantosID(models.Model):
     name = models.CharField(max_length=30)
