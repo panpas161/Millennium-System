@@ -11,3 +11,11 @@ class SubsidizedIndividualForm(ModelForm):
             'oaed_id':forms.NumberInput(),
             'beneficiary_id':forms.NumberInput()
         }
+
+class DepartmentForm(ModelForm):
+    class Meta:
+        model = Department
+        fields = '__all__'
+        widgets = {
+
+        }

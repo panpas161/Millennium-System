@@ -23,6 +23,10 @@ def getScriptURL(url):
 def getBoostrap():
     return mark_safe("<link rel='stylesheet' href='"  + settings.BOOTSTRAP_URL + "css/bootstrap.css'><script src='" + settings.BOOTSTRAP_URL + "js/bootstrap.js'></script><link rel='stylesheet' href='" + settings.BOOTSTRAP_URL +"css/bootstrap-fixer.css' />")
 
+@register.simple_tag(name="loadJQuery")
+def getJQuery():
+    return mark_safe("""<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>""")
+
 @register.simple_tag(name="changename")
 def changeElementName(element,current_name,name):
     element = str(element)

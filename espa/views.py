@@ -270,7 +270,12 @@ def createEspaUserCredentials(request,pk):
     )
     instance.user = User.objects.get(username=username)
     instance.save()
-    sendEspaCredentials(username=username,password=password,email=instance.email,role=role)
+    sendEspaCredentials(
+        username=username,
+        password=password,
+        email=instance.email,
+        role=role
+    )
     messages.success(request,"Τα στοιχεία πρόσβασης δημιουργήθηκαν επιτυχώς!")
     return redirect("list_espa_subsidized_businesses")
 

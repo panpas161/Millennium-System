@@ -202,7 +202,7 @@ def addSpecialtiesView(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Η Ειδικότητα προστέθηκε επιτυχώς!")
-            return redirect("list_specialties")
+            return redirect("list_student_specialties")
     return render(request, "Backend/Specialties/add_specialty.html", data)
 
 @login_required(login_url="login")

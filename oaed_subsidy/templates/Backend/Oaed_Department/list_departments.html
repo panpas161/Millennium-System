@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Λίστα Τμημάτων Κοινωφελής Εγρασίας</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+</head>
+<body>
+    {% load render %}
+    {% renderOaedSubsidyBackendNavbar request %}
+    <div class="header">
+        <h3>Τμήματα Κοινωφελής Εργασίας</h3>
+        <a href="{% url 'add_oaed_susidy_department' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" />
+    </form>
+
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th></th>
+            <th>#</th>
+            <th>Όνομα Τμήματος</th>
+            <th>Όνομα</th>
+            <th></th>
+        </tr>
+        {% for department in objects %}
+        <tr class="datarow">
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                {{department.id}}
+            </td>
+            <td>
+                {{department.name}}
+            </td>
+            <td>
+                {{department.name}}
+            </td>
+            <td>
+                <div class="buttons">
+                    <a href="{% url 'edit_oaed_susidy_departmente' department.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
+                    <a href="{% url 'delete_oaed_susidy_department' department.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
+                    <a href="{% url 'view_subsidized_business' department.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Επισκόπηση" width="25px" height="20px"/></a>
+                    <a href="{% url 'documents_subsidized_businesses' department.id %}"><img src="{% image 'general/icons/multiple_documents_icon.png' %}" title="Δικαιολογητικά" width="25px" height="20px"/></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pages">
+        {% if objects.has_previous %}
+        <a href="?page={{ objects.previous_page_number }}" style="text-decoration:none;">Προηγούμενη Σελίδα</a>
+        {% endif %}
+        {% if objects.has_next %}
+        <a href="?page={{ objects.next_page_number }}" style="text-decoration:none;">Επόμενη Σελίδα</a>
+        {% endif %}
+    </div>
+</body>
+</html>

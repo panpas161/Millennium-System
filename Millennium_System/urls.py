@@ -174,9 +174,13 @@ urlpatterns = [
     path('oaed/subsidized/add',oaedsubsidyviews.addSubsidizedIndividualView,name="add_oaed_subsidized_individual"),
     path('oaed/subsidized/edit/<pk>',oaedsubsidyviews.editSubsidizedIndividualView,name="edit_oaed_subsidized_individual"),
     path('oaed/subsidized/delete/<pk>',oaedsubsidyviews.deleteSubsidizedIndividualView,name="delete_oaed_subsidized_individual"),
+    #departments
+    path('oaed/departments/list',oaedsubsidyviews.listDepartmentView,name="list_oaed_susidy_departments"),
+    path('oaed/departments/add',oaedsubsidyviews.addDepartmentView,name="add_oaed_susidy_department"),
+    path('oaed/departments/edit/<pk>',oaedsubsidyviews.editDepartmentView,name="edit_oaed_susidy_department"),
+    path('oaed/departments/delete/<pk>',oaedsubsidyviews.deleteDepartmentView,name="delete_oaed_susidy_department"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \
     static(settings.SCRIPT_URL,document_root=settings.SCRIPT_ROOT) + \
-    static(settings.BOOTSTRAP_URL,document_root=settings.BOOTSTRAP_ROOT) + \
     static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

@@ -2,13 +2,6 @@ from django.db import models
 from options.models import Municipality,EducationLevel,Doy,FinancialSituation
 from Millennium_System import settings
 
-class Department(models.Model):
-    department_id = models.IntegerField()
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
-
-    def __str__(self):
-        return "Τμήμα " + str(self.department_id)
-
 class DiofantosID(models.Model):
     name = models.CharField(max_length=30)
     diof_id1 = models.IntegerField()
@@ -34,11 +27,20 @@ class SubsidizedIndividual(models.Model):
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     oaed_id = models.CharField(max_length=30,verbose_name="Αριθμός Αίτησης ΟΑΕΔ")
     beneficiary_id = models.CharField(max_length=30,verbose_name="Αριθμός ID Ωφελουμένου")
-    department = models.ForeignKey(Department,on_delete=models.CASCADE,verbose_name="Τμήμα")
+    # department = models.ForeignKey(Department,on_delete=models.CASCADE,verbose_name="Τμήμα")
     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
     def __str__(self):
         return self.lastname + " " + self.firstname
+
+class Department(models.Model):
+    name = models.CharField(max_length=30)
+    participants = models.ManyToManyField(SubsidizedIndividual)
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
+
+    def __str__(self):
+        # return "Τμήμα " + str(self.department_id)
+        return self.name
 
 class Document(models.Model):
     identification = models.FileField(verbose_name="Ταυτότητα")
