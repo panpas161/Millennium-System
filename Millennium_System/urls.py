@@ -183,4 +183,5 @@ urlpatterns = [
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \
     static(settings.SCRIPT_URL,document_root=settings.SCRIPT_ROOT) + \
+    static(settings.BOOTSTRAP_URL,document_root=settings.BOOTSTRAP_ROOT) + \
     static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
