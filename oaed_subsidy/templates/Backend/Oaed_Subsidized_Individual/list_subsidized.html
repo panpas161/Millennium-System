@@ -13,7 +13,7 @@
         <h3>Επιδοτούμενοι</h3>
         <a href="{% url 'add_oaed_subsidized_individual' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
-    <form method="GET">
+    <form method="GET" class="search">
         {{ filter.form }}
         <input type="submit" />
     </form>

@@ -13,7 +13,8 @@ def listSubsidizedIndividualView(request):
     objects = SubsidizedIndividual.objects.order_by("-id")
     page = getPage(request,objects,SubsidizedIndividualFilter)
     data = {
-        'objects':page
+        'objects':page,
+        'filter':SubsidizedIndividualFilter
     }
     return render(request,"Backend/Oaed_Subsidized_Individual/list_subsidized.html",data)
 

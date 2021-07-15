@@ -148,7 +148,6 @@ def listSubsidizedBusinessView(request):
     if isStaff(request) or hasRole(request,"Associate"):
         businessobjects = SubsidizedBusiness.objects.order_by("-id")
     else:
-        #check if referrer is null? will those models appear on every user?
         businessobjects = SubsidizedBusiness.objects.filter(referrer=request.user.espaassociate).order_by("-id")
     page = getPage(request, businessobjects, SubsidizedBusinessFilter)
     data = {

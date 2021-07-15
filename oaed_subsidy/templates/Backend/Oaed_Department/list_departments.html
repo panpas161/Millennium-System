@@ -23,7 +23,7 @@
             <th></th>
             <th>#</th>
             <th>Όνομα Τμήματος</th>
-            <th>Όνομα</th>
+            <th>Ωράριο</th>
             <th></th>
         </tr>
         {% for department in objects %}
@@ -38,7 +38,11 @@
                 {{department.name}}
             </td>
             <td>
-                {{department.name}}
+                {% if department.departmentday %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}" width="30px" height="30px">
+                {% else %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}" width="30px" height="30px">
+                {% endif %}
             </td>
             <td>
                 <div class="buttons">
