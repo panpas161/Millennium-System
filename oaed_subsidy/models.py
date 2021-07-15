@@ -34,8 +34,8 @@ class SubsidizedIndividual(models.Model):
         return self.lastname + " " + self.firstname
 
 class Department(models.Model):
-    name = models.CharField(max_length=30)
-    participants = models.ManyToManyField(SubsidizedIndividual)
+    name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
+    participants = models.ManyToManyField(SubsidizedIndividual,verbose_name="Συμμετέχοντες")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):

@@ -20,3 +20,12 @@ class DepartmentForm(ModelForm):
         widgets = {
 
         }
+
+class DepartmentDayForm(ModelForm):
+    class Meta:
+        model = DepartmentDay
+        fields = '__all__'
+        exclude = ['entrydate']
+        widgets = {
+
+        }

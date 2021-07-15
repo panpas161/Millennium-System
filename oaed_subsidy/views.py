@@ -10,7 +10,7 @@ from .filters import *
 @login_required(login_url="login")
 @staff_only
 def listSubsidizedIndividualView(request):
-    objects = Department.objects.order_by("-id")
+    objects = SubsidizedIndividual.objects.order_by("-id")
     page = getPage(request,objects,SubsidizedIndividualFilter)
     data = {
         'objects':page
@@ -53,8 +53,8 @@ def editSubsidizedIndividualView(request,pk):
 def deleteSubsidizedIndividualView(request,pk):
     instance = SubsidizedIndividual.objects.get(id=pk)
     instance.delete()
-    messages.success(request, "Η απόδειξη διαγράφτηκε με επιτυχία!")
-    return redirect("list_receipts")
+    messages.success(request, "Ο επιδοτούμενος διαγράφτηκε με επιτυχία!")
+    return redirect("list_oaed_subsidized_individuals")
 
 @login_required(login_url="login")
 @staff_only
@@ -116,8 +116,27 @@ def deleteDepartmentView(request,pk):
 
 @login_required(login_url="login")
 @staff_only
-def scheduleDepartmentView(request):
+def viewScheduleDepartmentView(request,pk):
+    instance = Department.objects.get(id=pk)
     data = {
-        
+        'instance':instance
     }
-    return render(request,"Backend/Oaed_Department/schedule_department.html",data)
+    return render(request,"Backend/Oaed_Department/view_schedule_department.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def createScheduleDepartmentView(request,pk):
+    instance = Department.objects.get(id=pk)
+    form = DepartmentDayForm
+    data = {
+        'form':form,
+        'instance':instance
+    }
+    if request.method == "POST":
+        form = DepartmentDayForm(request.POST)
+        if form.is_valid():
+            savedform = form.save(commit=False)
+            savedform.department = instance
+            savedform.save()
+            messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
+    return render(request,"Backend/Oaed_Department/create_schedule_department.html",data)
