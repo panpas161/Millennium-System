@@ -51,11 +51,11 @@ class DepartmentDay(models.Model):
         ("Σάββατο","Σάββατο"),
         ("Κυριακή","Κυριακή")
     )
-    weekday = models.CharField(max_length=30,choices=days)
-    department = models.OneToOneField(Department,on_delete=models.CASCADE)
+    weekday = models.CharField(max_length=30,choices=days,verbose_name="Ημέρα")
+    department = models.ForeignKey(Department,on_delete=models.CASCADE)
     start_time = models.IntegerField(verbose_name="Ώρα Έναρξης")
     end_time = models.IntegerField(verbose_name="Ώρα Λήξης")
-    remarks = models.TextField(verbose_name="Σχόλια")
+    remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
 
     def __str__(self):
         return self.department.name + "-" + self.weekday

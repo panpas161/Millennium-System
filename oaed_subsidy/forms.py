@@ -25,7 +25,9 @@ class DepartmentDayForm(ModelForm):
     class Meta:
         model = DepartmentDay
         fields = '__all__'
-        exclude = ['entrydate']
+        exclude = ['department','entrydate']
         widgets = {
 
         }
+
+DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)

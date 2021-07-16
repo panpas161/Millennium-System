@@ -88,7 +88,7 @@ def addDepartmentView(request):
         if form.is_valid():
             form.save()
             messages.success(request,"Το τμήμα προστέθηκε επιτυχώς!")
-            return redirect("list_oaed_susidy_departments")
+            return redirect("list_oaed_subsidy_departments")
     return render(request,"Backend/Oaed_Department/add_department.html",data)
 
 @login_required(login_url="login")
@@ -104,7 +104,7 @@ def editDepartmentView(request,pk):
         if form.is_valid():
             form.save()
             messages.success(request,"Τα στοιχεία άλλαξαν επιτυχώς!")
-            return redirect("list_oaed_susidy_departments")
+            return redirect("list_oaed_subsidy_departments")
     return render(request,"Backend/Oaed_Department/edit_department.html",data)
 
 @login_required(login_url="login")
@@ -113,7 +113,7 @@ def deleteDepartmentView(request,pk):
     instance = Department.objects.get(id=pk)
     instance.delete()
     messages.success(request,"Το τμήμα διαγράφθηκε επιτυχώς!")
-    return redirect("list_oaed_susidy_departments")
+    return redirect("list_oaed_subsidy_departments")
 
 @login_required(login_url="login")
 @staff_only
@@ -128,16 +128,21 @@ def viewScheduleDepartmentView(request,pk):
 @staff_only
 def createScheduleDepartmentView(request,pk):
     instance = Department.objects.get(id=pk)
-    form = DepartmentDayForm
+    forms = DepartmentDayMultipleForm()
+    hasvalidforms = False
     data = {
-        'form':form,
+        'forms':forms,
         'instance':instance
     }
     if request.method == "POST":
-        form = DepartmentDayForm(request.POST)
-        if form.is_valid():
-            savedform = form.save(commit=False)
-            savedform.department = instance
-            savedform.save()
+        forms = DepartmentDayMultipleForm(request.POST)
+        for form in forms:
+            if form.is_valid():
+                savedform = form.save(commit=False)
+                savedform.department = instance
+                savedform.save()
+                hasvalidforms = True
+        if hasvalidforms:
             messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
+        return redirect("list_oaed_subsidy_departments")
     return render(request,"Backend/Oaed_Department/create_schedule_department.html",data)

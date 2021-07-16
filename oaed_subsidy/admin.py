@@ -3,4 +3,5 @@ from .models import *
 # Register your models here.
 admin.site.register(DiofantosID)
 admin.site.register(Department)
+admin.site.register(DepartmentDay)
 admin.site.register(SubsidizedIndividual)

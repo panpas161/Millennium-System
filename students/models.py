@@ -29,7 +29,6 @@ class Voucher(models.Model):
     email = models.EmailField(verbose_name="Email")
     profession = models.CharField(max_length=30,verbose_name="Επάγγελμα")
     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
-    # student = models.OneToOneField("students.Student",on_delete=models.CASCADE)
 
 class Specialty(models.Model):
     code = models.CharField(max_length=30,verbose_name="Κωδικός Τμήματος")
@@ -80,22 +79,50 @@ class Student(models.Model):
     def __str__(self):
         return self.lastname + " " + self.firstname
 
+# class Department(models.Model):
+#     programchoices = (
+#         ("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")
+#     )
+#     weekdays = (
+#         ("Δευτέρα","Δευτέρα"),("Τρίτη","Τρίτη"),("Τετάρτη","Τετάρτη")
+#     )
+#     departmentname = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Όνομα Τμήματος")
+#     teacher = models.OneToOneField("teachers.Teacher", on_delete=models.CASCADE,blank=True,null=True,verbose_name="Καθηγητής")
+#     start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
+#     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
+#     duration = models.IntegerField(verbose_name="Διάρκεια")
+#     remarks = models.TextField(null=True,blank=True,verbose_name="Σχόλια")
+#     weekday = models.CharField(max_length=30,choices=weekdays,verbose_name="Ημέρα")
+#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+
 class Department(models.Model):
-    programchoices = (
-        ("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")
+    name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
+    participants = models.ManyToManyField(Student,verbose_name="Συμμετέχοντες")
+    teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
+
+    def __str__(self):
+        return self.name
+
+class DepartmentDay(models.Model):
+    days = (
+        ("Δευτέρα","Δευτέρα"),
+        ("Τρίτη","Τρίτη"),
+        ("Τετάρτη","Τετάρτη"),
+        ("Πέμπτη","Πέμπτη"),
+        ("Παρασκευή","Παρασκευή"),
+        ("Σάββατο","Σάββατο"),
+        ("Κυριακή","Κυριακή")
     )
-    weekdays = (
-        ("Δευτέρα","Δευτέρα"),("Τρίτη","Τρίτη"),("Τετάρτη","Τετάρτη")
-    )
-    departmentname = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Όνομα Τμήματος")
-    teacher = models.OneToOneField("teachers.Teacher", on_delete=models.CASCADE,blank=True,null=True,verbose_name="Καθηγητής")
-    program = models.CharField(choices=programchoices,max_length=50,verbose_name="Πρόγραμμα")
-    start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
-    end_time = models.TimeField(verbose_name="Ώρα Λήξης")
-    duration = models.IntegerField(verbose_name="Διάρκεια")
-    remarks = models.TextField(null=True,blank=True,verbose_name="Σχόλια")
-    weekday = models.CharField(max_length=30,choices=weekdays,verbose_name="Ημέρα")
-    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+    weekday = models.CharField(max_length=30,choices=days,verbose_name="Ημέρα")
+    department = models.ForeignKey(Department,on_delete=models.CASCADE)
+    start_time = models.IntegerField(verbose_name="Ώρα Έναρξης")
+    end_time = models.IntegerField(verbose_name="Ώρα Λήξης")
+    remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
+    # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
+
+    def __str__(self):
+        return self.department.name + "-" + self.weekday
 
 class Installment(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE)

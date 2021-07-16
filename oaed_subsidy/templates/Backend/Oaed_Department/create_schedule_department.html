@@ -12,9 +12,25 @@
     {% renderOaedSubsidyBackendNavbar request %}
     <form method="POST">
         {% csrf_token %}
-        <div>{{ form.weekday }}</div>
-        <div>{{ form.weekday }}</div>
+        {% for form in forms %}
+        <div class="forms">
+            {{form}}
+        </div>
+        {% endfor %}
+        {{ forms.management_form }}
+        <input type="submit" />
         <a onclick="">Add Form</a>
     </form>
 </body>
 </html>
+
+<style>
+    .forms
+    {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+</style>
