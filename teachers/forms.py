@@ -24,4 +24,4 @@ class SubjectReportModelForm(ModelForm):
             self.fields[field].widget.attrs.update({'class':'form-control'})
     class Meta:
         model = SubjectReport
-        fields = "__all__"
+        fields = '__all__'
