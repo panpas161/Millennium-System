@@ -41,10 +41,10 @@
             </table>
         </div>
     </div>
-    <div>
+    <div style="text-align:center;">
         <h2>Ημερομηνία Καταχώρησης</h2>
         <table>
-            <tr>{{ instance.entrydate }}</tr>
+            <tr>{{ instance.entrydate|date:"d/m/y" }}</tr>
         </table>
     </div>
 </body>
@@ -60,7 +60,7 @@ table
 }
 body
 {
-    margin:0 -0.3% -0.3% -0.3%;
+    margin:0;
     background: #e9ecef;
 }
 </style>

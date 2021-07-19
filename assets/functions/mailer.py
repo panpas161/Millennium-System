@@ -10,3 +10,13 @@ def sendEspaCredentials(username,password,email,role):
         recipient_list=[email],
         fail_silently=False
     )
+
+def sendTeacherCredentials(username,password,email,role="Teacher"):
+    send_mail(
+        subject="Λογαριασμός στο σύστημα της Millenium",
+        message="Δημιουργήθηκε με επιτυχία ο λογαριασμός σας με τα παρακάτω στοιχεία:\nΌνομα Χρήστη: " + username + "\nΚωδικός Πρόσβασης: " + password + "\nΤύπος Χρήστη: " + translateUserRole(role),
+        html_message="Δημιουργήθηκε με επιτυχία ο λογαριασμός σας με τα παρακάτω στοιχεία:<br>Όνομα Χρήστη: " + username + "<br>Κωδικός Πρόσβασης: " + password + "<br>Τύπος Χρήστη: " + translateUserRole(role),
+        from_email="it@millennium.edu.gr",
+        recipient_list=[email],
+        fail_silently=False
+    )

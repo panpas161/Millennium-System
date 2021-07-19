@@ -80,6 +80,7 @@ urlpatterns = [
     path('teachers/add/', teacherviews.addTeacherView, name="add_teacher"),
     path('teachers/edit/<str:pk>', teacherviews.editTeacherView, name="edit_teacher"),
     path('teachers/delete/<str:pk>', teacherviews.deleteTeacherView, name="delete_teacher"),
+    path('teachers/credentials/create/<str:pk>', teacherviews.createTeacherCredentials, name="create_teacher_credentials"),
     #frontend
     path('teachers/home/', teacherviews.teacherHomeView, name="teacher_home_page"),
     path('teachers/grades/add/', teacherviews.teacherAddExamView, name="teacher_add_grades"),
@@ -174,6 +175,7 @@ urlpatterns = [
     path('oaed/subsidized/add',oaedsubsidyviews.addSubsidizedIndividualView,name="add_oaed_subsidized_individual"),
     path('oaed/subsidized/edit/<pk>',oaedsubsidyviews.editSubsidizedIndividualView,name="edit_oaed_subsidized_individual"),
     path('oaed/subsidized/delete/<pk>',oaedsubsidyviews.deleteSubsidizedIndividualView,name="delete_oaed_subsidized_individual"),
+    path('oaed/subsidized/view/<pk>',oaedsubsidyviews.viewSubsidizedIndividualView,name="view_oaed_subsidized_individual"),
     #departments
     path('oaed/departments/list',oaedsubsidyviews.listDepartmentView,name="list_oaed_subsidy_departments"),
     path('oaed/departments/add',oaedsubsidyviews.addDepartmentView,name="add_oaed_subsidy_department"),

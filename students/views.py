@@ -97,6 +97,15 @@ def addStudentView(request):
         'voucherform':voucherform,
         'vouchersame':vouchersame
     }
+    if request.method == "POST":
+        studentform = StudentModelForm(request.POST)
+        voucherform = VoucherModelForm(request.POST)
+        if studentform.is_valid():
+            studentform.save()
+            if vouchersame:
+                if voucherform.is_valid():
+                    voucherform.save()
+            return redirect("list-students")
     return render(request,"Backend/Students/add_student.html",data)
 
 @login_required(login_url="login")

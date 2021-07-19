@@ -41,11 +41,14 @@
                 {{teacher.email}}
             </td>
             <td>
-                {{teacher.username}}
+                {{teacher.user.username}}
             </td>
             <td>
-                <a href="{% url 'edit_teacher' teacher.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
-                <a href="{% url 'delete_teacher' teacher.id %}"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                <a href="{% url 'edit_teacher' teacher.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                <a href="{% url 'delete_teacher' teacher.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτόν τον καθηγητή;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                {% if not teacher.user %}
+                    <a href="{% url 'create_teacher_credentials' teacher.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να εκδόσετε στοιχεία πρόσβασης για αυτόν τον καθηγητή;')"><img src="{% image 'general/icons/key-icon.png' %}" title="Δημιουργία Στοιχείων Πρόσβασης" width="25px" height="25px"/></a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

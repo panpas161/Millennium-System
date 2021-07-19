@@ -36,22 +36,11 @@ class Specialty(models.Model):
     duration = models.IntegerField(verbose_name="Διάρκεια")
     price = models.IntegerField(verbose_name="Ενδεικτική Τιμή")
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+
     def __str__(self):
         return self.specialty
 
 class Student(models.Model):
-    def path_and_rename(path):
-        def wrapper(instance, filename):
-            ext = filename.split('.')[-1]
-            # get filename
-            if instance.pk:
-                filename = '{}.{}'.format(instance.pk, ext)
-            else:
-                # set filename as random string
-                filename = '{}.{}'.format(uuid4().hex, ext)
-            # return the whole path to the file
-            return os.path.join(path, filename)
-        return wrapper
     sexoptions = (
         ("Άνδρας","Άνδρας"),("Γυναίκα","Γυναίκα")
     )
@@ -70,7 +59,7 @@ class Student(models.Model):
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
-    installments = models.IntegerField(null=True,blank=True)
+    # installments = models.IntegerField(null=True,blank=True) this will be calculated using the .filter() function Installment.objects.filter(student=student)
     studentImage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
@@ -116,8 +105,8 @@ class DepartmentDay(models.Model):
     )
     weekday = models.CharField(max_length=30,choices=days,verbose_name="Ημέρα")
     department = models.ForeignKey(Department,on_delete=models.CASCADE)
-    start_time = models.IntegerField(verbose_name="Ώρα Έναρξης")
-    end_time = models.IntegerField(verbose_name="Ώρα Λήξης")
+    start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
+    end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
     # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
 
@@ -125,13 +114,13 @@ class DepartmentDay(models.Model):
         return self.department.name + "-" + self.weekday
 
 class Installment(models.Model):
-    student = models.ForeignKey(Student,on_delete=models.CASCADE)
     payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
     amount = models.IntegerField()
-    date = models.DateField()
     paid = models.BooleanField()
     paymentdate = models.DateField()#when will it be paid? not null nor blank
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    entrydate = models.DateField()
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

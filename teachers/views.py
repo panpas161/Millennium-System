@@ -13,7 +13,8 @@ from .models import SubjectReport,AttendanceReport
 from assets.functions.authentication import hasRole,isStaff
 from assets.functions.authentication import getUserDetails
 from assets.functions.crypto import getRandomString
-from django.core.mail import send_mail
+from unidecode import unidecode
+from assets.functions.mailer import sendTeacherCredentials
 
 #Backend
 @login_required(login_url="login")
@@ -35,21 +36,21 @@ def addTeacherView(request):
     if request.method == "POST":
         form = TeacherModelForm(request.POST)
         if form.is_valid():
+            username = unidecode(form.cleaned_data['firstname'])[0] + unidecode(form.cleaned_data['lastname'])
             savedform = form.save(commit=False)
             password = getRandomString(15)
             addUser(
-                username=form.cleaned_data['username'],
+                username=username,
                 email=form.cleaned_data['email'],
                 password=password,
                 role="Teacher"
             )
-            savedform.user = User.objects.get(username=form.cleaned_data['username'])
+            savedform.user = User.objects.get(username=username)
             savedform.save()
-            send_mail(
-                "Λογαριασμός στο σύστημα της Millenium",
-                "Δημιουργήθηκε με επιτυχία ο λογαριασμός σας με τα παρακάτω στοιχεία:\nΌνομα Χρήστη: " + form.cleaned_data['username'] + "\nΚωδικός Πρόσβασης: " + password
-                ["it@millennium.edu.gr"],
-                form.cleaned_data['email']
+            sendTeacherCredentials(
+                username=username,
+                password=password,
+                email=form.cleaned_data['email']
             )
             messages.success(request, "Ο καθηγητής προστέθηκε επιτυχώς!")
             return redirect("list_teachers")
@@ -75,15 +76,34 @@ def editTeacherView(request,pk):
 @login_required(login_url="login")
 @staff_only
 def deleteTeacherView(request,pk):
-    forminstance = Teacher.objects.get(id=pk)
-    data = {
-        'forminstance':forminstance
-    }
-    if request.method == "POST":
-        forminstance.delete()
-        messages.success(request,"Ο Καθηγητής Διαγράφθηκε Με Επιτυχία!")
-        return redirect("list_teachers")
-    return render(request,"Backend/Teachers/delete_teacher.html",data)
+    instance = Teacher.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Ο Καθηγητής Διαγράφθηκε Με Επιτυχία!")
+    return redirect("list_teachers")
+
+@login_required(login_url="login")
+@staff_only
+def createTeacherCredentials(request,pk):
+    instance = Teacher.objects.get(id=pk)
+    username = unidecode(instance.firstname)[0] + unidecode(instance.lastname)
+    password = getRandomString(15)
+    role = "Teacher"
+    addUser(
+        username=username,
+        password=password,
+        email=instance.email,
+        role=role
+    )
+    instance.save()
+    sendTeacherCredentials(
+        username=username,
+        password=password,
+        email=instance.email,
+        role=role
+    )
+    messages.success(request, "Τα στοιχεία πρόσβασης δημιουργήθηκαν επιτυχώς!")
+    return redirect("list-teachers")
+
 
 #Frontend
 @login_required(login_url="login")

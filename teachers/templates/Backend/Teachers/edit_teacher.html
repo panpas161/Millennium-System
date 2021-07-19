@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load tags %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Επεξεργασία Καθηγητή</title>
+    <link rel="stylesheet" href="{% style 'forms/edit_form_one.css' %}"/>
+    {% loadBootstrap %}
 </head>
 <body>
     {% load render %}
     {% renderTeacherBackendNavbar request %}
+    <div class="header">
+        Επεξεργασία Καθηγητή
+    </div>
     <form method="POST">
         {% csrf_token %}
-        {{form}}
-        <input type="submit">
+        <div class="form">
+            <div class="form-group">
+              <div class="col-md-12 inputs">
+                  {{form}}
+                  <input type="submit" class="form-control submit" />
+              </div>
+            </div>
+        </div>
     </form>
-
 </body>
 </html>

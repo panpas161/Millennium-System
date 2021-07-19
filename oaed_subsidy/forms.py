@@ -27,7 +27,12 @@ class DepartmentDayForm(ModelForm):
         fields = '__all__'
         exclude = ['department','entrydate']
         widgets = {
-
+            'start_time': forms.TimeInput(attrs={
+                'type':'time'
+            }),
+            'end_time': forms.TimeInput(attrs={
+                'type': 'time'
+            })
         }
 
 DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)

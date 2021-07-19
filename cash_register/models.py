@@ -11,7 +11,7 @@ class Receipt(models.Model):
     client = models.CharField(max_length=25,verbose_name="Πελάτης")
     reason = models.TextField(verbose_name="Αιτιολογία")
     amount = models.IntegerField(verbose_name="Ποσό")
-    type = models.CharField(max_length=30,verbose_name="Τύπος Απόδειξης",default="Άλλο") #p.x espa,mathitis ktl
+    type = models.ForeignKey(ReceiptType,on_delete=models.CASCADE,verbose_name="Τύπος Απόδειξης",default="Άλλο")#p.x espa,mathitis ktl
     paymentmethod = models.CharField(max_length=30,choices=paymentmethod_choices,verbose_name="Μέθοδος Πληρωμής")
     paymentway = models.CharField(max_length=30,choices=paymentway_choices,verbose_name="Τρόπος Πληρωμής")
     entrydate = models.DateField(default=settings.CURRENT_DATE, verbose_name="Ημερομηνία")

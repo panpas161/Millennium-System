@@ -60,7 +60,7 @@ class SubsidizedBusiness(models.Model):
         return self.companyname
 
 class Document(models.Model):
-    file = models.FileField(upload_to="espa_documents",verbose_name="Αρχείο",validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+    file = models.FileField(upload_to="espa_documents", verbose_name="Αρχείο", validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
     inspected = models.BooleanField(default=False,verbose_name="Επιθεωρήθηκε")
     comments = models.TextField(blank=True,null=True,verbose_name="Σχόλια")
     company = models.ForeignKey(SubsidizedBusiness, on_delete=models.CASCADE)

@@ -16,6 +16,8 @@ from django.contrib.auth.models import User
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 import os
+from django.views.generic.edit import FormView
+from assets.functions.handlers import handle_uploaded_file
 
 #Backend
 @login_required(login_url="login")
@@ -443,7 +445,7 @@ def deleteDocument(request,pk):
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
 def addDocumentView(request,pk):
-    form = UploadDocumentBackendForm
+    form = UploadDocumentBackendForm()
     data = {
         'form':form
     }
@@ -487,8 +489,22 @@ def uploadDocuments(request):
         if form.is_valid():
             savedform = form.save(commit=False)
             savedform.company = request.user.subsidizedbusiness
-            savedform.inspected = False
             savedform.save()
             return redirect('espauser_list_documents')
     return render(request,"Frontend/Subsidized/upload_documents.html",data)
 
+class FileFieldFormView(FormView):
+    form_class = UploadDocumentForm
+    template_name = 'upload.html'  # Replace with your template.
+    success_url = '...'  # Replace with your URL or reverse().
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES.getlist('file')
+        if form.is_valid():
+            for f in files:
+                handle_uploaded_file(f,"espa_documents")
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)

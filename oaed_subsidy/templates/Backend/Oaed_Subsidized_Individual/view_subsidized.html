@@ -2,9 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Επισκόπηση Επιδοτούμενου - {{ instance.lastname }} {{ instance.firstname }}</title>
 </head>
 <body>
+    {% load render %}
+    {% renderOaedSubsidyBackendNavbar request %}
+    <div>
+        <a href="{% url 'documents_espa_subsidized_businesses' instance.id %}">Δικαιολογητικά</a>
+    </div>
+    <div class="details">
+        <h2>Προσωπικά Στοιχεία</h2>
+        <table>
+            <tr>
+                <th>Όνομα</th>
+                <th>Επώνυμο</th>
+                <th>Πατρώνυμο</th>
+                <th>Μητρώνυμο</th>
 
+            </tr>
+            <tr>
+                <td>
+                    {{ instance.firstname }}
+                </td>
+                <td>
+                    {{ instance.lastname }}
+                </td>
+                <td>
+                    {{ instance.fathersname }}
+                </td>
+                <td>
+                    {{ instance.mothersname }}
+                </td>
+            </tr>
+            <tr>
+                <th>Περιφέρεια</th>
+                <th>Επιλογή Διόφαντου</th>
+                <th>Οικονομική Κατάσταση</th>
+                <th>Εκπαιδευτικό Επίπεδο</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ instance.prefecture }}
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <th>ΔΟΥ</th>
+                <th>Διεύθυνση</th>
+                <th>ΤΚ</th>
+            </tr>
+        </table>
+    </div>
+    <div class="services">
+        <h2>Στοιχεία Επικοινωνίας</h2>
+        <div>
+            <table>
+                <tr>
+                    <th>Τηλέφωνο 1</th>
+                    <th>Τηλέφωνο 2</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td>
+                        {{ instance.phonenumber1 }}
+                    </td>
+                    <td>
+                        {{ instance.phonenumber2 }}
+                    </td>
+                    <td>
+                        {{ instance.email }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div style="text-align:center;">
+        <h2>Ημερομηνία Καταχώρησης</h2>
+        <table>
+            <tr>{{ instance.entrydate|date:"d/m/y" }}</tr>
+        </table>
+    </div>
 </body>
 </html>
+<style>
+.details,.services
+{
+    text-align: center;
+}
+table
+{
+    width: 100%;
+}
+body
+{
+    margin:0;
+    background: #e9ecef;
+}
+</style>

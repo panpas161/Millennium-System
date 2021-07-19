@@ -53,8 +53,8 @@ class DepartmentDay(models.Model):
     )
     weekday = models.CharField(max_length=30,choices=days,verbose_name="Ημέρα")
     department = models.ForeignKey(Department,on_delete=models.CASCADE)
-    start_time = models.IntegerField(verbose_name="Ώρα Έναρξης")
-    end_time = models.IntegerField(verbose_name="Ώρα Λήξης")
+    start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
+    end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
 
     def __str__(self):
