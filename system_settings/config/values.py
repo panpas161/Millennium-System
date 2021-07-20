@@ -18,7 +18,12 @@ DEFAULT_MUNICIPALITIES = [
 ]
 
 DEFAULT_PREFECTURES = [
-
+    "Αιτωλοκαρνανίας",
+    "Αργολίδας",
+    "Αρκαδίας",
+    "Άρτας",
+    "Αττικής",
+    "Χαλκιδικής"
 ]
 
 DEFAULT_DOY = [

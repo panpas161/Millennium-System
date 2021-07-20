@@ -11,7 +11,6 @@ from students.forms import ExamModelForm
 from students.models import Exam
 from .models import SubjectReport,AttendanceReport
 from assets.functions.authentication import hasRole,isStaff
-from assets.functions.authentication import getUserDetails
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 from assets.functions.mailer import sendTeacherCredentials
@@ -28,7 +27,7 @@ def listTeachersView(request):
         'objects':page,
         'filter':TeacherFilter
     }
-    return render(request, "Backend/Teachers/list_teachers.html", data)
+    return render(request, "Teachers_Backend/Teacher/list_teachers.html", data)
 
 @login_required(login_url="login")
 @staff_only
@@ -58,7 +57,7 @@ def addTeacherView(request):
             )
             messages.success(request, "Ο καθηγητής προστέθηκε επιτυχώς!")
             return redirect("list_teachers")
-    return render(request, "Backend/Teachers/add_teacher.html", data)
+    return render(request, "Teachers_Backend/Teacher/add_teacher.html", data)
 
 @login_required(login_url="login")
 @staff_only
@@ -74,8 +73,7 @@ def editTeacherView(request,pk):
             form.save()
             messages.success(request,"Τα στοιχεία του καθηγητή άλλαξαν με επιτυχία!")
             return redirect("list_teachers")
-
-    return render(request,"Backend/Teachers/edit_teacher.html",data)
+    return render(request,"Teachers_Backend/Teacher/edit_teacher.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -127,19 +125,17 @@ def recreateTeacherCredentials(request,pk):
 
 #Frontend
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def teacherHomeView(request):
     data = {
 
     }
-    return render(request,"Frontend/Teachers/teachers_home.html",data)
+    return render(request,"Teachers_Frontend/Main/teachers_home.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherAddExamView(request):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def addExamView(request):
     form = ExamModelForm
-    # user = getUserRole(request)
-    user = None
     data = {
         'form':form
     }
@@ -147,109 +143,100 @@ def teacherAddExamView(request):
         form = ExamModelForm(request.POST)
         if form.is_valid():
             savedform = form.save(commit=False)
-            savedform.teacher = user
+            savedform.teacher = request.user.teacher
             savedform.save()
-    return render(request,"Frontend/Exams/add_exam_grades.html",data)
+    return render(request,"Teachers_Frontend/Exam/add_exam_grades.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherEditExamView(request):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def editExamView(request,pk):
     data = {
 
     }
-    return render(request,"Frontend/Exams/edit_exam_grades.html",data)
+    return render(request,"Teachers_Frontend/Exam/edit_exam_grades.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherExamsView(request):
-    user = getUserDetails(request)
-    if hasattr(request.user,"teacher"):
-        objects = Exam.objects.filter(teacher=user)
-    else:
-        objects = None
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def listExamView(request):
+    user = request.user.teacher
+    # if hasattr(request.user,"teacher"):
+    objects = Exam.objects.filter(teacher=user)
     data = {
         'user':user,
         'objects':objects,
     }
-    return render(request,"Frontend/Exams/teachers_exams.html",data)
+    return render(request,"Teachers_Frontend/Exam/teachers_exams.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherReportListView(request):
-    user = getUserDetails(request)
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def listSubjectReportView(request):
     if isStaff(request):
         objects = SubjectReport.objects.all()
     else:
-        if hasRole(request,"Teacher"):
-            objects = SubjectReport.objects.filter(teacher=user)
-        else:
-            objects = None
+        objects = SubjectReport.objects.filter(teacher=request.user.teacher)
     data = {
         'objects':objects
     }
-    return render(request,"Frontend/DailyReports/list_reports.html",data)
+    return render(request,"Teachers_Frontend/SubjectReport/list_reports.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherAddReportView(request):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def addSubjectReportView(request):
     data = {
 
     }
-    return render(request,"Frontend/DailyReports/add_report.html",data)
+    return render(request,"Teachers_Frontend/SubjectReport/add_report.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherEditReportView(request,id):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def editSubjectReportView(request,pk):
+    instance = SubjectReport.objects.get(id=pk)
+    # if instance.teacher == request.user.teacher:
     data = {
 
     }
-    return render(request,"Frontend/DailyReports/edit_report.html",data)
+    return render(request,"Teachers_Frontend/SubjectReport/edit_report.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherDeleteReportView(request,id):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def deleteSubjectReportView(request,id):
     data = {
 
     }
-    return render(request,"Frontend/DailyReports/delete_report.html",data)
+    return render(request,"Teachers_Frontend/SubjectReport/delete_report.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherAttendanceListView(request):
-    user = getUserDetails(request)
-    objects = None
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def listAttendanceReportView(request):
     if isStaff(request):
         objects = AttendanceReport.objects.all()
     else:
-        if hasRole(request,"Teacher"):
-            objects = AttendanceReport.objects.filter(teacher=user)
-        else:
-            objects = None #or httpresponse
+        objects = AttendanceReport.objects.filter(teacher=request.user.teacher)
     data = {
         'objects':objects
     }
-    return render(request,"Frontend/AttendanceBook/list_attendances.html",data)
+    return render(request,"Teachers_Frontend/AttendanceBook/list_attendances.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherAddAttendanceView(request):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def addAttendanceReportView(request):
     data = {
 
     }
-    return render(request,"Frontend/AttendanceBook/add_attendance.html",data)
+    return render(request,"Teachers_Frontend/AttendanceBook/add_attendance.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherEditAttendanceView(request,id):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def editAttendanceReportView(request,pk):
     data = {
 
     }
-    return render(request,"Frontend/AttendanceBook/edit_attendance.html",data)
+    return render(request,"Teachers_Frontend/AttendanceBook/edit_attendance.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Teacher"])
-def teacherDeleteAttendanceView(request,id):
+@allowed_roles(total_roles=["Admin","Staff","Teacher"])
+def deleteAttendanceReportView(request,pk):
     data = {
 
     }
-    return render(request,"Frontend/AttendanceBook/delete_attendance.html",data)
+    return render(request,"Teachers_Frontend/AttendanceBook/delete_attendance.html",data)

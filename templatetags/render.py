@@ -87,7 +87,7 @@ def teacherFrontendNavbarView(request):
         'request':request,
         'messages': messages.get_messages(request)
     }
-    return render_to_string("Frontend/Navbar/frontend_teachers_navbar.html",data)
+    return render_to_string("Teachers_Frontend/Navbar/navbar.html",data)
 
 @register.simple_tag(name="renderEspaBackendNavbar")
 def espaBackendNavbarView(request):
@@ -99,7 +99,7 @@ def espaBackendNavbarView(request):
         'messages':messages.get_messages(request),
         'isStaff':isStaff(request),
     }
-    return render_to_string("Backend/Navbar/espa_backend_navbar.html",data)
+    return render_to_string("Espa_Backend/Navbar/espa_backend_navbar.html",data)
 
 @register.simple_tag(name="renderEspaFrontendNavbar")
 def espaFrontendNavbarView(request):
@@ -112,7 +112,7 @@ def espaFrontendNavbarView(request):
         'companyname':request.user.subsidizedbusiness.companyname,
         'messages': messages.get_messages(request),
     }
-    return render_to_string("Frontend/Navbar/espa_frontend_navbar.html",data)\
+    return render_to_string("Espa_Frontend/Navbar/espa_frontend_navbar.html",data)\
 
 @register.simple_tag(name="renderOaedSubsidyBackendNavbar")
 def oaedSubsidyBackendNavbarView(request):

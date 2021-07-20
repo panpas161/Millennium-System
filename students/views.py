@@ -101,10 +101,12 @@ def addStudentView(request):
         studentform = StudentModelForm(request.POST)
         voucherform = VoucherModelForm(request.POST)
         if studentform.is_valid():
-            studentform.save()
-            if vouchersame:
+            studentinstance = studentform.save(commit=False)
+            if not vouchersame:
                 if voucherform.is_valid():
-                    voucherform.save()
+                    voucherinstance = voucherform.save()
+                    studentinstance.voucher = voucherinstance
+            studentinstance.save()
             return redirect("list-students")
     return render(request,"Backend/Students/add_student.html",data)
 
@@ -333,7 +335,7 @@ def deleteDepartmentView(request,pk):
     return redirect("list_student_departments")
 #frontend
 @login_required(login_url="login")
-@allowed_roles(roles=["Student"])
+@allowed_roles(total_roles=["Student"])
 def mainStudentView(request):
     data = {
 
@@ -341,7 +343,7 @@ def mainStudentView(request):
     return render(request,"Frontend/Students/menu_page.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Student"])
+@allowed_roles(total_roles=["Student"])
 def installmentsFrontTabView(request):
     try:
         user = Student.objects.get(user=getUserID(request.user))
@@ -355,7 +357,7 @@ def installmentsFrontTabView(request):
     return render(request,"Frontend/Students/installments_tab.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["Student"])
+@allowed_roles(total_roles=["Student"])
 def examsStudentView(request):
     try:
         objects = Exam.objects.filter(student=getStudentID(request.user))

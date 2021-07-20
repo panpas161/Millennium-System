@@ -5,21 +5,22 @@ from ..functions.authentication import *
 from system_settings.config import roles
 
 #allows only specific groups to access a page
-def allowed_groups(roles=[]):
+def allowed_groups(groups=[]):
     def decorator(view_func):
         def wrapper(request,*args,**kwargs):
-            for i in range(0,len(roles)):
-                if isInGroup(request,roles[i]):
+            for i in range(0,len(groups)):
+                if isInGroup(request,groups[i]):
                     return view_func(request,*args,**kwargs)
             return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
         return wrapper
     return decorator
 
-def allowed_roles(roles=[]):
+#allow sepcific roles to access a page
+def allowed_roles(total_roles=[]):
     def decorator(view_func):
         def wrapper(request,*args,**kwargs):
-            for i in range(0,len(roles)):
-                if hasRole(request,roles[i]):
+            for i in range(0,len(total_roles)):
+                if hasRole(request,total_roles[i]):
                     return view_func(request,*args,**kwargs)
             return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
         return wrapper
@@ -44,6 +45,19 @@ def admin_only(view_func):
                 return view_func(request, *args, **kwargs)
         return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
     return wrapper
+
+#allow only staff and specific roles to access the page
+def staff_and_roles(total_roles=[]):
+    def decorator(view_func):
+        def wrapper(request,*args,**kwargs):
+            staff_roles = roles.STAFF_ROLES
+            allow_roles = total_roles + staff_roles
+            for i in range(0,len(staff_roles)):
+                if hasRole(request, allow_roles):
+                    return view_func(request,*args,**kwargs)
+            return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+        return wrapper
+    return decorator
 
 def homeRedirect(viewfunc):
     def wrapper(request,*args,**kwargs):

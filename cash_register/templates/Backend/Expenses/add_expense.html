@@ -25,3 +25,118 @@
     </form>
 </body>
 </html>
+
+<script>
+    categorya = document.getElementById("id_category_a");
+    categoryb = document.getElementById("id_category_b");
+    categoryc = document.getElementById("id_category_c");
+    function changeOptions(options,category)
+    {
+        html = ""
+        for(i=0;i<options.length;i++)
+        {
+            html += "<option>" + options[i] + "</option>"
+        }
+        category.innerHTML = html;
+        return html;
+    }
+    function changeCategoryB()
+    {
+        switch (categorya.value)
+        {
+            case categorya.options[1].value:
+                b_options = [
+                    "Αμοιβές Προσωπικού Millennium Edu",
+                    "Αμοιβές Προσωπικού Blankpixel",
+                    "Αμοιβές Καθηγητών Millennium Edu",
+                    "Αμοιβές Προσωπικού Papakostas & Associates"
+                ]
+                break;
+            case categorya.options[2].value:
+                b_options = [
+                    "Αμοιβές καθαρίστριας",
+                    "Αμοιβές επισκευών -  συντηρητών Millennium Education",
+                    "Αμοιβές  επισκευών - συντηρητών Παλιάς σχολής",
+                    "Αμοιβές & έξοδα νομικών",
+                    "Αμοιβές εξωτερικών συνεργατών Millennium Education Centre",
+                    "Αμοιβές εξωτερικών συνεργατών Millennium Marketing",
+                    "Αμοιβές εξωτερικών συνεργατών Papakostas & Associates",
+                    "Έξοδα Δημοσίου"
+                ]
+                break;
+            case categorya.options[3].value:
+                b_options = [
+                    "Αναλώσιμα Εργαστηρίων",
+                    "Αναλώσιμα Η/Υ",
+                    "Αρωματικά χώρου/ τουαλέτας",
+                    "Αναγομώσεις πυροσβεστήρων",
+                    "Πετρέλαιο θέρμανσης",
+                    "Αναλώσιμα Millennium Education Centre"
+                ]
+                break;
+            case categorya.options[4].value:
+                b_options = [
+                    "Έξοδα μεταφορών",
+                    "Έξοδα ταξιδίων",
+                    "Έξοδα προβολής & διαφήμισης Millennium Education Centre",
+                    "Έξοδα EVENT",
+                    "Έξοδα ηλεκτρονικών πληρωμών μέσω κάρτας",
+                    "Συνδρομές-εισφορές",
+                    "Δωρεές - Επιχορηγήσεις",
+                    "Έντυπα & γραφική ύλη",
+                    "Υλικά άμεσης αναλώσεως",
+                    "Επιστροφές Προκαταβολών σπουδαστών",
+                    "Κατάθεση Στήν Τράπεζα",
+                    "Διάφορα Έξοδα"
+                ]
+                break;
+            case categorya.options[5].value:
+                b_options = [
+                    "Έλλειμα Ταμείου"
+                ]
+                break;
+            case categorya.options[6].value:
+                b_options = [
+                    "Έπιπλα",
+                    "Σκεύη",
+                    "Μηχανές Γραφείου"
+                ]
+                break;
+            case categorya.options[7].value:
+                b_options = [
+                    "Εργαλεία"
+                ]
+                break;
+            case categorya.options[8].value:
+                b_options = [
+                    "Ηλεκτρικό ρεύμα",
+                    "Ύδρευση",
+                    "Τηλεπικοινωνίες",
+                    "Ενοίκια - Μισθώματα",
+                    "Ασφάλιστρα",
+                    "Εξοδα Επισκευών συντηρήσεων Mηχανημάτων-τεχνικών εγκαταστάσεων -λοιπού μηχανολογικού εξοπλισμού Millennium Education",
+                    "Συντηρήσεις - Επισκευές μεταφορικών μέσων",
+                    "Συντηρήσεις Επίπλων και λοιπού εξοπλισμού",
+                    "Ταχυδρομικά - Ταχυμεταφορές"
+                ]
+                break;
+        }
+        changeOptions(b_options,categoryb);
+    }
+    function changeCategoryC()
+    {
+        switch(categoryb.value)
+        {
+            case "Αμοιβές Προσωπικού Millennium Edu":
+                // c_options = {{staff_list}}
+                break;
+            case "":
+        }
+    }
+    categorya.addEventListener("change",()=>{
+        changeCategoryB();
+    })
+    categoryb.addEventListener("change",()=>{
+        changeCategoryC();
+    })
+</script>

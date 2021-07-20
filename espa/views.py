@@ -21,7 +21,7 @@ from .handlers import uploadEspaDocumentFiles
 
 #Backend
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def listInterestedBusinessesView(request):
     if isStaff(request) or hasRole(request,"Associate"):
         businessobjects = InterestedBusiness.objects.order_by("-id")
@@ -32,10 +32,10 @@ def listInterestedBusinessesView(request):
         'objects': page,
         'filter':InterestedBusinessFilter
     }
-    return render(request,"Backend/Interested/list_interested.html",data)
+    return render(request,"Espa_Backend/Interested/list_interested.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def addInterestedBusinessView(request):
     form = InterestedBusinessForm
     if request.method == "POST":
@@ -47,10 +47,10 @@ def addInterestedBusinessView(request):
     data = {
         'form':form
     }
-    return render(request,"Backend/Interested/add_interested.html",data)
+    return render(request,"Espa_Backend/Interested/add_interested.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def editInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     if instance.referrer:
@@ -69,10 +69,10 @@ def editInterestedBusinessView(request,pk):
             form.save()
             messages.success(request, "Τα στοιχεία του ενδιαφερόμενου άλλαξαν επιτυχώς!")
             return redirect('list_espa_interested_businesses')
-    return render(request,"Backend/Interested/edit_interested.html",data)
+    return render(request,"Espa_Backend/Interested/edit_interested.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def deleteInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     data = {
@@ -82,19 +82,19 @@ def deleteInterestedBusinessView(request,pk):
         instance.delete()
         messages.success(request,"Η ενδιαφερόμενη επιχείρηση διαγράφθηκε επιτυχώς!")
         return redirect('list_espa_interested_businesses')
-    return render(request,"Backend/Interested/delete_interested.html",data)
+    return render(request,"Espa_Backend/Interested/delete_interested.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def viewInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     data = {
         'instance': instance
     }
-    return render(request,"Backend/Interested/view_interested.html",data)
+    return render(request,"Espa_Backend/Interested/view_interested.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def approveInterestedBusiness(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
     username = unidecode(instance.companyname)
@@ -136,7 +136,7 @@ def approveInterestedBusiness(request,pk):
     return redirect("list_espa_interested_businesses")
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def listSubsidizedBusinessView(request):
     if isStaff(request) or hasRole(request,"Associate"):
         businessobjects = SubsidizedBusiness.objects.order_by("-id")
@@ -147,10 +147,10 @@ def listSubsidizedBusinessView(request):
         'objects':page,
         'filter':SubsidizedBusinessFilter
     }
-    return render(request,"Backend/Subsidized/list_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/list_subsidized.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def addSubsidizedBusinessView(request):
     authorized = False
     if isStaff(request) or hasRole(request,"Associate"):
@@ -187,10 +187,10 @@ def addSubsidizedBusinessView(request):
                 )
             messages.success(request, "Η επιχείρηση προστέθηκε επιτυχώς!")
             return redirect("list_espa_subsidized_businesses")
-    return render(request,"Backend/Subsidized/add_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/add_subsidized.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def editSubsidizedBusinessView(request,pk):
     authorized = False
     if isStaff(request) or hasRole(request, "Associate"):
@@ -206,10 +206,10 @@ def editSubsidizedBusinessView(request,pk):
             form.save()
             messages.success(request, "Τα στοιχεία της επιχείρησης άλλαξαν επιτυχώς!")
             return redirect('list_espa_subsidized_businesses')
-    return render(request,"Backend/Subsidized/edit_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/edit_subsidized.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def deleteSubsidizedBusinessView(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     data = {
@@ -224,19 +224,19 @@ def deleteSubsidizedBusinessView(request,pk):
         else:
             messages.error(request,"Η επιχείρηση δεν μπόρεσε να διαγραφθεί!")
         return redirect("list_espa_subsidized_businesses")
-    return render(request,"Backend/Subsidized/delete_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/delete_subsidized.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def viewSubsidizedBusinessView(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
     data = {
         'instance':instance
     }
-    return render(request,"Backend/Subsidized/view_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/view_subsidized.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def documentsSubsidizedBusinessView(request,pk):
     company = SubsidizedBusiness.objects.get(id=pk)
     documentobjects = Document.objects.filter(company=SubsidizedBusiness.objects.get(id=pk)).order_by("-id")
@@ -245,7 +245,7 @@ def documentsSubsidizedBusinessView(request,pk):
         'instance': page,
         'company': company
     }
-    return render(request,"Backend/Subsidized/documents_subsidized.html",data)
+    return render(request,"Espa_Backend/Subsidized/documents_subsidized.html",data)
 
 @login_required(login_url="login")
 @admin_only
@@ -279,7 +279,7 @@ def removeEspaUserCredentials(request,pk):
     return
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def listServicesView(request):
     serviceobjects = EspaService.objects.order_by("-id")
     page = getPage(request, serviceobjects, ServicesFilter)
@@ -287,10 +287,10 @@ def listServicesView(request):
         'objects':page,
         'filter':ServicesFilter
     }
-    return render(request,"Backend/Services/list_services.html",data)
+    return render(request,"Espa_Backend/Services/list_services.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate'])
 def addServiceView(request):
     form = EspaServiceForm
     data = {
@@ -302,10 +302,10 @@ def addServiceView(request):
             form.save()
             messages.success(request, "Η υπηρεσία προστέθηκε επιτυχώς!")
             return redirect("list_espa_services")
-    return render(request,"Backend/Services/add_service.html",data)
+    return render(request,"Espa_Backend/Services/add_service.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate'])
 def editServiceView(request,pk):
     instance = EspaService.objects.get(id=pk)
     form = EspaServiceForm(instance=instance)
@@ -319,10 +319,10 @@ def editServiceView(request,pk):
             form.save()
             messages.success(request, "Τα στοιχεία της υπηρεσίας άλλαξαν επιτυχώς!")
             return redirect('list_espa_services')
-    return render(request,"Backend/Services/edit_service.html",data)
+    return render(request,"Espa_Backend/Services/edit_service.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate'])
 def deleteServiceView(request,pk):
     instance = EspaService.objects.get(id=pk)
     instance.delete()
@@ -339,7 +339,7 @@ def listEspaAssociatesView(request):
         'filter':AssociatesFilter,
         'isAdmin':isAdmin(request)
     }
-    return render(request,"Backend/Associates/list_associates.html",data)
+    return render(request,"Espa_Backend/Associates/list_associates.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -354,7 +354,7 @@ def addEspaAssociateView(request):
             form.save()
             messages.success(request, "Ο συνεργάτης προστέθηκε επιτυχώς!")
             return redirect("list_espa_associates")
-    return render(request, "Backend/Associates/add_associate.html", data)
+    return render(request, "Espa_Backend/Associates/add_associate.html", data)
 
 @login_required(login_url="login")
 @staff_only
@@ -371,7 +371,7 @@ def editEspaAssociateView(request,pk):
             form.save()
             messages.success(request, "Τα στοιχεία του συνεργάτη άλλαξαν επιτυχώς!")
             return redirect('list_espa_associates')
-    return render(request,"Backend/Associates/edit_associate.html",data)
+    return render(request,"Espa_Espa_Backend/Associates/edit_associate.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -409,7 +409,7 @@ def removeEspaAssociateCredentials(request,pk): #fix this to delete only user no
     return redirect("list_espa_associates")
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def inspectDocumentView(request,pk):
     instance = Document.objects.get(id=pk)
     if instance.inspected is False:
@@ -423,7 +423,7 @@ def inspectDocumentView(request,pk):
     return redirect("documents_espa_subsidized_businesses",instance.company.id)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def deleteDocument(request,pk):
     instance = Document.objects.get(id=pk)
     if instance.company.referrer == request.user.espaassociate or isStaff(request) or hasRole(request,"EspaAssociate"):
@@ -435,7 +435,7 @@ def deleteDocument(request,pk):
     return redirect("documents_espa_subsidized_businesses",instance.company.id)
 
 @login_required(login_url="login")
-@allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
+@allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def addDocumentView(request,pk):
     form = UploadDocumentBackendForm()
     data = {
@@ -449,28 +449,28 @@ def addDocumentView(request,pk):
             savedform.save()
             messages.success(request,"Το έγγραφο προστέθηκε με επιτυχία!")
             return redirect("list_espa_subsidized_businesses")
-    return render(request,"Backend/Subsidized/add_document.html",data)
+    return render(request,"Espa_Backend/Subsidized/add_document.html",data)
 
 #Frontend
 @login_required(login_url="login")
-@allowed_roles(roles=["EspaUser"])
+@allowed_roles(total_roles=["EspaUser"])
 def homePageView(request):
     data = {
 
     }
-    return render(request,"Frontend/Subsidized/home_page.html",data)
+    return render(request,"Espa_Frontend/Subsidized/home_page.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["EspaUser"])
+@allowed_roles(total_roles=["EspaUser"])
 def listDocuments(request):
     objects = Document.objects.filter(company=request.user.subsidizedbusiness).order_by("-id")
     data = {
         'objects':objects,
     }
-    return render(request,"Frontend/Subsidized/list_documents.html",data)
+    return render(request,"Espa_Frontend/Subsidized/list_documents.html",data)
 
 @login_required(login_url="login")
-@allowed_roles(roles=["EspaUser"])
+@allowed_roles(total_roles=["EspaUser"])
 def uploadDocuments(request):
     form = UploadDocumentForm()
     data = {
@@ -482,4 +482,4 @@ def uploadDocuments(request):
             uploadEspaDocumentFiles(request)
             messages.success(request,"Τα αρχεία ανέβηκαν επιτυχώς!")
             return redirect('espauser_list_documents')
-    return render(request,"Frontend/Subsidized/upload_documents.html",data)
+    return render(request,"Espa_Frontend/Subsidized/upload_documents.html",data)
