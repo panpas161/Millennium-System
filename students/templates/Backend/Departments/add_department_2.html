@@ -8,6 +8,8 @@
     {% loadBootstrap %}
 </head>
 <body>
+    {% load render %}
+    {% renderStudentBackendNavbar request %}
     <form method="POST">
             {% csrf_token %}
         <div class="form">

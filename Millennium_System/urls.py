@@ -81,6 +81,7 @@ urlpatterns = [
     path('teachers/edit/<str:pk>', teacherviews.editTeacherView, name="edit_teacher"),
     path('teachers/delete/<str:pk>', teacherviews.deleteTeacherView, name="delete_teacher"),
     path('teachers/credentials/create/<str:pk>', teacherviews.createTeacherCredentials, name="create_teacher_credentials"),
+    path('teachers/credentials/create/new/<str:pk>', teacherviews.recreateTeacherCredentials, name="recreate_teacher_credentials"),
     #frontend
     path('teachers/home/', teacherviews.teacherHomeView, name="teacher_home_page"),
     path('teachers/grades/add/', teacherviews.teacherAddExamView, name="teacher_add_grades"),

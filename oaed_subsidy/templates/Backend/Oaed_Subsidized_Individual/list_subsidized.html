@@ -17,7 +17,6 @@
         {{ filter.form }}
         <input type="submit" />
     </form>
-
     <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">
             <th></th>
@@ -26,7 +25,6 @@
             <th>Όνομα</th>
             <th>Πατρώνυμο</th>
             <th>Μητρώνυμο</th>
-            <th>Τοποθεσία</th>
             <th>Τηλέφωνο1 </th>
             <th>Τηλέφωνο 2</th>
             <th>Email</th>
@@ -58,19 +56,16 @@
                 {{subsidized.phonenumber1}}
             </td>
             <td>
-                {{subsidized.phonenumber}}
-            </td>
-            <td>
-                {{subsidized.cellphone}}
+                {{subsidized.phonenumber2}}
             </td>
             <td>
                 {{subsidized.email}}
             </td>
             <td>
-                {{subsidized.referrer}}
+                {{subsidized.oaed_id}}
             </td>
             <td>
-                {{subsidized.services.count}}
+                {{subsidized.beneficiary_id}}
             </td>
             <td>
                 <div class="buttons">

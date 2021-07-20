@@ -300,6 +300,12 @@ def addDepartmentView(request):
     data = {
         'form':form
     }
+    if request.method == "POST":
+        form = DepartmentModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Το τμήμα δημιουργήθηκε επιτυχώς!")
+            return redirect("list_student_departments")
     return render(request,"Backend/Departments/add_department_2.html",data)
 
 @login_required(login_url="login")

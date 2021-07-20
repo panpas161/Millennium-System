@@ -116,11 +116,11 @@ class DepartmentDay(models.Model):
 class Installment(models.Model):
     payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
     amount = models.IntegerField()
-    paid = models.BooleanField()
+    paid = models.BooleanField(default=False)
     paymentdate = models.DateField()#when will it be paid? not null nor blank
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
-    entrydate = models.DateField()
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

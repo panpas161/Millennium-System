@@ -14,6 +14,10 @@
         <h3>Συνεργάτες</h3>
         <a href="{% url 'add_espa_associate' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
+    <form method="GET" class="search">
+        {{ filter.form }}
+        <input type="submit" />
+    </form>
     <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">
             <th></th>

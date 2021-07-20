@@ -6,6 +6,7 @@ class SubsidizedIndividualForm(ModelForm):
     class Meta:
         model = SubsidizedIndividual
         fields = '__all__'
+        exclude = ['entrydate']
         widgets = {
             'tk':forms.NumberInput(),
             'oaed_id':forms.NumberInput(),

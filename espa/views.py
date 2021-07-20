@@ -17,7 +17,7 @@ from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 import os
 from django.views.generic.edit import FormView
-from assets.functions.handlers import handle_uploaded_file
+from .handlers import uploadEspaDocumentFiles
 
 #Backend
 @login_required(login_url="login")
@@ -27,19 +27,10 @@ def listInterestedBusinessesView(request):
         businessobjects = InterestedBusiness.objects.order_by("-id")
     else:
         businessobjects = InterestedBusiness.objects.filter(referrer=request.user.espaassociate).order_by("-id")
-    page_get = request.GET.get("page")
-    businessfilter = InterestedBusinessFilter(request.GET, queryset=businessobjects)
-    businessobjects = businessfilter.qs
-    # pagination
-    p = Paginator(businessobjects, 5)
-    try:
-        page = p.page(page_get)
-    except PageNotAnInteger:
-        page = p.page(1)
-    except EmptyPage:
-        return HttpResponse("Η σελίδα δεν βρέθηκε!")
+    page = getPage(request,businessobjects,InterestedBusinessFilter)
     data = {
-        'objects': page
+        'objects': page,
+        'filter':InterestedBusinessFilter
     }
     return render(request,"Backend/Interested/list_interested.html",data)
 
@@ -293,7 +284,8 @@ def listServicesView(request):
     serviceobjects = EspaService.objects.order_by("-id")
     page = getPage(request, serviceobjects, ServicesFilter)
     data = {
-        'objects':page
+        'objects':page,
+        'filter':ServicesFilter
     }
     return render(request,"Backend/Services/list_services.html",data)
 
@@ -428,7 +420,7 @@ def inspectDocumentView(request,pk):
         instance.inspected = False
         instance.save()
         messages.success(request, "Το έγγραφο ορίστηκε ως μη επιθεωρημένο ειτυχώς!")
-    return redirect("documents_subsidized_businesses",instance.company.id)
+    return redirect("documents_espa_subsidized_businesses",instance.company.id)
 
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
@@ -440,7 +432,7 @@ def deleteDocument(request,pk):
         messages.success(request,"Το έγγραφο διαγράφθηκε με επιτυχία!")
     else:
         messages.error(request,"Το έγγραφο δεν διαγράφθηκε!")
-    return redirect("documents_subsidized_businesses",instance.company.id)
+    return redirect("documents_espa_subsidized_businesses",instance.company.id)
 
 @login_required(login_url="login")
 @allowed_roles(roles=['Admin','Staff','Associate','EspaAssociate'])
@@ -487,24 +479,7 @@ def uploadDocuments(request):
     if request.method == 'POST':
         form = UploadDocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            savedform = form.save(commit=False)
-            savedform.company = request.user.subsidizedbusiness
-            savedform.save()
+            uploadEspaDocumentFiles(request)
+            messages.success(request,"Τα αρχεία ανέβηκαν επιτυχώς!")
             return redirect('espauser_list_documents')
     return render(request,"Frontend/Subsidized/upload_documents.html",data)
-
-class FileFieldFormView(FormView):
-    form_class = UploadDocumentForm
-    template_name = 'upload.html'  # Replace with your template.
-    success_url = '...'  # Replace with your URL or reverse().
-
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        files = request.FILES.getlist('file')
-        if form.is_valid():
-            for f in files:
-                handle_uploaded_file(f,"espa_documents")
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)

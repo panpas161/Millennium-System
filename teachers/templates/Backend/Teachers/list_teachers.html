@@ -13,6 +13,10 @@
         <h3>Καθηγητές</h3>
         <a href="{% url 'add_teacher' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
+    <form method="GET" class="search">
+        {{ filter.form }}
+        <input type="submit" />
+    </form>
     <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">
             <th>#</th>
@@ -48,6 +52,8 @@
                 <a href="{% url 'delete_teacher' teacher.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτόν τον καθηγητή;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
                 {% if not teacher.user %}
                     <a href="{% url 'create_teacher_credentials' teacher.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να εκδόσετε στοιχεία πρόσβασης για αυτόν τον καθηγητή;')"><img src="{% image 'general/icons/key-icon.png' %}" title="Δημιουργία Στοιχείων Πρόσβασης" width="25px" height="25px"/></a>
+                {% else %}
+                    <a href="{% url 'recreate_teacher_credentials' teacher.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να εκδόσετε καινούργια στοιχεία πρόσβασης για αυτόν τον καθηγητή;')"><img src="{% image 'general/icons/key-icon.png' %}" title="Ανανέωση Στοιχείων Πρόσβασης" width="25px" height="25px"/></a>
                 {% endif %}
             </td>
         </tr>

@@ -8,7 +8,8 @@
     <script src="{% script 'students/add_student.js' %}"></script>
 </head>
 <body>
-    {% include '../Navbar/navbar_students.html' %}
+    {% load render %}
+    {% renderStudentBackendNavbar request %}
     <form method="POST">{% csrf_token %}
         <div class="studentlabel">
             ΣΤΟΙΧΕΙΑ ΣΠΟΥΔΑΣΤΗ

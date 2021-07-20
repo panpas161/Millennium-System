@@ -15,14 +15,18 @@ from assets.functions.authentication import getUserDetails
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 from assets.functions.mailer import sendTeacherCredentials
+from assets.functions.pagination import getPage
+from .filters import *
 
 #Backend
 @login_required(login_url="login")
 @staff_only
 def listTeachersView(request):
-    objects = Teacher.objects.all()
+    objects = Teacher.objects.all().order_by("-id")
+    page = getPage(request,objects,TeacherFilter)
     data = {
-        'objects':objects
+        'objects':page,
+        'filter':TeacherFilter
     }
     return render(request, "Backend/Teachers/list_teachers.html", data)
 
@@ -104,6 +108,22 @@ def createTeacherCredentials(request,pk):
     messages.success(request, "Τα στοιχεία πρόσβασης δημιουργήθηκαν επιτυχώς!")
     return redirect("list-teachers")
 
+@login_required(login_url="login")
+@staff_only
+def recreateTeacherCredentials(request,pk):
+    instance = Teacher.objects.get(id=pk)
+    user = instance.user
+    password = getRandomString(15)
+    user.set_password(password)
+    user.save()
+    sendTeacherCredentials(
+        username=user.username,
+        password=password,
+        email=instance.email,
+        role="Teacher"
+    )
+    messages.success(request,"Τα στοιχεία στάλθηκαν στην διεύθυνση email με επιτυχία!")
+    return redirect("list-teachers")
 
 #Frontend
 @login_required(login_url="login")
