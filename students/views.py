@@ -10,6 +10,7 @@ from django.contrib import messages
 from .functions.departments import getSelectedDays,getSelectedTeachers,getSelectedDuration,getSelectedStartTime,getSelectedEndTime
 from assets.functions.users import getUserID,getStudentID
 from assets.decorators.decorators import staff_only,allowed_roles
+from .functions.installments import calculateInstallments
 
 @login_required(login_url="login")
 @staff_only
@@ -107,8 +108,16 @@ def addStudentView(request):
                     voucherinstance = voucherform.save()
                     studentinstance.voucher = voucherinstance
             studentinstance.save()
+            # calculateInstallments(
+            #     int(request.POST.get("price")),
+            #     int(request.POST.get("discount")),
+            #     int(request.POST.get("prokataboli")),
+            #     int(request.POST.get("installment_number")),
+            #     studentinstance
+            # )
+            messages.success(request, "Ο μαθητής προστέθηκε με επιτυχία!")
             return redirect("list-students")
-    return render(request,"Backend/Students/add_student.html",data)
+    return render(request, "Backend/Students/add_student.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -177,27 +186,7 @@ def installmentsTabView(request, pk):
     #if type(studentinstance.mothersname) != "string":#something like that
     #    mothersname = studentinstance.mothersname
     data = {
-        "imagepath": "student_images/" + str(pk) + ".jpg",
-        "studid":studentinstance.id,
-        "lastname": studentinstance.lastname.upper(),
-        "firstname": studentinstance.firstname.upper(),
-        "fathersname":studentinstance.fathersname.upper(),
-        "birthdate":studentinstance.birthdate,
-        "afm":studentinstance.afm.upper(),
-        "adt":studentinstance.adt.upper(),
-        "location":studentinstance.location.upper(),
-        #"sex":studentinstance.sex.upper(), remove null
-        "voucher":studentinstance.voucher,
-        "phonenumber":studentinstance.phonenumber,
-        "cellphone":studentinstance.cellphone,
-        "email":studentinstance.email,
-        #"mothersname":studentinstance.mothersname.upper(), remove null
-        "specialty":studentinstance.specialty.all()[0].specialty.upper(),
-        "specialty_code":studentinstance.specialty.all()[0].code.upper(),
-        "specialty_duration":studentinstance.specialty.all()[0].duration,
-        "specialty_price":studentinstance.specialty.all()[0].price,
-        #"specialty_discount":studentinstance.specialty.all()[0].discount,
-        "specialty_total_price":int(studentinstance.specialty.all()[0].price),
+        "studentinstance":studentinstance,
         "student_price":studentinstance.price,
         "student_discount":studentinstance.discount,
         "student_total_price":studentinstance.price - studentinstance.discount,

@@ -94,61 +94,6 @@ textarea {
 
 
 </style>
-<script type="text/javascript">
-
-
-function rrkd(tmp){
-
-	var hWndB = window.open(tmp);
-    hWndA = window.self;
-
-	hWndB.onunload = function(){ hWndA.location.reload(); }
-
-	hWndB.onbeforeunload = function() {
-		 hWndA.location.reload();
-	}
-	var isChromium = window.chrome;
-	var winNav = window.navigator;
-	var vendorName = winNav.vendor;
-	var isOpera = typeof window.opr !== "undefined";
-	var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
-	var isIOSChrome = winNav.userAgent.match("CriOS");
-
-	if (isIOSChrome) {
-		hWndB.onbeforeunload = function() {
-		 hWndA.location.reload();
-		}
-	} else if(
-	  isChromium !== null &&
-	  typeof isChromium !== "undefined" &&
-	  vendorName === "Google Inc." &&
-	  isOpera === false &&
-	  isIEedge === false
-	) {
-		hWndB.onbeforeunload = function() {
-		 hWndA.location.reload();
-		}
-	} else {
-	   hWndB.onunload = function(){ hWndA.location.reload(); }
-	}
-
-}
-
-
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-	function deleteDosi(id, did, eid) {
-		var r = confirm("Είστε σίγουρος/η για την διαγραφή; Αν γίνει διαγραφή δεν υπάρχει τρόπος να ανακτηθούν πίσω τα δεδομένα.");
-		if (r == true) {
-			window.location.href = "kartela_doseon.php?id=" + id + "&action=deletedosi&dosi_id=" + did + "&eid=" + eid ;
-		} else {
-			//
-		}
-	}
-
-</script>
 </head>
 
 <body>
@@ -211,15 +156,15 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
     <td align="left" valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="1">
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Επώνυμο:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{firstname}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.firstname.upper}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Όνομα:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{lastname}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.lastname.upper}}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Όνομα Πατρός:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{fathersname}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.fathersname.upper}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Όνομα Μητρός:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">KRISTINA</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.mothersname.upper}}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Το Γένος:</strong></td>
@@ -229,15 +174,15 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>ΑΦΜ:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{afm}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.afm.upper}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>ΔΟΥ:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">4923 - ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.doy.upper}}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Φύλο:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">ΑΝΔΡΑΣ</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.sex.upper}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Α.Δ.Τ. / Α.Δ.:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{adt}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.adt.upper}}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Ημερ. Έκδοσης:</strong></td>
@@ -249,29 +194,29 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Διεύθυνση:</strong></td>
         <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">ΠΟΛΥΓΥΡΟΣ</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Πόλη:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{location}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{ studentinstance.location.upper }}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Τ.Κ.:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;"></td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.tk}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Νομός:</strong></td>
         <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">ΧΑΛΚΙΔΙΚΉΣ</td>
       </tr>
       <tr>
         <td align="left" valign="middle" bgcolor="#DCE5FF"><strong>Κινητό:</strong></td>
-        <td align="left" valign="middle" style="border-bottom:1px dotted #666;">6906023187</td>
+        <td align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.cellphone}}</td>
         <td align="right" valign="middle" bgcolor="#DCE5FF"><strong>Τηλέφωνο:</strong></td>
-        <td align="left" valign="middle" style="border-bottom:1px dotted #666;">2371024521</td>
+        <td align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.phonenumber}}</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#DCE5FF"><strong>Email:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{email|default_if_none:""}}</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.email|default_if_none:""}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#DCE5FF"><strong>Επίπ. Γνώσεων:</strong></td>
         <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">ΑΕΙ</td>
       </tr>
       <tr>
         <td width="15%" align="left" valign="middle" bgcolor="#FF0000"><strong style="color:#FFF;">Εγγυητής:</strong></td>
-        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">KOLOVANI PETRAQ</td>
+        <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">{{studentinstance.voucher.lastname}} {{studentinstance.voucher.firstname}}</td>
         <td width="15%" align="right" valign="middle" bgcolor="#FF0000"><strong style="color:#FFF;">Α.Δ.Τ. Eγγυητή:</strong></td>
         <td width="35%" align="left" valign="middle" style="border-bottom:1px dotted #666;">BB6106012 / 03-10-2019 / REPUBLIC AF ALBANIA</td>
       </tr>
@@ -297,7 +242,7 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
       </tr>
                 <tr>
         <td height="18" align="center" valign="middle" style="border-bottom:1px solid #666;"><strong>1</strong></td>
-        <td align="left" valign="middle" style="border-bottom:1px solid #666;">{{specialty}} <em style="color:#090;">({{specialty_code}})</em></td>
+        <td align="left" valign="middle" style="border-bottom:1px solid #666;">{{studentinstance.specialty}} <em style="color:#090;">({{studentinstance.specialty.code}})</em></td>
         <td width="10%" align="center" valign="middle" style="border-bottom:1px solid #666;"><span style="color:#F00;">{{specialty_duration}}</span></td>
         <td align="center" valign="middle" style="border-bottom:1px solid #666;">750,00</td>
         <td align="center" valign="middle" style="border-bottom:1px solid #666;">0,00</td>

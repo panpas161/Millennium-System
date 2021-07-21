@@ -1,7 +1,5 @@
 from django.db import models
 from Millennium_System import settings
-import os
-from uuid import uuid4
 from cash_register.models import Receipt
 from django.contrib.auth.models import User
 from teachers.models import Teacher
@@ -31,7 +29,7 @@ class Voucher(models.Model):
     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
 class Specialty(models.Model):
-    code = models.CharField(max_length=30,verbose_name="Κωδικός Τμήματος")
+    code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
     specialty = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
     duration = models.IntegerField(verbose_name="Διάρκεια")
     price = models.IntegerField(verbose_name="Ενδεικτική Τιμή")
@@ -42,7 +40,8 @@ class Specialty(models.Model):
 
 class Student(models.Model):
     sexoptions = (
-        ("Άνδρας","Άνδρας"),("Γυναίκα","Γυναίκα")
+        ("Άνδρας", "Άνδρας"),
+        ("Γυναίκα", "Γυναίκα")
     )
     lastname = models.CharField(max_length=30, verbose_name="Επώνυμο")
     firstname = models.CharField(max_length=30, verbose_name="Όνομα")
@@ -53,17 +52,17 @@ class Student(models.Model):
     phonenumber = models.CharField(max_length=30,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=30,null=True,blank=True,verbose_name="Κινητό")
     email = models.EmailField(null=True,blank=True,verbose_name="Email")
-    location = models.CharField(max_length=30,verbose_name="Τοποθεσία",null=True)
-    price = models.IntegerField(verbose_name="Τιμή")
+    location = models.CharField(max_length=30,verbose_name="Τοποθεσία")
+    tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     discount = models.IntegerField(null=True,blank=True,verbose_name="Έκπτωση")
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
     # installments = models.IntegerField(null=True,blank=True) this will be calculated using the .filter() function Installment.objects.filter(student=student)
-    studentImage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
-    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+    studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):
         return self.lastname + " " + self.firstname

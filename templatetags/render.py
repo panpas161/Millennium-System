@@ -75,7 +75,7 @@ def teacherBackendNavbarView(request):
         'request':request,
         'messages': messages.get_messages(request)
     }
-    return render_to_string("Backend/Navbar/teachers_navbar.html",data)
+    return render_to_string("Teachers_Backend/Navbar/teachers_navbar.html",data)
 
 @register.simple_tag(name="renderTeacherFrontendNavbar")
 def teacherFrontendNavbarView(request):

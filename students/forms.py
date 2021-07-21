@@ -8,7 +8,7 @@ class StudentModelForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
-        exclude = ['specialty','studentImage','user','entrydate']
+        exclude = ['voucher', 'studentImage', 'user', 'entrydate']
         widgets = {
             'specialty':forms.CheckboxSelectMultiple(),
             'phonenumber':forms.NumberInput(),

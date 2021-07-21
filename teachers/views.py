@@ -159,8 +159,10 @@ def editExamView(request,pk):
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def listExamView(request):
     user = request.user.teacher
-    # if hasattr(request.user,"teacher"):
-    objects = Exam.objects.filter(teacher=user)
+    if isStaff(request):
+        objects = Exam.objects.all()
+    else:
+        objects = Exam.objects.filter(teacher=user)
     data = {
         'user':user,
         'objects':objects,
@@ -191,10 +193,11 @@ def addSubjectReportView(request):
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def editSubjectReportView(request,pk):
     instance = SubjectReport.objects.get(id=pk)
-    # if instance.teacher == request.user.teacher:
-    data = {
+    data = {}
+    if instance.teacher == request.user.teacher:
+        data = {
 
-    }
+        }
     return render(request,"Teachers_Frontend/SubjectReport/edit_report.html",data)
 
 @login_required(login_url="login")

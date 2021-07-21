@@ -38,26 +38,26 @@ def studentInstallments(request):
         installments.save()
 
 
-def doInstallments(price,discount,prokataboli,installment_amount,pk):
+def calculateInstallments(price,discount,prokataboli,installment_amount,studentobject):
     amount_per_installment = (price - discount - prokataboli) / installment_amount
     #Mark prokataboli as paid if it's zero
     if prokataboli == 0:
         Installment(
-            student=Student.objects.get(id=pk),
+            student=studentobject,
             payment_number=0,
             amount=prokataboli,
             paid=True
         ).save()
     else:
         Installment(
-            student=Student.objects.get(id=pk),
+            student=studentobject,
             payment_number=0,
             amount=prokataboli
         ).save()
     #Save the rest of the installments
     for i in range(1,installment_amount):
         Installment(
-            student=Student.objects.get(id=pk),
+            student=studentobject,
             payment_number=i,
             amount=amount_per_installment
         ).save()
