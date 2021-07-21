@@ -38,6 +38,10 @@ class Specialty(models.Model):
     def __str__(self):
         return self.specialty
 
+# class StudentSpecialty(models.Model):
+#     specialty = models.OneToOneField(Specialty,on_delete=models.CASCADE)
+#     discount = models.IntegerField()
+
 class Student(models.Model):
     sexoptions = (
         ("Άνδρας", "Άνδρας"),
@@ -125,20 +129,22 @@ class Installment(models.Model):
         return str(self.payment_number) + " " + str(self.student)
 
 
-class Exam(models.Model):
+class ExamGrade(models.Model):
     semesteroptions = (
-        ("Α", "Α"), ("Β", "Β"), ("Γ", "Γ")
+        ("Α", "Α"),
+        ("Β", "Β"),
+        ("Γ", "Γ")
     )
     schoolyearoptions = (
-        ("previous_school_year", str(settings.PREVIOUS_SCHOOL_YEAR)),
-        ("current_school_year", str(settings.CURRENT_SCHOOL_YEAR))
+        (str(settings.PREVIOUS_SCHOOL_YEAR), str(settings.PREVIOUS_SCHOOL_YEAR)),
+        (str(settings.CURRENT_SCHOOL_YEAR), str(settings.CURRENT_SCHOOL_YEAR))
     )
-    subject = models.OneToOneField(Specialty, on_delete=models.CASCADE)
-    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE)
-    student = models.OneToOneField(Student, on_delete=models.CASCADE)
-    theorygrade = models.IntegerField()
-    labgrade = models.IntegerField()
-    semester = models.CharField(max_length=14, choices=semesteroptions)
-    schoolyear = models.CharField(max_length=20, choices=schoolyearoptions)
-    remarks = models.TextField()
+    subject = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Μάθημα")
+    teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
+    student = models.OneToOneField(Student,on_delete=models.CASCADE,verbose_name="Μαθητής")
+    theorygrade = models.IntegerField(verbose_name="Βαθμός Θεωρίας")
+    labgrade = models.IntegerField(verbose_name="Βαθμός Εργαστηρίου")
+    semester = models.CharField(max_length=14,choices=semesteroptions,verbose_name="Εξάμηνο")
+    schoolyear = models.CharField(max_length=20,choices=schoolyearoptions,verbose_name="Σχολικό Έτος")
+    remarks = models.TextField(verbose_name="Σχόλια")
     entrydate = models.DateField(default=settings.CURRENT_DATE)

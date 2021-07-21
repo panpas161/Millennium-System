@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Student,Specialty,Voucher,Department,Exam
+from .models import Student,Specialty,Voucher,Department,ExamGrade
 from django import forms
 from Millennium_System import settings
 from assets.functions.ids import getModelNextID
@@ -59,15 +59,15 @@ class DepartmentModelForm(ModelForm):
             })
         }
 
-class ExamModelForm(ModelForm):
+class ExamGradeForm(ModelForm):
     def __init__(self,*args,**kwargs):
-        super(ExamModelForm,self).__init__(*args,**kwargs)#maybe not required
+        super(ExamGradeForm,self).__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
-        model = Exam
+        model = ExamGrade
         fields = '__all__'
-        exclude = ['teacher']
+        exclude = ['entrydate']
         widgets = {
 
         }

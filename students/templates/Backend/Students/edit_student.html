@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load tags %}
     <meta charset="UTF-8">
     <title>Επεξεργασία σπουδαστή - {{id}}</title>
+    <link rel="stylesheet" href="{% style 'students/add_student.css' %}"/>
 </head>
 <body>
-    {% include '../Navbar/navbar_students.html' %}
-    <form method="POST">
-        {% csrf_token %}
+    {% load render %}
+    {% renderStudentBackendNavbar request %}
+    <form method="POST">{% csrf_token %}
+        <div class="studentlabel">
+            ΣΤΟΙΧΕΙΑ ΣΠΟΥΔΑΣΤΗ
+        </div>
         <div class="form">
-            {{ form}}
+            {{ studentform }}
         </div>
-        <div class="submit">
-            <input type="submit" value="Αλλαγή" />
+        <div id="voucherdiv">
+            <div class="voucherlabel" id="voucherlabel">
+                ΣΤΟΙΧΕΙΑ ΕΓΓΥΗΤΗ
+            </div>
+            <div class="voucherform" id="voucherform">
+                {{ voucherform }}
+            </div>
         </div>
+        <input type="submit" />
     </form>
-
 </body>
 </html>
-<style>
-    .form
-    {
-        display:grid;
-        grid-template-columns: repeat(2,50%);
-    }
-</style>
+<script>
+    document.getElementById("voucherdiv").addEventListener("load",() => {
+        if("{{voucherform}}" === "")
+        {
+            this.style.display = "none";
+        }
+    });
+</script>

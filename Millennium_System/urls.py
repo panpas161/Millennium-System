@@ -84,9 +84,9 @@ urlpatterns = [
     path('teachers/credentials/create/new/<str:pk>', teacherviews.recreateTeacherCredentials, name="recreate_teacher_credentials"),
     #frontend
     path('teachers/home/', teacherviews.teacherHomeView, name="teacher_home_page"),
-    path('teachers/exams/add/', teacherviews.addExamView, name="teacher_add_grades"),
-    path('teachers/exams/edit/<pk>', teacherviews.editExamView, name="teacher_edit_grades"),
-    path('teachers/exams/list', teacherviews.listExamView, name="list_teacher_exams"),
+    path('teachers/exams/add/', teacherviews.addExamGradeView, name="add_teacher_grades"),
+    path('teachers/exams/edit/<pk>', teacherviews.editExamGradeView, name="edit_teacher_grades"),
+    path('teachers/exams/list', teacherviews.listExamGradeView, name="list_teacher_exams"),
     path('teachers/subject_reports/list', teacherviews.listSubjectReportView, name="list_teacher_subject_report"),
     path('teachers/subject_reports/add', teacherviews.addSubjectReportView, name="add_teacher_subject_report"),
     path('teachers/subject_reports/edit/<str:pk>', teacherviews.editSubjectReportView,name="edit_teacher_subject_report"),

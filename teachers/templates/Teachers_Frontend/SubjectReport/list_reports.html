@@ -10,7 +10,8 @@
     {% load render %}
     {% renderTeacherFrontendNavbar request %}
     <div class="header">
-        Ημερήσια Δελτία Μαθημάτων
+        <h3>Ημερήσια Δελτία Μαθημάτων</h3>
+        <a href="{% url 'add_teacher_subject_report' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
     <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">

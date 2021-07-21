@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Teacher,SubjectReport
+from .models import *
 from django import forms
 
 class TeacherModelForm(ModelForm):
@@ -17,11 +17,20 @@ class TeacherModelForm(ModelForm):
             'phonenumber':forms.NumberInput()
         }
 
-class SubjectReportModelForm(ModelForm):
+class SubjectReportForm(ModelForm):
     def __init__(self,*args,**kwargs):
-        super(SubjectReportModelForm,self).__init__(*args,**kwargs)
+        super(SubjectReportForm,self).__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class':'form-control'})
     class Meta:
         model = SubjectReport
+        fields = '__all__'
+
+class AttendanceReportForm(ModelForm):
+    def __init__(self,*args,**kwargs):
+        super(AttendanceReportForm,self).__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class':'form-control'})
+    class Meta:
+        model = AttendanceReport
         fields = '__all__'

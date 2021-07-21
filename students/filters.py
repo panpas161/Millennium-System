@@ -1,4 +1,4 @@
-from .models import Student,Teacher,Specialty
+from .models import Teacher,Specialty,ExamGrade
 import django_filters
 from django_filters import CharFilter,DateFilter
 
@@ -31,4 +31,9 @@ class TeacherFilter(django_filters.FilterSet):
 class SpecialtyFilter(django_filters.FilterSet):
     class Meta:
         model = Specialty
+        fields = "__all__"
+
+class ExamGradeStaffFilter(django_filters.FilterSet):
+    class Meta:
+        model = ExamGrade
         fields = "__all__"

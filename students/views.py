@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator,EmptyPage,InvalidPage,PageNotAnInteger
-from .models import Student, Specialty, Installment,Department,Exam
+from .models import Student, Specialty, Installment,Department,ExamGrade
 from .forms import StudentModelForm, SpecialtyModelForm, VoucherModelForm,DepartmentModelForm
 from .getstudentobjects import getInstallmentsIDS,getInstallmentsPaidSum
 from Millennium_System import settings
@@ -123,9 +123,14 @@ def addStudentView(request):
 @staff_only
 def editStudentView(request, pk):
     studentinstance = Student.objects.get(id=pk)
-    form = StudentModelForm(instance=studentinstance)
+    studentform = StudentModelForm(instance=studentinstance)
+    voucherinstance = None
+    if studentinstance.voucher:
+        voucherinstance = studentinstance.voucher
+    voucherform = VoucherModelForm(instance=voucherinstance)
     data = {
-        'form': form,
+        'studentform': studentform,
+        'voucherform':voucherform
     }
     if request.method == "POST":
         form = StudentModelForm(request.POST, instance=studentinstance)
@@ -349,7 +354,7 @@ def installmentsFrontTabView(request):
 @allowed_roles(total_roles=["Student"])
 def examsStudentView(request):
     try:
-        objects = Exam.objects.filter(student=getStudentID(request.user))
+        objects = ExamGrade.objects.filter(student=getStudentID(request.user))
         data = {
             'objects': objects
         }

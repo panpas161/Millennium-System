@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from .models import Teacher
 from django.shortcuts import redirect
 from .forms import TeacherModelForm
-from students.forms import ExamModelForm
-from students.models import Exam
+from students.forms import ExamGradeForm
+from students.models import ExamGrade
 from .models import SubjectReport,AttendanceReport
 from assets.functions.authentication import hasRole,isStaff
 from assets.functions.crypto import getRandomString
@@ -16,6 +16,7 @@ from unidecode import unidecode
 from assets.functions.mailer import sendTeacherCredentials
 from assets.functions.pagination import getPage
 from .filters import *
+from .forms import *
 
 #Backend
 @login_required(login_url="login")
@@ -134,40 +135,47 @@ def teacherHomeView(request):
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
-def addExamView(request):
-    form = ExamModelForm
+def addExamGradeView(request):
+    form = ExamGradeForm
     data = {
         'form':form
     }
     if request.method == "POST":
-        form = ExamModelForm(request.POST)
+        form = ExamGradeForm(request.POST)
         if form.is_valid():
             savedform = form.save(commit=False)
             savedform.teacher = request.user.teacher
             savedform.save()
-    return render(request,"Teachers_Frontend/Exam/add_exam_grades.html",data)
+    return render(request,"Teachers_Frontend/ExamGrade/add_exam_grade.html",data)
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
-def editExamView(request,pk):
+def editExamGradeView(request,pk):
+    instance = ExamGrade.objects.get(id=pk)
+    form = ExamGradeForm(instance=instance)
     data = {
-
+        'form':form
     }
-    return render(request,"Teachers_Frontend/Exam/edit_exam_grades.html",data)
+    if request.method == "POST":
+        form = ExamGradeForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"")
+            return redirect("list_teachers_exam_grades")
+    return render(request,"Teachers_Frontend/ExamGrade/edit_exam_grade.html",data)
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
-def listExamView(request):
-    user = request.user.teacher
+def listExamGradeView(request):
     if isStaff(request):
-        objects = Exam.objects.all()
+        objects = ExamGrade.objects.all()
     else:
-        objects = Exam.objects.filter(teacher=user)
+        objects = ExamGrade.objects.filter(teacher=request.user.teacher)
     data = {
-        'user':user,
+        'user':request.user,
         'objects':objects,
     }
-    return render(request,"Teachers_Frontend/Exam/teachers_exams.html",data)
+    return render(request,"Teachers_Frontend/ExamGrade/list_exam_grades.html",data)
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
@@ -184,9 +192,16 @@ def listSubjectReportView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def addSubjectReportView(request):
+    form = SubjectReportForm
     data = {
-
+        'form':form
     }
+    if request.method == "POST":
+        form = SubjectReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"")
+            return redirect("list_teachers_subject_reports")
     return render(request,"Teachers_Frontend/SubjectReport/add_report.html",data)
 
 @login_required(login_url="login")
@@ -202,11 +217,11 @@ def editSubjectReportView(request,pk):
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
-def deleteSubjectReportView(request,id):
-    data = {
-
-    }
-    return render(request,"Teachers_Frontend/SubjectReport/delete_report.html",data)
+def deleteSubjectReportView(request,pk):
+    instance = SubjectReport.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Το δελτίο μαθήματος διαγράφτηκε επιτυχώς!")
+    return render(request,"Teachers_Frontend/SubjectReport/delete_report.html")
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
@@ -223,23 +238,38 @@ def listAttendanceReportView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def addAttendanceReportView(request):
+    form = AttendanceReportForm
     data = {
-
+        'form':form
     }
+    if request.method == "POST":
+        form = AttendanceReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Το δελτίο μαθήματος προστέθηκε επιτυχώς!")
+            return redirect("list_teachers_attendance_reports")
     return render(request,"Teachers_Frontend/AttendanceBook/add_attendance.html",data)
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def editAttendanceReportView(request,pk):
+    instance = AttendanceReport.objects.get(id=pk)
+    form = SubjectReportForm(instance=instance)
     data = {
-
+        'form':form
     }
+    if request.method == "POST":
+        form = SubjectReportForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Τα στοιχεία του δελτίου μαθήματος άλλαξαν επιτυχώς!")
+            return redirect("list_teachers_subject_report")
     return render(request,"Teachers_Frontend/AttendanceBook/edit_attendance.html",data)
 
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def deleteAttendanceReportView(request,pk):
-    data = {
-
-    }
-    return render(request,"Teachers_Frontend/AttendanceBook/delete_attendance.html",data)
+    instance = AttendanceReport.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Το δελτίο μαθήματος διαγράφτηκε επιτυχώς!")
+    return render(request,"Teachers_Frontend/AttendanceBook/delete_attendance.html")

@@ -9,8 +9,8 @@ class Teacher(models.Model):
     lastname = models.CharField(max_length=30,verbose_name="Επώνυμο")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField(blank=True,null=True,verbose_name="Email")
-    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
+    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
 
     def __str__(self):
         return self.lastname + " " + self.firstname
@@ -18,13 +18,13 @@ class Teacher(models.Model):
 class SubjectReport(models.Model):
     subject = models.OneToOneField("students.Specialty",models.CASCADE)
     teacher = models.OneToOneField(Teacher,models.SET_NULL,null=True)
-    remarks = models.TextField(null=True)#null or not?
-    date = models.DateField(settings.CURRENT_DATE)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    remarks = models.TextField(null=True,blank=True)
+    start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
+    end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     wage_per_hour = models.FloatField()
     total_hours = models.IntegerField()
     total_wage = models.FloatField()
+    entrydate = models.DateField(default=settings.CURRENT_DATE)
 
 class AttendanceReport(models.Model):
     student = models.ForeignKey("students.Student",models.CASCADE)

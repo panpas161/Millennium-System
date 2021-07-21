@@ -9,7 +9,11 @@
 <body>
     {% load render %}
     {% renderTeacherFrontendNavbar request %}
-<table style="width: 100%;" class="list-table" cellpadding="10">
+    <div class="header">
+        <h3>Παρουσιολόγιο</h3>
+        <a href="{% url 'add_teacher_attendance_report' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
+    </div>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
         <tr class="list-table-header">
             <th>#</th>
             <th>Τμήμα</th>
