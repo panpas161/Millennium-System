@@ -38,7 +38,7 @@
                 {{department.name}}
             </td>
             <td>
-                {% if department.departmentday %}
+                {% if department.departmentday_set %}
                     <img src="{% image 'general/icons/tick-icon.png' %}" width="30px" height="30px">
                 {% else %}
                     <img src="{% image 'general/icons/red-cross-icon.png' %}" width="30px" height="30px">
@@ -49,7 +49,11 @@
                     <a href="{% url 'edit_oaed_subsidy_department' department.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
                     <a href="{% url 'delete_oaed_subsidy_department' department.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το τμήμα;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
 {#                  <a href="{% url 'view_schedule_oaed_subsidy_department' department.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτό το τμήμα;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>#}
-                    <a href="{% url 'create_schedule_oaed_subsidy_department' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Δημιουργία Ωραρίου" width="25px" height="20px"/></a>
+                    {% if not department.departmentday_set %}
+                        <a href="{% url 'create_schedule_oaed_subsidy_department' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Δημιουργία Ωραρίου" width="25px" height="20px"/></a>
+                    {% else %}
+                        <a href="{% url 'edit_schedule_oaed_subsidy_department' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Επεξεργασία Ωραρίου" width="25px" height="20px"/></a>
+                    {% endif %}
                 </div>
             </td>
         </tr>

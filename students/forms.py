@@ -1,14 +1,13 @@
 from django.forms import ModelForm
-from .models import Student,Specialty,Voucher,Department,ExamGrade
+from .models import *
 from django import forms
 from Millennium_System import settings
-from assets.functions.ids import getModelNextID
 
 class StudentModelForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
-        exclude = ['voucher', 'studentImage', 'user', 'entrydate']
+        exclude = ['voucher', 'studentimage', 'user', 'entrydate']
         widgets = {
             'specialty':forms.CheckboxSelectMultiple(),
             'phonenumber':forms.NumberInput(),
@@ -16,6 +15,11 @@ class StudentModelForm(ModelForm):
             'entrydate':forms.DateInput(format=settings.DATE_FORMAT),
             'birthdate':forms.DateInput(format=settings.DATE_FORMAT)
         }
+
+class StudentUploadPictureForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = ['studentimage']
 
 class SpecialtyModelForm(ModelForm):
     def __init__(self, *args, **kwargs):

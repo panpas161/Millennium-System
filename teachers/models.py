@@ -8,7 +8,7 @@ class Teacher(models.Model):
     firstname = models.CharField(max_length=30,verbose_name="Όνομα")
     lastname = models.CharField(max_length=30,verbose_name="Επώνυμο")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
-    email = models.EmailField(blank=True,null=True,verbose_name="Email")
+    email = models.EmailField(verbose_name="Email")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
 

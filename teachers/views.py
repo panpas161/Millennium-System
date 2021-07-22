@@ -143,9 +143,12 @@ def addExamGradeView(request):
     if request.method == "POST":
         form = ExamGradeForm(request.POST)
         if form.is_valid():
-            savedform = form.save(commit=False)
-            savedform.teacher = request.user.teacher
-            savedform.save()
+            if isStaff(request):
+                form.save()
+            else:
+                savedform = form.save(commit=False)
+                savedform.teacher = request.user.teacher
+                savedform.save()
     return render(request,"Teachers_Frontend/ExamGrade/add_exam_grade.html",data)
 
 @login_required(login_url="login")

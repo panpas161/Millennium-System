@@ -132,7 +132,7 @@ def createScheduleDepartmentView(request,pk):
     hasvalidforms = False
     data = {
         'forms':forms,
-        'instance':instance
+        'instance':instance,
     }
     if request.method == "POST":
         forms = DepartmentDayMultipleForm(request.POST)
@@ -146,3 +146,25 @@ def createScheduleDepartmentView(request,pk):
             messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
         return redirect("list_oaed_subsidy_departments")
     return render(request,"Backend/Oaed_Department/create_schedule_department.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def editScheduleDepartmentView(request,pk):
+    instance = Department.objects.get(id=pk)
+    forms = DepartmentDayMultipleForm()
+    hasvalidforms = False
+    data = {
+        'forms':forms
+    }
+    if request.method == "POST":
+        forms = DepartmentDayMultipleForm(request.POST)
+        for form in forms:
+            if form.is_valid():
+                savedform = form.save(commit=False)
+                savedform.department = instance
+                savedform.save()
+                hasvalidforms = True
+        if hasvalidforms:
+            messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
+        return redirect("list_oaed_subsidy_departments")
+    return render(request,"Backend/Oaed_Department/edit_schedule_department.html",data)

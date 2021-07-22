@@ -35,5 +35,8 @@ class DepartmentDayForm(ModelForm):
                 'type': 'time'
             })
         }
+    def __init__(self,*args,**kwargs):
+        super(DepartmentDayForm, self).__init__(*args, **kwargs)
+        self.empty_permitted = False
 
 DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)

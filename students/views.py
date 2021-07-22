@@ -1,14 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,HttpResponse
 from django.core.paginator import Paginator,EmptyPage,InvalidPage,PageNotAnInteger
-from .models import Student, Specialty, Installment,Department,ExamGrade
-from .forms import StudentModelForm, SpecialtyModelForm, VoucherModelForm,DepartmentModelForm
-from .getstudentobjects import getInstallmentsIDS,getInstallmentsPaidSum
+from .models import *
+from .forms import *
 from Millennium_System import settings
-from .filters import StudentFilter
+from .filters import *
 from django.contrib import messages
-from .functions.departments import getSelectedDays,getSelectedTeachers,getSelectedDuration,getSelectedStartTime,getSelectedEndTime
-from assets.functions.users import getUserID,getStudentID
 from assets.decorators.decorators import staff_only,allowed_roles
 from .functions.installments import calculateInstallments
 
@@ -133,11 +130,14 @@ def editStudentView(request, pk):
         'voucherform':voucherform
     }
     if request.method == "POST":
-        form = StudentModelForm(request.POST, instance=studentinstance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Τα στοιχεία του μαθητή άλλαξαν επιτυχώς!")
-            return redirect('list-students')
+        studentform = StudentModelForm(request.POST, instance=studentinstance)
+        voucherform = VoucherModelForm(request.POST,instance=voucherinstance)
+        if studentform.is_valid():
+            studentform.save()
+        if voucherform.is_valid():
+            voucherform.save()
+        messages.success(request, "Τα στοιχεία του μαθητή άλλαξαν επιτυχώς!")
+        return redirect('list-students')
     return render(request, "Backend/Students/edit_student.html", data)
 
 @login_required(login_url="login")
@@ -195,9 +195,24 @@ def installmentsTabView(request, pk):
         "student_price":studentinstance.price,
         "student_discount":studentinstance.discount,
         "student_total_price":studentinstance.price - studentinstance.discount,
-        "installments_paid_sum":getInstallmentsPaidSum(pk),
     }
     return render(request,"Backend/Miscellaneous/installments_tab.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def uploadStudentPicture(request,pk):
+    instance = Student.objects.get(id=pk)
+    form = StudentUploadPictureForm(instance=instance)
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = StudentUploadPictureForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Η φωτογραφία ανέβηκε επιτυχώς!")
+            return redirect("list-students")
+    return render(request,"Backend/Students/upload_student_photo.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -247,14 +262,6 @@ def deleteSpecialtyView(request,pk):
     instance.delete()
     messages.success(request,"Η ειδικότητα διαγράφθηκε επιτυχώς!")
     return redirect("delete_student_specialty")
-
-@login_required(login_url="login")
-@staff_only
-def getInstallmentsView(request,pk):#delete
-    data = {
-        'installments_list':getInstallmentsIDS(pk)
-    }
-    return render(request,"Backend/Installments/get_installments.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -327,6 +334,13 @@ def deleteDepartmentView(request,pk):
     instance.delete()
     messages.success(request,"Το τμήμα διαγράφθηκε με επιτυχία!")
     return redirect("list_student_departments")
+
+def createDepartmentScheduleView(request,pk):
+    instance = Department.objects.get(id=pk)
+    data = {
+
+    }
+    return render(request,"Backend/Students/create_schedule_department.html",data)
 #frontend
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Student"])
@@ -340,7 +354,7 @@ def mainStudentView(request):
 @allowed_roles(total_roles=["Student"])
 def installmentsFrontTabView(request):
     try:
-        user = Student.objects.get(user=getUserID(request.user))
+        user = Student.objects.get(user=request.user)
         data = {
             'user': user,
         }
@@ -354,7 +368,7 @@ def installmentsFrontTabView(request):
 @allowed_roles(total_roles=["Student"])
 def examsStudentView(request):
     try:
-        objects = ExamGrade.objects.filter(student=getStudentID(request.user))
+        objects = ExamGrade.objects.filter(student=request.user.student)
         data = {
             'objects': objects
         }

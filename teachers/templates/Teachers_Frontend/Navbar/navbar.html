@@ -4,10 +4,11 @@
     {% load tags %}
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% style 'students/Frontend/frontend_teachers_navbar.css' %}" />
+    {% loadBootstrap %}
 </head>
 <body>
     {% block nav %}
-    <div class="navbar">
+    <div class="navbardiv">
         <div class="nav-top">
             <div class="branding">
                 <img src="{% image 'general/logo/millennium_logo_2.png' %}" height="40px" />

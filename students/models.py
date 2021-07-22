@@ -29,18 +29,23 @@ class Voucher(models.Model):
     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
 class Specialty(models.Model):
+    name = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
     code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
-    specialty = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
     duration = models.IntegerField(verbose_name="Διάρκεια")
     price = models.IntegerField(verbose_name="Ενδεικτική Τιμή")
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
 
     def __str__(self):
-        return self.specialty
+        return self.name
 
-# class StudentSpecialty(models.Model):
-#     specialty = models.OneToOneField(Specialty,on_delete=models.CASCADE)
-#     discount = models.IntegerField()
+# class SpecialtyPerStudent(models.Model):
+#     student = Student
+#     specialty = Specialty
+#     discount = discount
+
+class StudentSpecialty(models.Model):
+    specialty = models.OneToOneField(Specialty,on_delete=models.CASCADE)
+    discount = models.IntegerField()
 
 class Student(models.Model):
     sexoptions = (
@@ -62,7 +67,6 @@ class Student(models.Model):
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
-    # installments = models.IntegerField(null=True,blank=True) this will be calculated using the .filter() function Installment.objects.filter(student=student)
     studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
@@ -90,7 +94,6 @@ class Student(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
     participants = models.ManyToManyField(Student,verbose_name="Συμμετέχοντες")
-    teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):
@@ -112,6 +115,7 @@ class DepartmentDay(models.Model):
     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
     # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name="studentdepartmentdays",null=True)
 
     def __str__(self):
         return self.department.name + "-" + self.weekday

@@ -51,6 +51,7 @@ urlpatterns = [
     path('students/add/', studentviews.addStudentView, name="add-student"),
     path('students/edit/<str:pk>/', studentviews.editStudentView, name="edit-student"),
     path('students/delete/<str:pk>', studentviews.deleteStudentView, name="delete-student"),
+    path('students/upload/picture/<pk>', studentviews.uploadStudentPicture, name="upload_student_photo"),
     #contracts etc.
     path('students/economic_contract/<str:pk>', studentviews.economicContractView,name='economic_contract'),
     path('students/student_card/<str:pk>', studentviews.studentCardView, name="student_card"),
@@ -60,13 +61,12 @@ urlpatterns = [
     path('students/specialties/add/', studentviews.addSpecialtiesView, name="add_student_specialty"),
     path('students/specialties/edit/<str:pk>', studentviews.editSpecialtiesView, name="edit_student_specialty"),
     path('students/specialties/delete/<str:pk>',studentviews.deleteSpecialtyView,name="delete_student_specialty"),
-    #installments(temporary maybe?)
-    path('students/get_installments/<str:pk>', studentviews.getInstallmentsView,name="get_installments"),
     #departments
-    path('students/departments/list', studentviews.listDepartmentsView,name="list_student_departments"),
-    path('students/departments/add', studentviews.addDepartmentView,name="add_student_department"),
-    path('students/departments/edit/<str:pk>', studentviews.editDepartmentView,name="edit_student_department"),
-    path('students/departments/delete/<str:pk>', studentviews.deleteDepartmentView,name="delete_student_department"),
+    path('students/departments/list', studentviews.listDepartmentsView, name="list_student_departments"),
+    path('students/departments/add', studentviews.addDepartmentView, name="add_student_department"),
+    path('students/departments/edit/<str:pk>', studentviews.editDepartmentView, name="edit_student_department"),
+    path('students/departments/delete/<str:pk>', studentviews.deleteDepartmentView, name="delete_student_department"),
+    path('students/departments/schedules/create/<pk>', studentviews.createDepartmentScheduleView, name="create_student_department_schedule"),
     #------------STUDENTS APP(frontend)------------
     #students
     path('students/home/',studentviews.mainStudentView, name="students_front_home"),
@@ -184,6 +184,7 @@ urlpatterns = [
     path('oaed/departments/delete/<pk>',oaedsubsidyviews.deleteDepartmentView,name="delete_oaed_subsidy_department"),
     path('oaed/departments/schedule/view/<pk>',oaedsubsidyviews.viewScheduleDepartmentView,name="view_schedule_oaed_subsidy_department"),
     path('oaed/departments/schedule/create/<pk>',oaedsubsidyviews.createScheduleDepartmentView,name="create_schedule_oaed_subsidy_department"),
+    path('oaed/departments/schedule/edit/<pk>',oaedsubsidyviews.editScheduleDepartmentView,name="edit_schedule_oaed_subsidy_department"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
     static(settings.IMAGES_URL,document_root=settings.IMAGES_ROOT) + \
     static(settings.STYLE_URL,document_root=settings.STYLE_ROOT) + \

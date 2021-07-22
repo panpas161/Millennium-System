@@ -1,6 +1,7 @@
 from django.db import models
 from options.models import Municipality,EducationLevel,Doy,FinancialSituation
 from Millennium_System import settings
+from students.models import Teacher
 
 class DiofantosID(models.Model):
     name = models.CharField(max_length=30)
@@ -27,7 +28,6 @@ class SubsidizedIndividual(models.Model):
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     oaed_id = models.CharField(max_length=30,verbose_name="Αριθμός Αίτησης ΟΑΕΔ")
     beneficiary_id = models.CharField(max_length=30,verbose_name="Αριθμός ID Ωφελουμένου")
-    # department = models.ForeignKey(Department,on_delete=models.CASCADE,verbose_name="Τμήμα")
     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
     def __str__(self):
@@ -56,6 +56,7 @@ class DepartmentDay(models.Model):
     start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
 
     def __str__(self):
         return self.department.name + "-" + self.weekday

@@ -15,7 +15,7 @@
             ΣΤΟΙΧΕΙΑ ΣΠΟΥΔΑΣΤΗ
         </div>
         <div class="form">
-            {{ studentform }}
+            {{studentform}}
         </div>
         <div>
             <label for="vouchersame">Ίδιος Εγγυητής</label>
@@ -70,6 +70,9 @@
                         <br />
                         <a style="margin-top:20px;" onclick="calculateInstallments()">Υπολογισμός</a>
                 </div>
+        </div>
+        <div>
+            {{studentform.specialty}}
         </div>
         <div class="submit">
             <input type="submit" value="Υποβολή" />
