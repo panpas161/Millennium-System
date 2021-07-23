@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student,Specialty,Installment,Voucher,Department
+from .models import *
 
 admin.site.register(Student)
 admin.site.register(Specialty)

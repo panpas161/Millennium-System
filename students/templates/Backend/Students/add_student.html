@@ -15,7 +15,12 @@
             ΣΤΟΙΧΕΙΑ ΣΠΟΥΔΑΣΤΗ
         </div>
         <div class="form">
-            {{studentform}}
+            {% for field in studentform %}
+                {% if field.name != "specialty" %}
+                    {{field.label_tag}}
+                    {{field}}
+                {% endif%}
+            {% endfor %}
         </div>
         <div>
             <label for="vouchersame">Ίδιος Εγγυητής</label>
@@ -71,8 +76,10 @@
                         <a style="margin-top:20px;" onclick="calculateInstallments()">Υπολογισμός</a>
                 </div>
         </div>
-        <div>
-            {{studentform.specialty}}
+        <div class="specialties">
+            <div>
+                {{studentform.specialty}}
+            </div>
         </div>
         <div class="submit">
             <input type="submit" value="Υποβολή" />

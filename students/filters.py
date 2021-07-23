@@ -33,7 +33,24 @@ class SpecialtyFilter(django_filters.FilterSet):
         model = Specialty
         fields = "__all__"
 
-class ExamGradeStaffFilter(django_filters.FilterSet):
+class ExamGradeFilter(django_filters.FilterSet):
+    q = CharFilter(method='searchMethod',label="Αναζήτηση")
     class Meta:
         model = ExamGrade
-        fields = "__all__"
+        fields = ['subject','semester','schoolyear']
+
+    def searchMethod(self,queryset, name, value):
+        filter = queryset.filter
+        queryset = filter(student__contains=value)
+        return queryset
+
+class ExamGradeStaffFilter(django_filters.FilterSet):
+    q = CharFilter(method='searchMethod',label="Αναζήτηση")
+    class Meta:
+        model = ExamGrade
+        fields = ['teacher','schoolyear','semester']
+
+    def searchMethod(self,queryset,name,value):
+        filter = queryset.filter
+        queryset = filter(student__contains=value)
+        return queryset

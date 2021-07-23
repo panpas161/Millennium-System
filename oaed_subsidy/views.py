@@ -151,7 +151,7 @@ def createScheduleDepartmentView(request,pk):
 @staff_only
 def editScheduleDepartmentView(request,pk):
     instance = Department.objects.get(id=pk)
-    forms = DepartmentDayMultipleForm()
+    forms = DepartmentDayMultipleForm
     hasvalidforms = False
     data = {
         'forms':forms

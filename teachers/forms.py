@@ -25,6 +25,7 @@ class SubjectReportForm(ModelForm):
     class Meta:
         model = SubjectReport
         fields = '__all__'
+        exclude = ['entrydate']
 
 class AttendanceReportForm(ModelForm):
     def __init__(self,*args,**kwargs):
@@ -34,3 +35,4 @@ class AttendanceReportForm(ModelForm):
     class Meta:
         model = AttendanceReport
         fields = '__all__'
+        exclude = ['entrydate']

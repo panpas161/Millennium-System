@@ -93,7 +93,7 @@ def addStudentView(request):
     data = {
         'studentform':studentform,
         'voucherform':voucherform,
-        'vouchersame':vouchersame
+        'vouchersame':vouchersame,
     }
     if request.method == "POST":
         studentform = StudentModelForm(request.POST)

@@ -38,13 +38,9 @@ class Specialty(models.Model):
     def __str__(self):
         return self.name
 
-# class SpecialtyPerStudent(models.Model):
-#     student = Student
-#     specialty = Specialty
-#     discount = discount
-
 class StudentSpecialty(models.Model):
-    specialty = models.OneToOneField(Specialty,on_delete=models.CASCADE)
+    specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
+    student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
     discount = models.IntegerField()
 
 class Student(models.Model):
@@ -57,7 +53,7 @@ class Student(models.Model):
     fathersname = models.CharField(max_length=30,verbose_name="πατρώνυμο")
     mothersname = models.CharField(max_length=50,null=True,verbose_name="Μητρώνυμο")
     afm = models.CharField(max_length=30,verbose_name="ΑΦΜ")
-    adt = models.CharField(max_length=30,verbose_name="ΑΔΤ",)
+    adt = models.CharField(max_length=30,verbose_name="ΑΔΤ")
     phonenumber = models.CharField(max_length=30,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=30,null=True,blank=True,verbose_name="Κινητό")
     email = models.EmailField(null=True,blank=True,verbose_name="Email")
@@ -68,7 +64,7 @@ class Student(models.Model):
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
     studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
-    specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
+    specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentSpecialty")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 

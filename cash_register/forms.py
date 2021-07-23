@@ -8,6 +8,7 @@ class ReceiptModelForm(ModelForm):
     class Meta:
         model = Receipt
         fields = '__all__'
+        exclude = ['entrydate']
         widgets = {
             'date':forms.DateInput(format=settings.DATE_FORMAT)
         }
@@ -16,6 +17,7 @@ class ExpenseModelForm(ModelForm):
     class Meta:
         model = Expense
         fields = '__all__'
+        exclude = ['entrydate']
         widgets = {
             'date':forms.DateInput(format=settings.DATE_FORMAT)
         }

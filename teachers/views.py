@@ -1,16 +1,15 @@
 from django.shortcuts import render
-from assets.decorators.decorators import staff_only,allowed_roles
+from assets.decorators.decorators import staff_only,allowed_roles,staff_and_roles
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from assets.functions.authentication import addUser
-from django.contrib.auth.models import User
-from .models import Teacher
 from django.shortcuts import redirect
 from .forms import TeacherModelForm
 from students.forms import ExamGradeForm
 from students.models import ExamGrade
-from .models import SubjectReport,AttendanceReport
-from assets.functions.authentication import hasRole,isStaff
+from students.filters import ExamGradeFilter,ExamGradeStaffFilter
+from .models import *
+from assets.functions.authentication import isStaff
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 from assets.functions.mailer import sendTeacherCredentials
@@ -171,12 +170,17 @@ def editExamGradeView(request,pk):
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def listExamGradeView(request):
     if isStaff(request):
+        page_filter = ExamGradeStaffFilter
         objects = ExamGrade.objects.all()
+        page = getPage(request,objects,page_filter)
     else:
+        page_filter = ExamGradeFilter
         objects = ExamGrade.objects.filter(teacher=request.user.teacher)
+        page = getPage(request,objects,page_filter)
     data = {
         'user':request.user,
-        'objects':objects,
+        'objects':page,
+        'filter':page_filter
     }
     return render(request,"Teachers_Frontend/ExamGrade/list_exam_grades.html",data)
 

@@ -35,6 +35,11 @@ class SpecialtyModelForm(ModelForm):
             'phonenumber':forms.NumberInput()
         }
 
+class StudentSpecialtyForm(ModelForm):
+    class Meta:
+        model = StudentSpecialty
+        fields = ['specialty', 'discount']
+
 class VoucherModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(VoucherModelForm, self).__init__(*args, **kwargs)
