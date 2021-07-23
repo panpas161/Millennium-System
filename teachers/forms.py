@@ -19,9 +19,13 @@ class TeacherModelForm(ModelForm):
 
 class SubjectReportForm(ModelForm):
     def __init__(self,*args,**kwargs):
+        authorized = kwargs.pop('authorized', None)
         super(SubjectReportForm,self).__init__(*args,**kwargs)
+        if not authorized:
+            self.fields.pop("teacher")
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class':'form-control'})
+
     class Meta:
         model = SubjectReport
         fields = '__all__'
@@ -29,7 +33,10 @@ class SubjectReportForm(ModelForm):
 
 class AttendanceReportForm(ModelForm):
     def __init__(self,*args,**kwargs):
+        authorized = kwargs.pop('authorized', None)
         super(AttendanceReportForm,self).__init__(*args,**kwargs)
+        if not authorized:
+            self.fields.pop("teacher")
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class':'form-control'})
     class Meta:

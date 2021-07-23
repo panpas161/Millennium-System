@@ -163,8 +163,8 @@ def addSubsidizedBusinessView(request):
         form = SubsidizedBusinessForm(request.POST)
         if form.is_valid():
             if SubsidizedBusiness.objects.filter(companyname=form.cleaned_data['companyname']).exists():
-                print("The company already exists!")
-                return redirect("list_espa_subsidized_businesses")
+                return HttpResponse("The company already exists!")
+                # return redirect("list_espa_subsidized_businesses")
             form.save()
             if request.POST.get("create_credentials") == "on":
                 password = getRandomString(15)

@@ -70,9 +70,12 @@ class DepartmentModelForm(ModelForm):
 
 class ExamGradeForm(ModelForm):
     def __init__(self,*args,**kwargs):
+        authorized = kwargs.pop('authorized', None)
         super(ExamGradeForm,self).__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+        if not authorized:
+            self.fields.pop("teacher")
     class Meta:
         model = ExamGrade
         fields = '__all__'

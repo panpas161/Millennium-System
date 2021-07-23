@@ -135,7 +135,10 @@ def teacherHomeView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def addExamGradeView(request):
-    form = ExamGradeForm
+    authorized = False
+    if isStaff(request):
+        authorized = True
+    form = ExamGradeForm(authorized=authorized)
     data = {
         'form':form
     }
@@ -199,7 +202,10 @@ def listSubjectReportView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def addSubjectReportView(request):
-    form = SubjectReportForm
+    authorized = False
+    if isStaff(request):
+        authorized = True
+    form = SubjectReportForm(authorized=authorized)
     data = {
         'form':form
     }
@@ -214,6 +220,9 @@ def addSubjectReportView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def editSubjectReportView(request,pk):
+    authorized = False
+    if isStaff(request):
+        authorized = True
     instance = SubjectReport.objects.get(id=pk)
     data = {}
     if instance.teacher == request.user.teacher:
