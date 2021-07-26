@@ -16,20 +16,20 @@ class Teacher(models.Model):
         return self.lastname + " " + self.firstname
 
 class SubjectReport(models.Model):
-    subject = models.OneToOneField("students.Specialty",models.CASCADE)
-    teacher = models.OneToOneField(Teacher,models.SET_NULL,null=True)
+    department = models.OneToOneField("students.Department",models.CASCADE,verbose_name="Τμήμα",null=True)
+    teacher = models.OneToOneField(Teacher,models.SET_NULL,null=True,verbose_name="Καθηγητής")
     start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
-    material = models.TextField(null=True,blank=True)
-    remarks = models.TextField(null=True,blank=True)
+    material = models.TextField(null=True,blank=True,verbose_name="Διδακτέα ύλη")
+    remarks = models.TextField(null=True,blank=True,verbose_name="Επιπλεόν πληροφορίες / παρατηρήσεις")
     # wage_per_hour = models.FloatField()
     # total_hours = models.IntegerField()
     # total_wage = models.FloatField()
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
 class AttendanceReport(models.Model):
-    department = models.ForeignKey("students.Department",on_delete=models.SET_NULL,null=True)
-    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey("students.Department",on_delete=models.SET_NULL,null=True,verbose_name="Τμήμα")
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True,verbose_name="Καθηγητής")
     preparation = models.FloatField()
     performance = models.FloatField()
     behaviour = models.FloatField()

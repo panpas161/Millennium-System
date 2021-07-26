@@ -16,6 +16,7 @@ from assets.functions.mailer import sendTeacherCredentials
 from assets.functions.pagination import getPage
 from .filters import *
 from .forms import *
+from django.http import JsonResponse
 
 #Backend
 @login_required(login_url="login")
@@ -223,7 +224,7 @@ def editSubjectReportView(request,pk):
     authorized = False
     if isStaff(request):
         authorized = True
-    instance = SubjectReport.objects.get(id=pk)
+    instance = SubjectReport.objects.get(id=pk,authorized=authorized)
     data = {}
     if instance.teacher == request.user.teacher:
         data = {
@@ -254,7 +255,10 @@ def listAttendanceReportView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Admin","Staff","Teacher"])
 def addAttendanceReportView(request):
-    form = AttendanceReportForm
+    authorized = False
+    if isStaff(request):
+        authorized = True
+    form = AttendanceReportForm(authorized=authorized)
     data = {
         'form':form
     }

@@ -2,7 +2,8 @@ from django.forms import ModelForm
 from .models import *
 from django import forms
 from Millennium_System import settings
-
+# from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.shortcuts import render
 class StudentModelForm(ModelForm):
     class Meta:
         model = Student
@@ -23,7 +24,7 @@ class StudentUploadPictureForm(ModelForm):
 
 class SpecialtyModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super(SpecialtyModelForm,self).__init__(*args,**kwargs)#maybe not required
+        super(SpecialtyModelForm,self).__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
@@ -35,14 +36,15 @@ class SpecialtyModelForm(ModelForm):
             'phonenumber':forms.NumberInput()
         }
 
-class StudentSpecialtyForm(ModelForm):
-    class Meta:
-        model = StudentSpecialty
-        fields = ['specialty', 'discount']
+# class StudentSpecialtyForm(ModelForm):
+#     class Meta:
+#         model = StudentSpecialty
+#         fields = ['specialty', 'discount']
 
 class VoucherModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(VoucherModelForm, self).__init__(*args, **kwargs)
+        self.empty_permitted = False
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
@@ -68,6 +70,24 @@ class DepartmentModelForm(ModelForm):
             })
         }
 
+class DepartmentDayForm(ModelForm):
+    class Meta:
+        model = DepartmentDay
+        fields = '__all__'
+        exclude = ['department', 'entrydate']
+        widgets = {
+            'start_time': forms.TimeInput(attrs={
+                'type': 'time'
+            }),
+            'end_time': forms.TimeInput(attrs={
+                'type': 'time'
+            })
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(DepartmentDayForm, self).__init__(*args, **kwargs)
+        self.empty_permitted = False
+
 class ExamGradeForm(ModelForm):
     def __init__(self,*args,**kwargs):
         authorized = kwargs.pop('authorized', None)
@@ -83,6 +103,43 @@ class ExamGradeForm(ModelForm):
         widgets = {
 
         }
+
+class StudentSpecialtyForm(ModelForm):
+    class Meta:
+        model = StudentSpecialty
+        fields = '__all__'
+        exclude = ['student','specialty']
+    #
+    # def save(self,commit=True):
+    #     instance = forms.ModelForm.save(self,commit)
+    #     instance.save(send=0)
+    #     for specialty in self.cleaned_data['specialties']:
+    #         instance.specialties.add()
+
+class SeminarCertificateForm(forms.Form):
+    sexoptions = (
+        ("Άνδρας","Άνδρας"),
+        ("Γυναίκα","Γυναίκα")
+    )
+    sex = forms.ChoiceField(choices=sexoptions)
+    lastname = forms.CharField(max_length=20)
+    firstname = forms.CharField(max_length=20)
+    fathersname = forms.CharField(max_length=20)
+    adt = forms.CharField(max_length=20)
+    specialty = forms.CharField(max_length=20)
+    location = forms.CharField(max_length=20)
+    dates = forms.DateField()
+    lecturersex = forms.ChoiceField(choices=sexoptions)
+    lecturer = forms.CharField(max_length=20)
+    aa = forms.CharField(max_length=20)
+    aadate = forms.DateField()
+
+    def action(self,request):
+        # data = {
+        #     "lastname":self.lastname,
+        #     "firstname":self.firstname
+        # }
+        return render(request,"Backend/Miscellaneous/print_seminar_certificate.html",None)
 
 class GeneralSettingsForm(forms.Form):
     email = forms.CharField()

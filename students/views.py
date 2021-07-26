@@ -8,6 +8,7 @@ from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
 from .functions.installments import calculateInstallments
+from django.http import JsonResponse
 
 @login_required(login_url="login")
 @staff_only
@@ -87,13 +88,15 @@ def listStudentsView(request):
 def addStudentView(request):
     studentform = StudentModelForm
     voucherform = VoucherModelForm
+    specialtyform = StudentSpecialtyForm
     vouchersame = False
     if request.GET.get("vouchersame"):
         vouchersame = True
     data = {
         'studentform':studentform,
         'voucherform':voucherform,
-        'vouchersame':vouchersame,
+        'specialtyform':specialtyform,
+        'vouchersame':vouchersame
     }
     if request.method == "POST":
         studentform = StudentModelForm(request.POST)
@@ -191,12 +194,27 @@ def installmentsTabView(request, pk):
     #if type(studentinstance.mothersname) != "string":#something like that
     #    mothersname = studentinstance.mothersname
     data = {
-        "studentinstance":studentinstance,
-        "student_price":studentinstance.price,
-        "student_discount":studentinstance.discount,
-        "student_total_price":studentinstance.price - studentinstance.discount,
+        # "studentinstance":studentinstance,
+        # "student_price":studentinstance.price,
+        # "student_discount":studentinstance.discount,
+        # "student_total_price":studentinstance.price - studentinstance.discount,
     }
     return render(request,"Backend/Miscellaneous/installments_tab.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def printSeminarCertificateView(request,pk):
+    instance = Student.objects.get(id=pk)
+    form = SeminarCertificateForm()
+    form.firstname = instance.firstname
+    data = {
+        'form':form,
+    }
+    if request.method == "POST":
+        form = SeminarCertificateForm(request.POST)
+        # if form.is_valid():
+        form.action(request)
+    return render(request,"Backend/Miscellaneous/print_seminar_certificate_form.html",data)
 
 @login_required(login_url="login")
 @staff_only
@@ -367,12 +385,29 @@ def installmentsFrontTabView(request):
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Student"])
 def examsStudentView(request):
-    try:
-        objects = ExamGrade.objects.filter(student=request.user.student)
-        data = {
-            'objects': objects
-        }
-    except Exception:
-        data = {}
+    objects = ExamGrade.objects.filter(student=request.user.student)
+    data = {
+        'objects': objects
+    }
     return render(request,"Frontend/Students/exams_tab.html",data)
 
+@login_required(login_url="login")
+@allowed_roles(total_roles=['Admin','Staff','Teacher'])
+def getDepartments(request,teacherpk):
+    #authentication checks
+    teacher = Teacher.objects.get(id=teacherpk)
+    departments = []
+    for day in DepartmentDay.objects.all().filter(teacher=teacher):
+        departments.append(day)
+        #remove duplicates
+    return JsonResponse(departments)
+
+@login_required(login_url="login")
+@allowed_roles(total_roles=['Admin','Staff','Teacher'])
+def getStudents(request,departmentpk):
+    #authentication checks
+    department = Department.objects.get(id=departmentpk)
+    data = {
+        'students':department.participants.all()
+    }
+    return JsonResponse(data)

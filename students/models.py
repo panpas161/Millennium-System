@@ -139,7 +139,7 @@ class ExamGrade(models.Model):
         (str(settings.PREVIOUS_SCHOOL_YEAR), str(settings.PREVIOUS_SCHOOL_YEAR)),
         (str(settings.CURRENT_SCHOOL_YEAR), str(settings.CURRENT_SCHOOL_YEAR))
     )
-    subject = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Μάθημα")
+    department = models.OneToOneField(Department,on_delete=models.CASCADE,verbose_name="Τμήμα",null=True)
     teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
     student = models.OneToOneField(Student,on_delete=models.CASCADE,verbose_name="Μαθητής")
     theorygrade = models.IntegerField(verbose_name="Βαθμός Θεωρίας")

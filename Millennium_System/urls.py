@@ -56,6 +56,7 @@ urlpatterns = [
     path('students/economic_contract/<str:pk>', studentviews.economicContractView,name='economic_contract'),
     path('students/student_card/<str:pk>', studentviews.studentCardView, name="student_card"),
     path('students/installments_tab/<str:pk>',studentviews.installmentsTabView, name="installments_tab"),
+    path('students/seminar_certificate/<pk>',studentviews.printSeminarCertificateView, name="students_print_seminar_certificate"),
     #specialties
     path('students/specialties/list/', studentviews.listSpecialtiesView, name="list_student_specialties"),
     path('students/specialties/add/', studentviews.addSpecialtiesView, name="add_student_specialty"),
