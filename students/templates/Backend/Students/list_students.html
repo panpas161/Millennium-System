@@ -76,7 +76,7 @@
                     <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/ypeythini_dilosi.png' %}" title="Εκτύπωση Υπεύθυνης Δήλωσης" width="25px" height="20px"/></a>
                     <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/epainos-icon.png' %}" title="Εκτύπωση Έπαινου Προόδου" width="25px" height="20px"/></a>
                     <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/participation-icon.png' %}" title="Εκτύπωση Βεβαίωσης Συμμετοχής" width="25px" height="20px"/></a>
-                    <a href="{% url 'student_card' student.id %}"><img src="{% image 'students/icons/certification-icon.png' %}" title="Εκτύπωση Βεβαίωσης Σεμιναρίου" width="25px" height="20px"/></a>
+                    <a href="{% url 'print_students_seminar_certificate' student.id %}"><img src="{% image 'students/icons/certification-icon.png' %}" title="Εκτύπωση Βεβαίωσης Σεμιναρίου" width="25px" height="20px"/></a>
                 </div>
             </td>
         </tr>

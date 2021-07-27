@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Εκτύπωση Πιστοποίησης - {{instance.lastname}} {{instance.firstname}}</title>
+<!--    {% loadBootstrap %}-->
+</head>
+<body>
+    <div class="options">
+        <div>
+            <a href="{% url 'print_students_seminar_certificate' instance.id %}">Σεμινάριο</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_commendation_certificate' instance.id %}">Αριστείο</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_praise_certificate' instance.id %}">Έπαινος</a>
+        </div>
+    </div>
+</body>
+</html>

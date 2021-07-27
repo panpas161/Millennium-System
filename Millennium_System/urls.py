@@ -56,7 +56,10 @@ urlpatterns = [
     path('students/economic_contract/<str:pk>', studentviews.economicContractView,name='economic_contract'),
     path('students/student_card/<str:pk>', studentviews.studentCardView, name="student_card"),
     path('students/installments_tab/<str:pk>',studentviews.installmentsTabView, name="installments_tab"),
-    path('students/seminar_certificate/<pk>',studentviews.printSeminarCertificateView, name="students_print_seminar_certificate"),
+    path('students/certificates/menu/<pk>',studentviews.printCertificateMenuView, name="print_students_certificate_menu"),
+    path('students/certificates/seminar/<pk>',studentviews.printSeminarCertificateView, name="print_students_seminar_certificate"),
+    path('students/certificates/commendation/<pk>',studentviews.printCommendationCertificateView, name="print_students_commendation_certificate"),
+    path('students/certificates/praise/<pk>',studentviews.printPraiseCertificateView, name="print_students_praise_certificate"),
     #specialties
     path('students/specialties/list/', studentviews.listSpecialtiesView, name="list_student_specialties"),
     path('students/specialties/add/', studentviews.addSpecialtiesView, name="add_student_specialty"),

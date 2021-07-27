@@ -36,3 +36,10 @@ def changeElementName(element,current_name,name):
 @register.simple_tag(name="split")
 def splitString(value,delimiter,pos):
     return value.split(delimiter)[pos]
+
+@register.filter
+def hash(h, key):
+    try:
+        return h[key]
+    except:
+        return None

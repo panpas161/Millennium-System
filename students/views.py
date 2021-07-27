@@ -203,19 +203,70 @@ def installmentsTabView(request, pk):
 
 @login_required(login_url="login")
 @staff_only
+def printCertificateMenuView(request,pk):
+    instance = Student.objects.get(id=pk)
+    data = {
+        'instance':instance
+    }
+    return render(request,"Backend/Miscellaneous/certificate_menu.html",data)
+
+@login_required(login_url="login")
+@staff_only
 def printSeminarCertificateView(request,pk):
     instance = Student.objects.get(id=pk)
     form = SeminarCertificateForm()
-    form.firstname = instance.firstname
+    form.fields['firstname'].initial = instance.firstname
+    form.fields['lastname'].initial = instance.lastname
+    form.fields['sex'].initial = instance.sex
+    form.fields['fathersname'].initial = instance.fathersname
+    form.fields['adt'].initial = instance.adt
+    form.fields['specialty'].initial = instance.specialty.name
+    form.fields['location'].initial = instance.location
     data = {
         'form':form,
     }
     if request.method == "POST":
         form = SeminarCertificateForm(request.POST)
-        # if form.is_valid():
-        form.action(request)
+        if form.is_valid():
+            formdata = {
+                'postdata':form.cleaned_data
+            }
+            return render(request, "Backend/Miscellaneous/print_seminar_certificate.html",formdata)
     return render(request,"Backend/Miscellaneous/print_seminar_certificate_form.html",data)
 
+@login_required(login_url='login')
+@staff_only
+def printCommendationCertificateView(request,pk):
+    instance = Student.objects.get(id=pk)
+    form = CommendationCertificateForm
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = CommendationCertificateForm(request.POST)
+        if form.is_valid():
+            formdata = {
+                'postdata':form.cleaned_data
+            }
+            return render(request,"Backend/Miscellaneous/print_commendation_certificate.html",formdata)
+    return render(request,"Backend/Miscellaneous/print_commendation_certificate_form.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def printPraiseCertificateView(request,pk):
+    instance = Student.objects.get(id=pk)
+    form = PraiseCertificateForm
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = PraiseCertificateForm(request.POST)
+        if form.is_valid():
+            formdata = {
+                'postdata':form.cleaned_data
+            }
+            return render(request,"Backend/Miscellaneous/print_praise_certificate.html",formdata)
+    return render(request,"Backend/Miscellaneous/print_praise_certificate_form.html",data)
 @login_required(login_url="login")
 @staff_only
 def uploadStudentPicture(request,pk):

@@ -128,18 +128,35 @@ class SeminarCertificateForm(forms.Form):
     adt = forms.CharField(max_length=20)
     specialty = forms.CharField(max_length=20)
     location = forms.CharField(max_length=20)
-    dates = forms.DateField()
+    # dates = forms.DateField()
     lecturersex = forms.ChoiceField(choices=sexoptions)
     lecturer = forms.CharField(max_length=20)
     aa = forms.CharField(max_length=20)
-    aadate = forms.DateField()
+    # aadate = forms.DateField()
 
-    def action(self,request):
-        # data = {
-        #     "lastname":self.lastname,
-        #     "firstname":self.firstname
-        # }
-        return render(request,"Backend/Miscellaneous/print_seminar_certificate.html",None)
+class CommendationCertificateForm(forms.Form):
+    sexoptions = (
+        ("Άνδρας", "Άνδρας"),
+        ("Γυναίκα", "Γυναίκα")
+    )
+    sex = forms.ChoiceField(choices=sexoptions)
+    lastname = forms.CharField(max_length=20)
+    firstname = forms.CharField(max_length=20)
+    fathersname = forms.CharField(max_length=20)
+    specialty = forms.CharField(max_length=20)
+
+class PraiseCertificateForm(forms.Form):
+    sexoptions = (
+        ("Άνδρας", "Άνδρας"),
+        ("Γυναίκα", "Γυναίκα")
+    )
+    sex = forms.ChoiceField(choices=sexoptions)
+    lastname = forms.CharField(max_length=20)
+    firstname = forms.CharField(max_length=20)
+    fathersname = forms.CharField(max_length=20)
+    contest = forms.CharField(max_length=20)
+    contest_location = forms.CharField(max_length=20)
+    date = forms.DateField()
 
 class GeneralSettingsForm(forms.Form):
     email = forms.CharField()
