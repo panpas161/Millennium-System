@@ -3,15 +3,15 @@
 <head>
     {% load tags %}
     <meta charset="UTF-8">
-    <title>Επεξεργασία Υπηρεσίας</title>
-    <link rel="stylesheet" href="{% style 'forms/edit_form_one.css' %}"/>
+    <title>Προσθήκη Υπηρεσίας Blankpixel</title>
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
     {% loadBootstrap %}
 </head>
 <body>
     {% load render %}
-    {% renderEspaBackendNavbar request %}
+    {% renderBlankpixelNavbar request %}
     <div class="header">
-        Επεξεργασία Υπηρεσίας
+        Προσθήκη Υπηρεσίας
     </div>
     <form method="POST">
         {% csrf_token %}

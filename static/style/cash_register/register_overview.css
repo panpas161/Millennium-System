@@ -1,49 +1,25 @@
-.income
-{
-    display: grid;
-    grid-template-columns: repeat(4,25%);
-    grid-template-rows: 166px;
-    margin-top:10px;
-    background-color: white;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.21);
-}
-.income-item
-{
-     box-shadow: 0px 1px 3px 0px black;
-}
-.today-income
-{
-    display: grid;
-    grid-template-rows: 23% 51% 26%;
-}
-.today-income h5
-{
-    margin-top:8px;
-    text-align: left;
-}
-.totalrevenue
-{
-    text-align: center;
-    margin-top:18px;
-    font-size:23px;
-}
 body
 {
-    background:#e9ecef
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 400;
+
 }
-.overview
+
+.companies-overview
 {
     display: grid;
-    grid-template-columns: repeat(2,50%);
-    grid-template-rows: repeat(2,50%);
+    grid-template-columns: 70% 30%;
     text-align: center;
 }
-.expense
+
+.company-tab
 {
-    color:red;
+    display: grid;
+    grid-template-columns: 2% 6% 20% 20%;
 }
-.header
+
+.company-analytics
 {
-    text-align: center;
-    color:green
+    display: grid;
+
 }

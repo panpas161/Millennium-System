@@ -134,7 +134,17 @@ urlpatterns = [
     path('efet/business/edit/<str:pk>',efetviews.editBusinessView,name="edit_efet_business"),
     path('efet/business/delete/<str:pk>',efetviews.deleteBusinessView,name="delete_efet_business"),
     #------------BLANKPIXEL APP------------
+    #clients
     path('blankpixel/clients/list',blankpixelviews.listClientsView,name="list_blankpixel_clients"),
+    path('blankpixel/clients/add',blankpixelviews.addClientView,name="add_blankpixel_client"),
+    path('blankpixel/clients/edit/<pk>',blankpixelviews.editClientView,name="edit_blankpixel_client"),
+    path('blankpixel/clients/delete/<pk>',blankpixelviews.deleteClientView,name="delete_blankpixel_client"),
+    #services
+    path('blankpixel/services/list',blankpixelviews.listServicesView,name="list_blankpixel_services"),
+    path('blankpixel/services/add',blankpixelviews.addServiceView,name="add_blankpixel_service"),
+    path('blankpixel/services/edit/<pk>',blankpixelviews.editServiceView,name="edit_blankpixel_service"),
+    path('blankpixel/services/delete/<pk>',blankpixelviews.deleteServiceView,name="delete_blankpixel_service"),
+    #domains
     path('blankpixel/domains/list',blankpixelviews.listDomainsView,name="list_blankpixel_domains"),
     #------------ESPA APP------------
     #Backend

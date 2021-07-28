@@ -10,26 +10,63 @@
 <body>
     {% load render %}
     {% renderRegisterBackendNavbar request %}
-    <div class="income">
-        <div class="today-income income-item">
-            <div class="header">
-                <b>Σημερινό Κέρδος</b>
-            </div>
-            <div class="totalrevenue" id="totalrevenue">
-                {{todaytotalrevenue}}&euro;
-            </div>
-            <div class="overview">
-                <label>Σημερινά Έσοδα</label>
-                <label>Σημερινά Έξοδα</label>
-                <label>{{todayreceiptsamount}}&euro;</label>
-                <label class="expense">{{todayexpenseamount}}&euro;</label>
+    <div class="total_income">
+        earnings
+        <div>
+            <div>
+                {{revenue}}
             </div>
         </div>
-        <div class="week-income income-item">
+    </div>
+
+    <div class="companies-overview">
+        <div class="company-financials">
+            <div class="company-tab">
+                <div>
+                    <img src="x" />
+                </div>
+                <div>
+                    blankpixel -
+                </div>
+                <div>
+                    price
+                </div>
+                <div>
+                    costs
+                </div>
+            </div>
+            <div class="company-tab">
+                <div>
+                    <img src="x" />
+                </div>
+                <div>
+                    MEC -
+                </div>
+                <div>
+                    price
+                </div>
+                <div>
+                    costs
+                </div>
+            </div>
         </div>
-        <div class="month-income income-item">
+        <div class="company-percentage-chart">
+            chart
         </div>
-        <div class="overall-income income-item">
+    </div>
+
+    <div class="company-analytics">
+       <div class="blankpixel">
+            blankpixel
+       </div>
+        <div class="blankpixel-dropdown">
+
+        </div>
+        <div class="mec">
+            mec
+        </div>
+        <div class="mec-dropdown">
+
         </div>
     </div>
 </body>

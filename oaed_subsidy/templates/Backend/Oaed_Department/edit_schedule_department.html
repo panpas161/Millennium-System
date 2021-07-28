@@ -13,9 +13,17 @@
     <form method="POST">
         {% csrf_token %}
         {% for form in forms %}
-        <div class="forms">
-            {{form}}
-        </div>
+            <div class="forms">
+                {% for field in form %}
+                        {% if field.name == "weekday" %}
+                            {{field}}
+                            daylabel
+                        {% else %}
+                            {{field.label_tag}}
+                            {{field}}
+                        {% endif %}
+                {% endfor %}
+            </div>
         {% endfor %}
         {{ forms.management_form }}
         <input type="submit" />
@@ -38,3 +46,21 @@
         height:32px;
     }
 </style>
+
+<script>
+    function testfunc() {
+        weekdays = {
+            "id_form-0-weekday": "Δευτέρα",
+            "id_form-1-weekday": "Τρίτη",
+            "id_form-2-weekday": "Τετάρτη",
+            "id_form-3-weekday": "Πέμπτη",
+            "id_form-4-weekday": "Παρασκευή",
+            "id_form-5-weekday": "Σάββατο",
+            "id_form-6-weekday": "Κυριακή"
+        }
+        for (i = 0; i < 7; i++) {
+            field_name = "id_form-" + i + "-weekday";
+            document.getElementById(field_name).value = weekdays[field_name];
+        }
+    }
+</script>

@@ -52,7 +52,7 @@ def blankpixelNavbarView(request):
         'request':request,
         'messages': messages.get_messages(request)
     }
-    return  render_to_string("Backend/Navbar/blankpixel_navbar_one.html",data)
+    return  render_to_string("Blankpixel_Backend/Navbar/blankpixel_navbar_one.html",data)
 
 @register.simple_tag(name="renderEfetNavbar")
 def efetNavbarView(request):

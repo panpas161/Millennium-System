@@ -23,11 +23,15 @@ class DepartmentForm(ModelForm):
         }
 
 class DepartmentDayForm(ModelForm):
+    def __init__(self,*args,**kwargs):
+        super(DepartmentDayForm, self).__init__(*args, **kwargs)
+        self.empty_permitted = False
     class Meta:
         model = DepartmentDay
         fields = '__all__'
         exclude = ['department','entrydate']
         widgets = {
+            'weekday':forms.CheckboxInput(),
             'start_time': forms.TimeInput(attrs={
                 'type':'time'
             }),
@@ -35,8 +39,10 @@ class DepartmentDayForm(ModelForm):
                 'type': 'time'
             })
         }
-    def __init__(self,*args,**kwargs):
-        super(DepartmentDayForm, self).__init__(*args, **kwargs)
-        self.empty_permitted = False
+
+    # def save(self):
+    #     super(self,DepartmentDayForm).save()
 
 DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)
+
+# DepartmentDayEditMultipleForm = forms.inlineformset_factory(DepartmentDayForm,fields=("weekday",))

@@ -36,10 +36,8 @@ class SpecialtyModelForm(ModelForm):
             'phonenumber':forms.NumberInput()
         }
 
-# class StudentSpecialtyForm(ModelForm):
-#     class Meta:
-#         model = StudentSpecialty
-#         fields = ['specialty', 'discount']
+# class SpecialtiesForm(forms.Form):
+#     name = forms.MultipleChoiceField()
 
 class VoucherModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -157,6 +155,10 @@ class PraiseCertificateForm(forms.Form):
     contest = forms.CharField(max_length=20)
     contest_location = forms.CharField(max_length=20)
     date = forms.DateField()
+
+# class InstallmentForm(forms.ModelForm):
+#     payment_in_advance = forms.IntegerField()
+#     payment_number = forms.IntegerField()
 
 class GeneralSettingsForm(forms.Form):
     email = forms.CharField()
