@@ -166,3 +166,5 @@ class GeneralSettingsForm(forms.Form):
 class ChangePassword(forms.Form):
     password = forms.CharField()
     confirm_password = forms.CharField()
+
+DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)

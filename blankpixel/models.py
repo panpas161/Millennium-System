@@ -44,5 +44,11 @@ class Installment(models.Model):
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_installments")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
+    # def save(self,*args,**kwargs):
+    #     if self.receipt:
+    #         self.paid = True
+    #     else:
+    #         self.paid = False
+
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

@@ -8,7 +8,6 @@ from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
 from .functions.installments import calculateInstallments
-from django.http import JsonResponse
 
 @login_required(login_url="login")
 @staff_only
@@ -406,9 +405,23 @@ def deleteDepartmentView(request,pk):
 
 def createDepartmentScheduleView(request,pk):
     instance = Department.objects.get(id=pk)
+    forms = DepartmentDayMultipleForm()
+    hasvalidforms = False
     data = {
-
+        'forms': forms,
+        'instance': instance,
     }
+    if request.method == "POST":
+        forms = DepartmentDayMultipleForm(request.POST)
+        for form in forms:
+            if form.is_valid():
+                savedform = form.save(commit=False)
+                savedform.department = instance
+                savedform.save()
+                hasvalidforms = True
+        if hasvalidforms:
+            messages.success(request, "Το ωράριο δημιουργήθηκε με επιτυχία!")
+        return redirect("list_student_departments")
     return render(request,"Backend/Students/create_schedule_department.html",data)
 #frontend
 @login_required(login_url="login")
@@ -441,24 +454,3 @@ def examsStudentView(request):
         'objects': objects
     }
     return render(request,"Frontend/Students/exams_tab.html",data)
-
-@login_required(login_url="login")
-@allowed_roles(total_roles=['Admin','Staff','Teacher'])
-def getDepartments(request,teacherpk):
-    #authentication checks
-    teacher = Teacher.objects.get(id=teacherpk)
-    departments = []
-    for day in DepartmentDay.objects.all().filter(teacher=teacher):
-        departments.append(day)
-        #remove duplicates
-    return JsonResponse(departments)
-
-@login_required(login_url="login")
-@allowed_roles(total_roles=['Admin','Staff','Teacher'])
-def getStudents(request,departmentpk):
-    #authentication checks
-    department = Department.objects.get(id=departmentpk)
-    data = {
-        'students':department.participants.all()
-    }
-    return JsonResponse(data)

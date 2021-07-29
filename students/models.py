@@ -92,6 +92,11 @@ class Department(models.Model):
     participants = models.ManyToManyField(Student,verbose_name="Συμμετέχοντες")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
+    def get_participants(self):
+        return {
+            self.participants.primary_key: self.participants.name
+        }
+
     def __str__(self):
         return self.name
 
@@ -112,6 +117,11 @@ class DepartmentDay(models.Model):
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
     # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name="studentdepartmentdays",null=True)
+
+    def get_department(self):
+        return {
+            self.department.primary_key: self.department.name
+        }
 
     def __str__(self):
         return self.department.name + "-" + self.weekday

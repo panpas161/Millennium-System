@@ -1,8 +1,8 @@
 body
 {
+    background:#e9ecef;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 400;
-
 }
 
 .companies-overview
@@ -15,7 +15,7 @@ body
 .company-tab
 {
     display: grid;
-    grid-template-columns: 2% 6% 20% 20%;
+    grid-template-columns: 2% 10% 9% 17%;
 }
 
 .company-analytics

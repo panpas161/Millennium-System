@@ -23,25 +23,31 @@ class DepartmentForm(ModelForm):
         }
 
 class DepartmentDayForm(ModelForm):
+    checkday = forms.BooleanField(required=False)
     def __init__(self,*args,**kwargs):
         super(DepartmentDayForm, self).__init__(*args, **kwargs)
         self.empty_permitted = False
+        # self.fields['weekday'].initial = "test"
     class Meta:
         model = DepartmentDay
         fields = '__all__'
         exclude = ['department','entrydate']
         widgets = {
-            'weekday':forms.CheckboxInput(),
             'start_time': forms.TimeInput(attrs={
                 'type':'time'
             }),
             'end_time': forms.TimeInput(attrs={
                 'type': 'time'
-            })
+            }),
+            'weekday':forms.HiddenInput()
         }
 
-    # def save(self):
-    #     super(self,DepartmentDayForm).save()
+    def is_valid(self):
+        valid = super().is_valid()
+        if valid:
+            if self.cleaned_data['checkday']:
+                return True
+            return False
 
 DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)
 

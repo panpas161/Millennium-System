@@ -15,13 +15,13 @@
         {% for form in forms %}
             <div class="forms">
                 {% for field in form %}
-                        {% if field.name == "weekday" %}
-                            {{field}}
-                            daylabel
-                        {% else %}
-                            {{field.label_tag}}
-                            {{field}}
-                        {% endif %}
+                    {% if field.name != "weekday" %}
+                        {{field.label_tag}}
+                        {{field}}
+                    {% else %}
+
+                        {{field}}
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endfor %}

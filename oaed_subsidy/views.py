@@ -144,7 +144,9 @@ def createScheduleDepartmentView(request,pk):
                 hasvalidforms = True
         if hasvalidforms:
             messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
-        return redirect("list_oaed_subsidy_departments")
+            return redirect("list_oaed_subsidy_departments")
+        else:
+            pass
     return render(request,"Backend/Oaed_Department/create_schedule_department.html",data)
 
 @login_required(login_url="login")
@@ -166,5 +168,7 @@ def editScheduleDepartmentView(request,pk):
                 hasvalidforms = True
         if hasvalidforms:
             messages.success(request,"Το ωράριο δημιουργήθηκε με επιτυχία!")
-        return redirect("list_oaed_subsidy_departments")
+            return redirect("list_oaed_subsidy_departments")
+        else:
+            pass
     return render(request,"Backend/Oaed_Department/edit_schedule_department.html",data)

@@ -3,7 +3,6 @@ from django import forms
 from Millennium_System import settings
 
 class ClientModelForm(forms.ModelForm):
-    validfield = forms.BooleanField(required=False)
     class Meta:
         model = Client
         fields = '__all__'
@@ -12,16 +11,8 @@ class ClientModelForm(forms.ModelForm):
             'entrydate':forms.DateInput(format=settings.DATE_FORMAT)
         }
 
-    # def is_valid(self):
-    #     valid = super().is_valid()
-    #     if valid:
-    #         if self.fields['validfield']:
-    #             print(self.vali)
-    #             return True
-    #     else:
-    #         return False
-
 class ServiceForm(forms.ModelForm):
+    choices = forms.ModelMultipleChoiceField(queryset=Client.objects.all(),widget=forms.CheckboxSelectMultiple())
     class Meta:
         model = Service
         fields = '__all__'
@@ -41,7 +32,7 @@ class PriceForm(forms.ModelForm):
     def is_valid(self):
         valid = super().is_valid()
         if valid:
-            if self.validfield:
+            if self.cleaned_data['validfield']:
                 return True
         else:
             return False

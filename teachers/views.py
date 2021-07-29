@@ -6,7 +6,7 @@ from assets.functions.authentication import addUser
 from django.shortcuts import redirect
 from .forms import TeacherModelForm
 from students.forms import ExamGradeForm
-from students.models import ExamGrade
+from students.models import ExamGrade,Department,DepartmentDay
 from students.filters import ExamGradeFilter,ExamGradeStaffFilter
 from .models import *
 from assets.functions.authentication import isStaff
@@ -17,6 +17,7 @@ from assets.functions.pagination import getPage
 from .filters import *
 from .forms import *
 from django.http import JsonResponse
+from django.shortcuts import HttpResponse
 
 #Backend
 @login_required(login_url="login")
@@ -293,3 +294,32 @@ def deleteAttendanceReportView(request,pk):
     instance.delete()
     messages.success(request,"Το δελτίο μαθήματος διαγράφτηκε επιτυχώς!")
     return render(request,"Teachers_Frontend/AttendanceBook/delete_attendance.html")
+
+
+@login_required(login_url="login")
+@allowed_roles(total_roles=['Admin','Staff','Teacher'])
+def getTeacherDepartments(request,teacherpk):
+    #authentication checks
+    if hasattr(request.user,'teacher'):
+        if request.user.teacher.id != int(teacherpk):
+            return HttpResponse("Δεν επιτρέπεται η πρόσβαση")
+    teacher = Teacher.objects.get(id=teacherpk)
+    departments = []
+    for day in DepartmentDay.objects.all().filter(teacher=teacher):
+        departments.append(day.get_department())
+    #remove duplicates
+    # departments = dict.fromkeys(departments)
+    return JsonResponse(departments,safe=False)
+
+@login_required(login_url="login")
+@allowed_roles(total_roles=['Admin','Staff','Teacher'])
+def getTeacherStudents(request,departmentpk):
+    #authentication checks
+    # if hasattr(request.user,'teacher'):
+        # if request.user.teacher.id in
+    department = Department.objects.get(id=departmentpk)
+    students = []
+    data = {
+        'students':department.participants.all()
+    }
+    return JsonResponse(data)

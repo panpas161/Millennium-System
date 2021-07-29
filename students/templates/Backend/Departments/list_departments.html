@@ -17,6 +17,7 @@
         <tr class="list-table-header">
             <th>#</th>
             <th>Τμήμα</th>
+            <th>Ωράριο</th>
             <th></th>
         </tr>
         {% for department in objects %}
@@ -28,10 +29,21 @@
                 {{department.name}}
             </td>
             <td>
+                {% if department.departmentday_set.all %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}" width="30px" height="30px">
+                {% else %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}" width="30px" height="30px">
+                {% endif %}
+            </td>
+            <td>
                 <div class="buttons">
                     <a href="{% url 'edit_student_department' department.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="20px"/></a>
                     <a href="{% url 'delete_student_department' department.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="20px"/></a>
-                    <a href="{% url 'create_student_department_schedule' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Δημιουργία Προγράμματος" width="25px" height="20px"/></a>
+                    {% if not department.departmentday_set.all %}
+                        <a href="{% url 'create_student_department_schedule' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Δημιουργία Προγράμματος" width="25px" height="20px"/></a>
+                    {% else %}
+                        <a href="{% url 'create_student_department_schedule' department.id %}"><img src="{% image 'general/icons/clock-icon.png' %}" title="Επεξεργασία Προγράμματος" width="25px" height="20px"/></a>
+                    {% endif %}
                 </div>
             </td>
         </tr>

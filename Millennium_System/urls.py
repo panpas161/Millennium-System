@@ -99,6 +99,10 @@ urlpatterns = [
     path('teachers/attendance_reports/add',teacherviews.addAttendanceReportView,name="add_teacher_attendance_report"),
     path('teachers/attendance_reports/edit/<str:pk>',teacherviews.editAttendanceReportView,name="edit_teacher_attendance_report"),
     path('teachers/attendance_reports/delete/<str:pk>',teacherviews.deleteAttendanceReportView,name="delete_teacher_attendance_report"),
+    #responses
+    # JSON responses
+    path('teachers/json/get/departments/<teacherpk>', teacherviews.getTeacherDepartments, name="get_teacher_departments"),
+    path('teachers/json/get/students/<departmentpk>', teacherviews.getTeacherStudents, name="get_teacher_students"),
     #------------CASH_REGISTER APP------------
     #receipts
     path('cash_register/receipts/list/',cashregisterviews.listReceiptsView,name="list_receipts"),
