@@ -13,14 +13,17 @@
     <form method="POST">
         {% csrf_token %}
         {% for form in forms %}
-            <div class="forms">
+        <div class="forms">
+            <label>day_label</label>
+            {{form.checkday}}
                 {% for field in form %}
-                    {% if field.name != "weekday" %}
-                        {{field.label_tag}}
-                        {{field}}
-                    {% else %}
-
-                        {{field}}
+                    {% if field.name != "checkday" %}
+                        {% if field.name != "weekday" %}
+                            {{field.label_tag}}
+                            {{field}}
+                        {% else %}
+                            {{field}}
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </div>
@@ -48,7 +51,7 @@
 </style>
 
 <script>
-    function testfunc() {
+    document.addEventListener("DOMContentLoaded",() => {
         weekdays = {
             "id_form-0-weekday": "Δευτέρα",
             "id_form-1-weekday": "Τρίτη",
@@ -62,5 +65,5 @@
             field_name = "id_form-" + i + "-weekday";
             document.getElementById(field_name).value = weekdays[field_name];
         }
-    }
+    });
 </script>

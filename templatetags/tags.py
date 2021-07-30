@@ -21,9 +21,8 @@ def getScriptURL(url):
 
 @register.simple_tag(name="loadBootstrap")
 def getBoostrap():
-    return mark_safe("<link rel='stylesheet' href='"  + settings.BOOTSTRAP_URL + "css/bootstrap.css'><script src='" + settings.BOOTSTRAP_URL + "js/bootstrap.js'></script><link rel='stylesheet' href='" + settings.BOOTSTRAP_URL +"css/bootstrap-fixer.css' />")
-#     return mark_safe("""<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-# """)
+    return mark_safe("<link rel='stylesheet' href='"  + settings.BOOTSTRAP_URL + "css/bootstrap.css'><script src='" + settings.BOOTSTRAP_URL + "js/bootstrap.js'></script><link rel='stylesheet' href='" + settings.BOOTSTRAP_URL +"css/bootstrap-fixer.css' />"+ \
+                     """<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css">""")
 
 @register.simple_tag(name="loadJQuery")
 def getJQuery():
