@@ -94,6 +94,7 @@ textarea {
 
 
 </style>
+  {% load tags %}
 </head>
 
 <body>
@@ -340,11 +341,10 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
                     <td align="center" valign="middle" bgcolor="#FFFFFF" style="width:33%; border-bottom:1px solid #000;"><span>06/11/2020</span></td>
                     <td width="25%" align="center" valign="middle" bgcolor="#FFFFFF" style="width:33%; border-bottom:1px solid #000; border-right:2px solid #000;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="20%" align="center" valign="middle"><span>100,00<br /><span style='color:#F00;'>100,00</span></span></td>
+    <td width="20%" align="center" valign="middle"><span>PROKATABOLI<br /><span style='color:#F00;'>100,00</span></span></td>
     <td width="20%" align="center" valign="middle"><span class="no-print"></span>
-	  <a href="re-print-apodeiksi.php?id=1604678083-40PT9V&amount=100.00&programs=ΜΆΓΕΙΡΕΣ-ΕΠΑΓΓΕΛΜΑΤΊΕΣ&name=KOLOVANI PETRAQ&dosi=10468&nn=0&source=students" target="_blank"><img src="../images/check.png" alt="Δόση πληρωμένη 10468 με ποσό 100,00 &euro;" width="13" height="13" border="0" title="Δόση πληρωμένη 06-11-2020 με ποσό 100,00 &euro;" /></a>      </td>
-    <td width="60%" align="center" valign="middle"><span class="no-print">      <a href="../apy/issue_apy.php?name=KOLOVANI PETRAQ&address=ΠΟΛΥΓΥΡΟΣ, , ΠΟΛΥΓΥΡΟΣ&tel=6906023187 - 2371024521&afm=106455997&line1=ΠΡΟΚΑΤΑΒΟΛΗ&qty1=1&price1=81.3&sid=1045&suid=1604677813-L1PBA8&disc1=0&vat1=23&source=students&did=10468" target="_blank"><img src="../images/add_1.png" alt="Έκδοση ΑΠΥ" width="13" height="13" border="0" title="Έκδοση ΑΠΥ" /></a>
-      </span>&nbsp;<a href="javascript:;"><img src="../images/1401989090_new-24.png" width="13" height="13" title="Επεξεργασία δόσης" alt="Επεξεργασία δόσης" onClick="MM_openBrWindow('editdosi.php?id=1604677813-L1PBA8&dosi=10468&name=KOLOVANI PETRAQ&eid=1604677813-L1PBA8','editdosi','scrollbars=yes,resizable=yes,width=700,height=400')" /></a>&nbsp;<a href="javascript:;"><img src="../images/1401989078_cross-24.png" width="13" height="13" title="Διαγραφή δόσης" alt="Διαγραφή δόσης" onClick="deleteDosi('1604677813-L1PBA8', '10468', '1604677813-L1PBA8');" /></a></td>
+	  <a href="re-print-apodeiksi.php?id=1604678083-40PT9V&amount=100.00&programs=ΜΆΓΕΙΡΕΣ-ΕΠΑΓΓΕΛΜΑΤΊΕΣ&name=KOLOVANI PETRAQ&dosi=10468&nn=0&source=students" target="_blank"><img src="{% image 'students/icons/pay-installment-icon.png' %}" alt="Δόση πληρωμένη 10468 με ποσό 100,00 &euro;" width="13" height="13" border="0" title="Πληρωμή δόσης" /></a>      </td>
+      </span>&nbsp;<a href="javascript:;"><img src="{% image 'general/icons/edit-icon.png' %}" width="13" height="13" title="Επεξεργασία δόσης" alt="Επεξεργασία δόσης" onClick="MM_openBrWindow('editdosi.php?id=1604677813-L1PBA8&dosi=10468&name=KOLOVANI PETRAQ&eid=1604677813-L1PBA8','editdosi','scrollbars=yes,resizable=yes,width=700,height=400')" /></a>&nbsp;<a href="javascript:;"><img src="{% image 'general/icons/delete-icon.png' %}" width="13" height="13" title="Διαγραφή δόσης" alt="Διαγραφή δόσης" onClick="deleteDosi('1604677813-L1PBA8', '10468', '1604677813-L1PBA8');" /></a></td>
   </tr>
 </table>
 </td>
@@ -356,7 +356,7 @@ Website: <a href="http://www.millennium.edu.gr" target="_blank">www.millennium.e
                     <td width="25%" align="center" valign="middle" bgcolor="#FFFFFF" style="width:33%; border-bottom:1px solid #000; border-right:2px solid #000;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20%" align="center" valign="middle"><span>108,33<br /></span></td>
-    <td width="20%" align="center" valign="middle"><span class="no-print">	  <span  style="cursor: pointer;" onclick="rrkd('print-apodeiksi.php?id=&amount=108.33&programs=ΜΆΓΕΙΡΕΣ-ΕΠΑΓΓΕΛΜΑΤΊΕΣ&name=KOLOVANI PETRAQ&dosi=10469&nn=1&source=students')" ><img src="../images/add.png" alt="Πληρωμή δόσης" width="13" height="13" border="0" title="Πληρωμή δόσης" /></span>      </span></td>
+    <td width="20%" align="center" valign="middle"><span class="no-print">	  <span  style="cursor: pointer;" onclick="rrkd('print-apodeiksi.php?id=&amount=108.33&programs=ΜΆΓΕΙΡΕΣ-ΕΠΑΓΓΕΛΜΑΤΊΕΣ&name=KOLOVANI PETRAQ&dosi=10469&nn=1&source=students')" ><img src="" alt="Πληρωμή δόσης" width="13" height="13" border="0" title="Πληρωμή δόσης" /></span>      </span></td>
     <td width="60%" align="center" valign="middle"><span class="no-print">      <a href="../apy/issue_apy.php?name=KOLOVANI PETRAQ&address=ΠΟΛΥΓΥΡΟΣ, , ΠΟΛΥΓΥΡΟΣ&tel=6906023187 - 2371024521&afm=106455997&line1=ΔΙΔΑΚΤΡΑ ΔΟΣΗ 1/6&qty1=1&price1=88.07&sid=1045&suid=1604677813-L1PBA8&disc1=0&vat1=23&source=students&did=10469" target="_blank"><img src="../images/add_1.png" alt="Έκδοση ΑΠΥ" width="13" height="13" border="0" title="Έκδοση ΑΠΥ" /></a>
       </span>&nbsp;<a href="javascript:;"><img src="../images/1401989090_new-24.png" width="13" height="13" title="Επεξεργασία δόσης" alt="Επεξεργασία δόσης" onClick="MM_openBrWindow('editdosi.php?id=1604677813-L1PBA8&dosi=10469&name=KOLOVANI PETRAQ&eid=1604677813-L1PBA8','editdosi','scrollbars=yes,resizable=yes,width=700,height=400')" /></a>&nbsp;<a href="javascript:;"><img src="../images/1401989078_cross-24.png" width="13" height="13" title="Διαγραφή δόσης" alt="Διαγραφή δόσης" onClick="deleteDosi('1604677813-L1PBA8', '10469', '1604677813-L1PBA8');" /></a></td>
   </tr>

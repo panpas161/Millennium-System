@@ -29,5 +29,22 @@
 
 <script>
     departmentfield = document.getElementById("id_department");
-
+    url = "/teachers/json/get/departments/"+"{{request.user.teacher.id}}";
+    function changeDepartment(options_dict,field)
+    {
+        html = ""
+        keys = Object.keys(options_dict);
+        for(var i in keys)
+        {
+            html += "<option value='" + keys + "'>" + options_dict[i] + "</option>"
+        }
+        field.innerHTML = html;
+        return html;
+    }
+    var testdict = {
+        1:"test",
+        2:"test2",
+        3:"test3"
+    };
+    changeDepartment(testdict,departmentfield);
 </script>

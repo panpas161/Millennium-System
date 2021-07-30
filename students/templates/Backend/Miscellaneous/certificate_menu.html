@@ -4,7 +4,7 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Εκτύπωση Πιστοποίησης - {{instance.lastname}} {{instance.firstname}}</title>
-<!--    {% loadBootstrap %}-->
+    {% loadBootstrap %}
 </head>
 <body>
     <div class="options">
@@ -16,6 +16,18 @@
         </div>
         <div>
             <a href="{% url 'print_students_praise_certificate' instance.id %}">Έπαινος</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_praise_certificate' instance.id %}">Σπουδές</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_praise_certificate' instance.id %}">Σπουδες ΚΕΑΣ Ξυνή</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_praise_certificate' instance.id %}">Έπαινος 2</a>
+        </div>
+        <div>
+            <a href="{% url 'print_students_praise_certificate' instance.id %}">ΕΣΥΝ</a>
         </div>
     </div>
 </body>

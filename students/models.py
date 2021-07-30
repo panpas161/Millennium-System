@@ -94,7 +94,7 @@ class Department(models.Model):
 
     def get_participants(self):
         return {
-            self.participants.primary_key: self.participants.name
+            self.participants.pk: self.participants.name
         }
 
     def __str__(self):
@@ -120,7 +120,7 @@ class DepartmentDay(models.Model):
 
     def get_department(self):
         return {
-            self.department.primary_key: self.department.name
+            self.department.pk: self.department.name
         }
 
     def __str__(self):
@@ -131,9 +131,15 @@ class Installment(models.Model):
     amount = models.IntegerField()
     paid = models.BooleanField(default=False)
     paymentdate = models.DateField()#when will it be paid? not null nor blank
-    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
     entrydate = models.DateField(default=settings.CURRENT_DATE)
+
+    # def save(self,*args,**kwargs):
+    #     if self.receipt:
+    #         self.paid = True
+    #     else:
+    #         self.paid = False
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

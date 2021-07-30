@@ -156,9 +156,9 @@ class PraiseCertificateForm(forms.Form):
     contest_location = forms.CharField(max_length=20)
     date = forms.DateField()
 
-# class InstallmentForm(forms.ModelForm):
-#     payment_in_advance = forms.IntegerField()
-#     payment_number = forms.IntegerField()
+class InstallmentForm(forms.Form):
+    payment_in_advance = forms.IntegerField()
+    payment_number = forms.IntegerField()
 
 class GeneralSettingsForm(forms.Form):
     email = forms.CharField()

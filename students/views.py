@@ -193,7 +193,7 @@ def installmentsTabView(request, pk):
     #if type(studentinstance.mothersname) != "string":#something like that
     #    mothersname = studentinstance.mothersname
     data = {
-        # "studentinstance":studentinstance,
+        "studentinstance":studentinstance,
         # "student_price":studentinstance.price,
         # "student_discount":studentinstance.discount,
         # "student_total_price":studentinstance.price - studentinstance.discount,
@@ -436,7 +436,7 @@ def mainStudentView(request):
 @allowed_roles(total_roles=["Student"])
 def installmentsFrontTabView(request):
     try:
-        user = Student.objects.get(user=request.user)
+        user = request.user.student
         data = {
             'user': user,
         }
