@@ -340,30 +340,6 @@ def listDepartmentsView(request):
     }
     return render(request,"Backend/Departments/list_departments.html",data)
 
-# @login_required(login_url="login")
-# @staff_only
-# def addDepartmentView(request):
-#     form = DepartmentModelForm()
-#     data = {
-#         'form':form
-#     }
-#     if request.method == "POST":
-#         selected_days = getSelectedDays(request)
-#         selected_teachers = getSelectedTeachers(request)
-#         selected_start_time = getSelectedStartTime(request)
-#         selected_end_time = getSelectedEndTime(request)
-#         selected_durations = getSelectedDuration(request)
-#         for i in range(0,len(selected_days)):
-#                 if selected_days[i] is not None:
-#                     departments = Department(id=i,departmentname=Specialty.objects.get(id=request.POST['departmentname']),teacher=selected_teachers[i],
-#                                                 program=request.POST['program'],start_time=selected_start_time[i],end_time=selected_end_time[i],
-#                                                duration=selected_durations[i],weekday=selected_days[i],entrydate=settings.CURRENT_DATE)
-#                     departments.save()
-#                     messages.success(request,"Το τμήμα προστέθηκε επιτυχώς!")
-#                     return redirect("list-students")
-#
-#     return render(request,"Backend/Departments/add_department.html",data)
-
 @login_required(login_url="login")
 @staff_only
 def addDepartmentView(request):
@@ -423,6 +399,7 @@ def createDepartmentScheduleView(request,pk):
             messages.success(request, "Το ωράριο δημιουργήθηκε με επιτυχία!")
         return redirect("list_student_departments")
     return render(request,"Backend/Students/create_schedule_department.html",data)
+
 #frontend
 @login_required(login_url="login")
 @allowed_roles(total_roles=["Student"])

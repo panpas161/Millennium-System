@@ -26,25 +26,30 @@
     </form>
 </body>
 </html>
-
+{% if request.user.teacher %}
 <script>
     departmentfield = document.getElementById("id_department");
-    url = "/teachers/json/get/departments/"+"{{request.user.teacher.id}}";
+    url = "{% url 'get_teacher_departments' request.user.teacher.id %}";
     function changeDepartment(options_dict,field)
     {
-        html = ""
+        html = "";
         keys = Object.keys(options_dict);
         for(var i in keys)
         {
-            html += "<option value='" + keys + "'>" + options_dict[i] + "</option>"
+            html += "<option value='" + keys[i] + "'>" + options_dict[i] + "</option>";
         }
         field.innerHTML = html;
         return html;
     }
-    var testdict = {
-        1:"test",
-        2:"test2",
-        3:"test3"
-    };
+    let data_array;
+    fetch(url).then(
+        response => response.json()
+    ).then(
+        data => {
+            data_array = data;
+        }
+    )
+    let anotherarray = Object.assign({},...data_array);
     changeDepartment(testdict,departmentfield);
 </script>
+{% endif %}
