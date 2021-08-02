@@ -22,7 +22,10 @@ def listClientsView(request):
 def addClientView(request):
     form = ClientModelForm()
     data = {
-        'form':form
+        'form':form,
+        'servicesform':MultiServicesForm,
+        "objects_len":len(Service.objects.all()),
+        "serviceobjects":Service.objects.all()
     }
     if request.method == "POST":
         form = ClientModelForm(request.POST)
@@ -93,7 +96,8 @@ def editServiceView(request,pk):
 def deleteServiceView(request,pk):
     instance = Service.objects.get(id=pk)
     instance.delete()
-    messa
+    messages.success(request,"Η υπηρεσία διαγράφτηκε με επιτυχια!")
+    return redirect("list_blankpixel_clients")
 
 @login_required(login_url="login")
 @staff_only

@@ -2,6 +2,8 @@ from django.db import models
 from Millennium_System import settings
 from staff.models import Staff
 from cash_register.models import Receipt
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Service(models.Model):
     name = models.CharField(max_length=30)
@@ -30,10 +32,13 @@ class Client(models.Model):
         return self.lastname + " " + self.firstname
 
 class Price(models.Model):  # intermediate model
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE,verbose_name="Υπηρεσία")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    price = models.IntegerField()
-    discount = models.IntegerField(null=True, blank=True)
+    price = models.IntegerField(verbose_name="Τιμή")
+    discount = models.IntegerField(verbose_name="Έκπτωση", null=True, blank=True)
+
+    class Meta:
+        unique_together = [['service', 'client']]
 
 class Installment(models.Model):
     payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
@@ -41,14 +46,14 @@ class Installment(models.Model):
     paid = models.BooleanField(default=False) #it should depend if self.fields.receipt is set if it is then it's true else it's false
     paymentdate = models.DateField()
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
-    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_installments")
+    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_receipt")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
-    # def save(self,*args,**kwargs):
-    #     if self.receipt:
-    #         self.paid = True
-    #     else:
-    #         self.paid = False
+    def save(self,*args,**kwargs):
+        if self.receipt:
+            self.paid = True
+        else:
+            self.paid = False
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

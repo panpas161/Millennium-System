@@ -12,7 +12,6 @@ class ClientModelForm(forms.ModelForm):
         }
 
 class ServiceForm(forms.ModelForm):
-    choices = forms.ModelMultipleChoiceField(queryset=Client.objects.all(),widget=forms.CheckboxSelectMultiple())
     class Meta:
         model = Service
         fields = '__all__'
@@ -22,17 +21,20 @@ class ServiceForm(forms.ModelForm):
         }
 
 class PriceForm(forms.ModelForm):
+    servicecheck = forms.BooleanField(required=False)
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.empty_permitted = False
+
     class Meta:
         model = Price
         fields = '__all__'
+        exclude = ['client']
 
     def is_valid(self):
         valid = super().is_valid()
-        if valid:
-            if self.cleaned_data['validfield']:
-                return True
-        else:
-            return False
+        if valid and self.cleaned_data['servicecheck']:
+            return True
+        return False
+
+MultiServicesForm = forms.formset_factory(PriceForm,extra=len(Service.objects.all()))

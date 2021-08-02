@@ -6,6 +6,7 @@ from django.core.validators import FileExtensionValidator
 class EspaService(models.Model):
     service = models.CharField(max_length=50,verbose_name="Υπηρεσία")
     entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+
     def __str__(self):
         return self.service
 

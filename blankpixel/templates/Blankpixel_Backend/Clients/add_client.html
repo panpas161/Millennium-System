@@ -20,9 +20,31 @@
               <div class="col-md-12 inputs">
                   {{form}}
                   <input type="submit" class="form-control submit" />
+                  {{servicesform}}
               </div>
             </div>
         </div>
     </form>
 </body>
 </html>
+
+<script>
+    function test()
+    {
+        options = document.getElementById("id_form-0-service").options;
+        values = [];
+        for(i=1;i<options.length;i++)
+        {
+            values.push(options[i].value);
+        }
+        inputids = [];
+        for(i=0;i<{{objects_len}};i++)
+        {
+            inputids.push("id_form-"+i+"-service");
+        }
+        for(i=0;i<inputids.length;i++)
+        {
+            document.getElementById(inputids[i]).value=values[i];
+        }
+    }
+</script>
