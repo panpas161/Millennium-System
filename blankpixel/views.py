@@ -23,7 +23,7 @@ def addClientView(request):
     form = ClientModelForm()
     data = {
         'form':form,
-        'servicesform':MultiServicesForm,
+        # 'servicesform':MultiServicesForm,
         "objects_len":len(Service.objects.all()),
         "serviceobjects":Service.objects.all()
     }

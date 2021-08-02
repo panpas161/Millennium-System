@@ -37,4 +37,4 @@ class PriceForm(forms.ModelForm):
             return True
         return False
 
-MultiServicesForm = forms.formset_factory(PriceForm,extra=len(Service.objects.all()))
+# MultiServicesForm = forms.formset_factory(PriceForm,extra=len(Service.objects.all()))
