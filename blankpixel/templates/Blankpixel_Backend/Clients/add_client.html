@@ -20,7 +20,14 @@
               <div class="col-md-12 inputs">
                   {{form}}
                   <input type="submit" class="form-control submit" />
-                  {{servicesform}}
+                  {% for service in services %}
+                    {{service.name}}
+                  {% endfor %}
+                  {% for form in servicesform %}
+                    <label class="service-label">label</label>
+                    {{form}}
+                  {% endfor %}
+
               </div>
             </div>
         </div>
@@ -32,13 +39,14 @@
     function test()
     {
         options = document.getElementById("id_form-0-service").options;
+        labels = document.getElementsByClassName("service-label");
         values = [];
         for(i=1;i<options.length;i++)
         {
             values.push(options[i].value);
         }
         inputids = [];
-        for(i=0;i<{{objects_len}};i++)
+        for(i=0;i<{{services_len}};i++)
         {
             inputids.push("id_form-"+i+"-service");
         }
@@ -48,3 +56,9 @@
         }
     }
 </script>
+<style>
+    .errorlist
+    {
+        display: none;
+    }
+</style>

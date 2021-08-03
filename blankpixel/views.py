@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from assets.functions.pagination import getPage
 from .filters import *
 from django.contrib import messages
+from django.http import JsonResponse
 
 @login_required(login_url="login")
 @staff_only
@@ -23,9 +24,14 @@ def addClientView(request):
     form = ClientModelForm()
     data = {
         'form':form,
-        # 'servicesform':MultiServicesForm,
-        "objects_len":len(Service.objects.all()),
-        "serviceobjects":Service.objects.all()
+        'servicesform':MultiServicesForm({
+            "form-TOTAL_FORMS":len(Service.objects.all()),
+            "form-INITIAL_FORMS":len(Service.objects.all()),
+            "form-MIN_NUM_FORMS":len(Service.objects.all()),
+            "form-MAX_NUM_FORMS":len(Service.objects.all())
+        }),
+        "services":Service.objects.all(),
+        "services_len": len(Service.objects.all())
     }
     if request.method == "POST":
         form = ClientModelForm(request.POST)
@@ -106,3 +112,11 @@ def listDomainsView(request):
 
     }
     return render(request,"Blankpixel_Backend/Domains/list_domains.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def getServices(request):
+    services = {}
+    for service in Service.objects.all():
+        services.update(service.getServices())
+    return JsonResponse(services)

@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <title>Βαθμολογία Εξετάσεων - {{lastname}} {{firstname}}</title>
     <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    {% loadJQuery %}
     {% loadBootstrap %}
 </head>
 <body>
     {% load render %}
     {% renderTeacherFrontendNavbar request %}
     <div class="header">
-        Προσθήκη Ειδικότητας
+        Προσθήκη Βαθμού Εξέτασης
     </div>
     <form method="POST">
             {% csrf_token %}
@@ -30,26 +31,25 @@
 <script>
     departmentfield = document.getElementById("id_department");
     url = "{% url 'get_teacher_departments' request.user.teacher.id %}";
-    function changeDepartment(options_dict,field)
+    function changeDepartment(options_dict)
     {
         html = "";
         keys = Object.keys(options_dict);
-        for(var i in keys)
+        for(i=0;i<keys.length;i++)
         {
-            html += "<option value='" + keys[i] + "'>" + options_dict[i] + "</option>";
+            html += "<option value='" + keys[i] + "'>" + options_dict[keys[i]] + "</option>";
         }
-        field.innerHTML = html;
+        departmentfield.innerHTML = html;
         return html;
     }
-    let data_array;
+    var data_array;
     fetch(url).then(
         response => response.json()
     ).then(
         data => {
             data_array = data;
         }
-    )
-    let anotherarray = Object.assign({},...data_array);
-    changeDepartment(testdict,departmentfield);
+    );
+    window.onload = changeDepartment(data_array);
 </script>
 {% endif %}

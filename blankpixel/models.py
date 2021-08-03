@@ -6,9 +6,13 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 class Service(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30,verbose_name="Όνομα Υπηρεσίας")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
+    def getServices(self):
+        return {
+            self.pk: self.__str__()
+        }
     def __str__(self):
         return self.name
 
@@ -21,12 +25,14 @@ class Client(models.Model):
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField()
     location = models.CharField(max_length=35,verbose_name="Τοποθεσία")
-    # cost = models.IntegerField(verbose_name="Κόστος")
     workhours = models.IntegerField(null=True,blank=True,verbose_name="Εργατοώρες")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
     services = models.ManyToManyField(Service,verbose_name="Υπηρεσίες",through="Price")
     seller = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True, blank=True, verbose_name="Πωλητής")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
+
+    # def getTotalCost(self):
+    #     return self.services
 
     def __str__(self):
         return self.lastname + " " + self.firstname
@@ -36,6 +42,9 @@ class Price(models.Model):  # intermediate model
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     price = models.IntegerField(verbose_name="Τιμή")
     discount = models.IntegerField(verbose_name="Έκπτωση", null=True, blank=True)
+
+    # def getTotalCost(self):
+    #     return int(self.price) - int(self.discount)
 
     class Meta:
         unique_together = [['service', 'client']]
@@ -56,4 +65,4 @@ class Installment(models.Model):
             self.paid = False
 
     def __str__(self):
-        return str(self.payment_number) + " " + str(self.student)
+        return str(self.payment_number) + " - " + str(self.client)

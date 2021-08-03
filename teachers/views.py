@@ -304,9 +304,9 @@ def getTeacherDepartments(request,teacherpk):
         if request.user.teacher.id != int(teacherpk):
             return HttpResponse("Δεν επιτρέπεται η πρόσβαση")
     teacher = Teacher.objects.get(id=teacherpk)
-    departments = []
+    departments = {}
     for day in DepartmentDay.objects.all().filter(teacher=teacher):
-        departments.append(day.get_department())
+        departments.update(day.getDepartments())
     #remove duplicates
     # departments = dict.fromkeys(departments)
     return JsonResponse(departments,safe=False)
@@ -318,7 +318,7 @@ def getTeacherStudents(request,departmentpk):
     # if hasattr(request.user,'teacher'):
         # if request.user.teacher.id in
     department = Department.objects.get(id=departmentpk)
-    students = []
+    students = {}
     data = {
         'students':department.participants.all()
     }
