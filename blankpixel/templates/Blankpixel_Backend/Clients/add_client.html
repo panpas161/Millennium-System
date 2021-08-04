@@ -19,46 +19,106 @@
             <div class="form-group">
               <div class="col-md-12 inputs">
                   {{form}}
-                  <input type="submit" class="form-control submit" />
-                  {% for service in services %}
-                    {{service.name}}
-                  {% endfor %}
-                  {% for form in servicesform %}
-                    <label class="service-label">label</label>
-                    {{form}}
-                  {% endfor %}
-
+                <div class="services-form">
+                    <h3>ΥΠΗΡΕΣΙΕΣ</h3>
+                  <div class="row" style="border:1px solid black;">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-2">
+                          Υπηρεσία
+                      </div>
+                      <div class="col-md-3">
+                        Τιμή
+                      </div>
+                      <div class="col-md-3">
+                        Έκπτωση
+                      </div>
+                      <div class="col-md-3">
+                          Σύνολο
+                      </div>
+                    </div>
+                      {% for form in servicesform %}
+                        <div class="row">
+                            <div class="col-md-1">
+                                {{form.servicecheck}}
+                            </div>
+                            <div class="col-md-2">
+                                <label class="service-label"></label>
+                            </div>
+                            <div class="col-md-3">
+                                {{form.price}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.discount}}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="total_price">0.0</label>
+                            </div>
+                            {{form.service}}
+                        </div>
+                      {% endfor %}
+                        <div id="total_div" style="border:1px solid black;">
+                            <h5>Σύνολο:</h5>
+                            <h5>0.0</h5>
+                        </div>
+                    {{servicesform.management_form}}
+                  </div>
+                  <div class="installments">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Προκαταβολή<br>
+                            <input type="number">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-12">
+                            Δόσεις<br>
+                            <input type="number" />
+                        </div>
+                    </div>
+                  </div>
+                <input type="submit" class="form-control submit" />
               </div>
             </div>
         </div>
     </form>
 </body>
 </html>
-
-<script>
-    function test()
-    {
-        options = document.getElementById("id_form-0-service").options;
-        labels = document.getElementsByClassName("service-label");
-        values = [];
-        for(i=1;i<options.length;i++)
-        {
-            values.push(options[i].value);
-        }
-        inputids = [];
-        for(i=0;i<{{services_len}};i++)
-        {
-            inputids.push("id_form-"+i+"-service");
-        }
-        for(i=0;i<inputids.length;i++)
-        {
-            document.getElementById(inputids[i]).value=values[i];
-        }
-    }
-</script>
 <style>
     .errorlist
     {
         display: none;
     }
+    .services-form
+    {
+        margin-top:7px;
+        margin-bottom:7px;
+        text-align: center;
+    }
+    .installments
+    {
+        text-align: center;
+    }
 </style>
+<script>
+    let services_length = {{services_len}};
+    inputids = [];
+    for(i=0;i< services_length;i++)
+    {
+        inputids.push(document.getElementById("id_form-"+i+"-service"));
+    }
+    let labels = document.getElementsByClassName("service-label");
+    window.onload = () => {
+        fetch("{% url 'get_blankpixel_services' %}").then(
+            response => response.json()
+        ).then(
+            data => {
+                for(i=0;i<inputids.length;i++)
+                {
+                    let keys = Object.keys(data);
+                    inputids[i].value = keys[i];
+                    labels[i].innerHTML = data[keys[i]];
+                }
+            }
+        )
+    }
+</script>

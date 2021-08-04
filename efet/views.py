@@ -29,9 +29,16 @@ def addStudent(request):
 @login_required(login_url="login")
 @staff_only
 def editStudent(request,pk):
+    instance = EfetStudent.objects.get(id=pk)
+    form = EfetStudentModelForm(instance=instance)
     data = {
-
+        'form':form
     }
+    if request.method == "POST":
+        form = EfetStudentModelForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            redirect("list_efet_students")
     return render(request,"efet_students/efet_edit.html",data)
 
 @login_required(login_url="login")

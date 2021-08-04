@@ -1,8 +1,7 @@
 from django.db import models
-# from system_settings.efet.models import choices
-from options.models import *
+from options.models import Prefecture,Doy
 
-class efetBusiness(models.Model):
+class EfetBusiness(models.Model):
     businesstypes = (
         ("singlebusiness","Ατομική Επιχείρηση"),("oe",'ΟΕ'),("ae","ΑΕ")
     )
@@ -30,7 +29,7 @@ class efetBusiness(models.Model):
     laekusername = models.CharField(max_length=40,verbose_name="Username ΛΑΕΚ επιχείρησης")
     laekpassword = models.CharField(max_length=40,verbose_name="Password ΛΑΕΚ επιχείρησης")
 
-class efetStudent(models.Model):
+class EfetStudent(models.Model):
     sexoptions = (
         ("male","Άνδρας"),("female","Γυναίκα")
     )
@@ -53,5 +52,5 @@ class efetStudent(models.Model):
     protocolnumber = models.CharField(max_length=40,verbose_name="Αριθμός Πρωτοκόλου")
     departmentnumber = models.CharField(max_length=40,verbose_name="Τμήμα")
     referenceby = models.CharField(max_length=40,verbose_name="Σύσταση από")
-    business = models.ForeignKey(efetBusiness,on_delete=models.CASCADE,verbose_name="Επιχείρηση")
+    business = models.ForeignKey(EfetBusiness,on_delete=models.CASCADE,verbose_name="Επιχείρηση")
     oldapplication = models.BooleanField(verbose_name="Παλιά αίτηση")

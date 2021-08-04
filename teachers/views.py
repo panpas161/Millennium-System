@@ -300,13 +300,13 @@ def deleteAttendanceReportView(request,pk):
 @allowed_roles(total_roles=['Admin','Staff','Teacher'])
 def getTeacherDepartments(request,teacherpk):
     #authentication checks
-    if hasattr(request.user,'teacher'):
+    if hasattr(request.user,'teacher'): #or hasrole
         if request.user.teacher.id != int(teacherpk):
             return HttpResponse("Δεν επιτρέπεται η πρόσβαση")
     teacher = Teacher.objects.get(id=teacherpk)
     departments = {}
     for day in DepartmentDay.objects.all().filter(teacher=teacher):
-        departments.update(day.getDepartments())
+        departments.update(day.getDepartment())
     #remove duplicates
     # departments = dict.fromkeys(departments)
     return JsonResponse(departments,safe=False)
@@ -314,12 +314,12 @@ def getTeacherDepartments(request,teacherpk):
 @login_required(login_url="login")
 @allowed_roles(total_roles=['Admin','Staff','Teacher'])
 def getTeacherStudents(request,departmentpk):
-    #authentication checks
-    # if hasattr(request.user,'teacher'):
-        # if request.user.teacher.id in
     department = Department.objects.get(id=departmentpk)
-    students = {}
+    #authentication checks
+    # if hasattr(request.user,'teacher'): #or hasrole
+        # if request.user.teacher.id in department.departmentday_set.all()
+    students = department.getParticipants()
     data = {
-        'students':department.participants.all()
+        'students':students
     }
     return JsonResponse(data)

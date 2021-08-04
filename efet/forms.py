@@ -1,5 +1,5 @@
 from django.forms.models import ModelForm
-from .models import efetStudent,efetBusiness
+from .models import *
 
 class EfetStudentModelForm(ModelForm):
     def __init__(self,*args,**kwargs):
@@ -7,7 +7,7 @@ class EfetStudentModelForm(ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
-        model = efetStudent
+        model = EfetStudent
         fields = "__all__"
 
 class EfetBusinessModelForm(ModelForm):
@@ -16,5 +16,5 @@ class EfetBusinessModelForm(ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
-        model = efetBusiness
+        model = EfetBusiness
         fields = "__all__"

@@ -58,6 +58,9 @@ class DepartmentDay(models.Model):
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
 
+    # class Meta:
+    #     unique_together = [["department","teacher"]]
+
     def __str__(self):
         return self.department.name + "-" + self.weekday
 

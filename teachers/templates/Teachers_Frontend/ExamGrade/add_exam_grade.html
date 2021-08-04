@@ -28,28 +28,39 @@
 </body>
 </html>
 {% if request.user.teacher %}
-<script>
-    departmentfield = document.getElementById("id_department");
-    url = "{% url 'get_teacher_departments' request.user.teacher.id %}";
-    function changeDepartment(options_dict)
-    {
-        html = "";
-        keys = Object.keys(options_dict);
-        for(i=0;i<keys.length;i++)
+    <script>
+        departmentfield = document.getElementById("id_department");
+        studentsfield = document.getElementById("id_student");
+        departmentsurl = "{% url 'get_teacher_departments' request.user.teacher.id %}";
+        function changeValues(options_dict,field)
         {
-            html += "<option value='" + keys[i] + "'>" + options_dict[keys[i]] + "</option>";
+            html = "";
+            keys = Object.keys(options_dict);
+            for(i=0;i<keys.length;i++)
+            {
+                html += "<option value='" + keys[i] + "'>" + options_dict[keys[i]] + "</option>";
+            }
+            field.innerHTML = html;
+            return html;
         }
-        departmentfield.innerHTML = html;
-        return html;
-    }
-    var data_array;
-    fetch(url).then(
-        response => response.json()
-    ).then(
-        data => {
-            data_array = data;
+        window.onload = () => {
+            fetch(departmentsurl).then(
+                response => response.json()
+            ).then(
+                data => {
+                    changeValues(data,departmentfield);
+                }
+            );
         }
-    );
-    window.onload = changeDepartment(data_array);
-</script>
+        departmentfield.addEventListener("change",() => {
+            studentsurl = "json/get/students/"+ departmentfield.value;
+            fetch(studentsurl).then(
+                response => response.json()
+            ).then(
+                data => {
+                    changeValues(data,studentsfield)
+                }
+            );
+        });
+    </script>
 {% endif %}

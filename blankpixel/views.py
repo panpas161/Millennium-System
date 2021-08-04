@@ -14,29 +14,43 @@ def listClientsView(request):
     objects = Client.objects.order_by("-id")
     page = getPage(request,objects,ClientFilter)
     data = {
-        'objects':page
+        'objects':page,
+        'filter':ClientFilter
     }
     return render(request,"Blankpixel_Backend/Clients/list_clients.html",data)
 
 @login_required(login_url="login")
 @staff_only
 def addClientView(request):
-    form = ClientModelForm()
-    data = {
-        'form':form,
-        'servicesform':MultiServicesForm({
+    clientform = ClientModelForm()
+    servicesform = MultiServicesForm({
             "form-TOTAL_FORMS":len(Service.objects.all()),
             "form-INITIAL_FORMS":len(Service.objects.all()),
             "form-MIN_NUM_FORMS":len(Service.objects.all()),
             "form-MAX_NUM_FORMS":len(Service.objects.all())
-        }),
+    })
+    data = {
+        'form':clientform,
+        'servicesform':servicesform,
         "services":Service.objects.all(),
         "services_len": len(Service.objects.all())
     }
     if request.method == "POST":
-        form = ClientModelForm(request.POST)
-        if form.is_valid():
-            form.save()
+        clientform = ClientModelForm(request.POST)
+        servicesform = MultiServicesForm(request.POST)
+        if clientform.is_valid():
+            is_client_saved = False
+            savedclient = clientform.save(commit=False)
+            for serviceform in servicesform:
+                print(serviceform)
+                if serviceform.is_valid():
+                    if not is_client_saved:
+                        savedclient.save()
+                        is_client_saved = True
+                    savedservice = serviceform.save(commit=False)
+                    savedservice.client = savedclient
+                    savedservice.save()
+                    return redirect("list_blankpixel_clients")
     return render(request,"Blankpixel_Backend/Clients/add_client.html",data)
 
 @login_required(login_url="login")
@@ -47,7 +61,7 @@ def editClientView(request,pk):
     data = {
         "form": form
     }
-    return render(request,"Blankpixel_Backend/Clients/add_client.html", data)
+    return render(request,"Blankpixel_Backend/Clients/edit_client.html", data)
 
 @login_required(login_url="login")
 @staff_only

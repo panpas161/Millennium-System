@@ -38,7 +38,7 @@ class Specialty(models.Model):
     def __str__(self):
         return self.name
 
-class StudentSpecialty(models.Model):
+class StudentDiscount(models.Model):
     specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
     student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
     discount = models.IntegerField()
@@ -64,28 +64,12 @@ class Student(models.Model):
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
     studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
-    specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentSpecialty")
+    specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentDiscount")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def __str__(self):
         return self.lastname + " " + self.firstname
-
-# class Department(models.Model):
-#     programchoices = (
-#         ("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")
-#     )
-#     weekdays = (
-#         ("Δευτέρα","Δευτέρα"),("Τρίτη","Τρίτη"),("Τετάρτη","Τετάρτη")
-#     )
-#     departmentname = models.OneToOneField(Specialty,on_delete=models.CASCADE,verbose_name="Όνομα Τμήματος")
-#     teacher = models.OneToOneField("teachers.Teacher", on_delete=models.CASCADE,blank=True,null=True,verbose_name="Καθηγητής")
-#     start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
-#     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
-#     duration = models.IntegerField(verbose_name="Διάρκεια")
-#     remarks = models.TextField(null=True,blank=True,verbose_name="Σχόλια")
-#     weekday = models.CharField(max_length=30,choices=weekdays,verbose_name="Ημέρα")
-#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
 
 class Department(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
@@ -93,9 +77,10 @@ class Department(models.Model):
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def getParticipants(self):
-        return {
-            self.participants.pk: self.participants.__str__()
-        }
+        participants = {}
+        for participant in self.participants.all():
+            participants.update({participant.pk: participant.__str__()})
+        return participants
 
     def __str__(self):
         return self.name
@@ -116,9 +101,9 @@ class DepartmentDay(models.Model):
     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
     # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
-    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name="studentdepartmentdays",null=True)
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name="student_departmentdays",null=True)
 
-    def getDepartments(self):
+    def getDepartment(self):
         return {
             self.department.pk: self.department.__str__()
         }
