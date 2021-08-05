@@ -3,16 +3,65 @@
 <head>
     {% load tags %}
     <meta charset="UTF-8">
-    <title>Λίστα Υπηρεσιών Πελάτη - </title>
-    {% loadBootstrap %}
+    <title>Λίστα Υπηρεσίων Πελάτη - {{instance.companyname}}</title>
+    <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% style 'blankpixel/list_clients' %}">
 </head>
 <body>
     {% load render %}
     {% renderBlankpixelNavbar request %}
-    <div class="row">
-        <div class="col-md-12" style="text-align: center">
-            test
-        </div>
+    <div class="header">
+        <h3>Λίστα Υπηρεσιών Πελάτη - {{instance.companyname}}</h3>
+        <a href="{% url 'add_blankpixel_client' %}"><img src="{% image 'general/icons/add-icon.png' %}" height="30px" width="30px" style="margin-top:24%;"/></a>
     </div>
+    <form method="GET" class="search">
+        {{ filter.form }}
+        <input type="submit" />
+    </form>
+    <table style="width: 100%;" class="list-table" cellpadding="10">
+        <tr class="list-table-header">
+            <th>#</th>
+            <th>Υπηρεσία</th>
+            <th>Τιμή</th>
+            <th>Έκπτωση</th>
+            <th>Συνολικό Κόστος</th>
+            <th>Ολοκληρώθηκε</th>
+            <th></th>
+        </tr>
+        {% for service in objects %}
+        <tr class="datarow">
+            <td>
+                {{service.id}}
+            </td>
+            <td>
+                {{service.service.name}}
+            </td>
+            <td>
+                {{service.price}}
+            </td>
+            <td>
+                {{service.discount}}
+            </td>
+            <td>
+                {{service.getTotalPrice}}
+            </td>
+            <td>
+                {% if service.finished %}
+                    <img src="{% image 'general/icons/tick-icon.png' %}" width="30px" height="30px">
+                {% else %}
+                    <img src="{% image 'general/icons/red-cross-icon.png' %}" width="30px" height="30px">
+                {% endif %}
+            </td>
+            <td>
+                {% if not service.finished %}
+                    <a href="{% url 'edit_blankpixel_client' service.id %}"><img src="{% image 'general/icons/notepad-tick-icon.png' %}" title="Επισήμανση ως ολοκληρωμένου" width="25px" height="25px"/></a>
+                {% else %}
+                    <a href="{% url 'edit_blankpixel_client' service.id %}"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" title="Επισήμανση ως μη ολοκληρωμένου" width="25px" height="25px"/></a>
+                {% endif %}
+                <a href="{% url 'delete_blankpixel_client' service.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

@@ -16,7 +16,6 @@ from django.contrib.auth.models import User
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 import os
-from django.views.generic.edit import FormView
 from .handlers import uploadEspaDocumentFiles
 
 #Backend
@@ -53,11 +52,14 @@ def addInterestedBusinessView(request):
 @allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def editInterestedBusinessView(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
-    if instance.referrer:
-        if instance.referrer.user == request.user:
-            form = InterestedBusinessForm(instance=instance)
+    if not isStaff(request):
+        if instance.referrer:
+            if instance.referrer.user == request.user:
+                form = InterestedBusinessForm(instance=instance)
+        else:
+            return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
     else:
-        return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
+        form = InterestedBusinessForm(instance=instance)
     data = {
         'form':form
     }

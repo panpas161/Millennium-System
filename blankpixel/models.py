@@ -31,6 +31,9 @@ class Client(models.Model):
     seller = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True, blank=True, verbose_name="Πωλητής")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
+    def getTotalServices(self):
+        return len(self.services.all())
+
     def getTotalCost(self):
         total_price = 0
         for price in self.price_set.all():
@@ -44,7 +47,8 @@ class Price(models.Model):  #intermediate model
     service = models.ForeignKey(Service, on_delete=models.CASCADE,verbose_name="Υπηρεσία")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     price = models.FloatField(verbose_name="Τιμή")
-    discount = models.FloatField(verbose_name="Έκπτωση", null=True, blank=True)
+    discount = models.FloatField(verbose_name="Έκπτωση", default=0)
+    finished = models.BooleanField(default=False)
 
     def getTotalPrice(self):
         if self.discount:
@@ -64,15 +68,18 @@ class Installment(models.Model):
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_receipt")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
-    # def save(self,*args,**kwargs):
-    #     if self.receipt:
-    #         self.paid = True
-    #     else:
-    #         self.paid = False
+    def save(self,*args,**kwargs):
+        if self.amount != 0:
+            if self.receipt:
+                self.paid = True
+            else:
+                self.paid = False
+        else:
+            self.paid = True
 
     def __str__(self):
         return str(self.payment_number) + " - " + str(self.client)
 
 class OfferPDF(models.Model):
-    client = models.ForeignKey(Client,on_delete=models.CASCADE)
     offerfile = models.FileField(upload_to="blankpixel/offers/")
+    client = models.ForeignKey(Client,on_delete=models.CASCADE)

@@ -82,9 +82,11 @@ def deleteClientView(request,pk):
 @staff_only
 def viewClientServicesView(request,pk):
     instance = Client.objects.get(id=pk)
-    objects = Service.objects.filter()
-    data ={
-
+    objects = Price.objects.all().filter(client=instance)
+    # page = getPage(request,objects,None)
+    data = {
+        'instance':instance,
+        'objects':objects,
     }
     return render(request,"Blankpixel_Backend/Clients/view_client_services.html",data)
 
@@ -93,9 +95,9 @@ def viewClientServicesView(request,pk):
 def viewClientInstallmentsView(request,pk):
     instance = Client.objects.get(id=pk)
     objects = Installment.objects.filter(client=instance)
-    page = getPage(request,objects,None)
+    # page = getPage(request,objects,None)
     data = {
-        'objects':page
+        'objects':objects
     }
     return render(request,"Blankpixel_Backend/Clients/view_client_installments.html",data)
 
@@ -177,3 +179,11 @@ def getServices(request):
     for service in Service.objects.all():
         services.update(service.getServices())
     return JsonResponse(services)
+
+@login_required(login_url="login")
+@staff_only
+def deletePriceView(request,pk):
+    instance = Price.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Η υπηρεσία διαγράφτηκε με επιτυχία!")
+    # return redirect("list_")

@@ -3,7 +3,7 @@
 <head>
     {% load tags %}
     <meta charset="UTF-8">
-    <title>Λίστα Αποδείξεων</title>
+    <title>Λίστα Πελατών Blankpixel</title>
     <link rel="stylesheet" type='text/css' href="{% style 'tables/list_table_page.css' %}">
     <link rel="stylesheet" type="text/css" href="{% style 'blankpixel/list_clients' %}">
 </head>
@@ -27,6 +27,7 @@
             <th>Τύπος Επιχείρησης</th>
             <th>Email</th>
             <th>Τοποθεσία</th>
+            <th>Υπηρεσίες</th>
             <th></th>
         </tr>
         {% for client in objects %}
@@ -53,8 +54,18 @@
                 {{client.location}}
             </td>
             <td>
-                <a href="{% url 'edit_blankpixel_client' client.id %}"><img src="{% image 'students/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
-                <a href="DELETESPECIALTY"><img src="{% image 'students/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                {{client.getTotalServices}}
+            </td>
+            <td>
+                <div class="row">
+                    <a href="{% url 'edit_blankpixel_client' client.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                    <a href="{% url 'delete_blankpixel_client' client.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                    <a href="{% url 'view_blankpixel_client_services' client.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Λίστα Υπηρεσιών" width="25px" height="25px"/></a>
+                    <a href="{% url 'view_blankpixel_client_installments' client.id %}"><img src="{% image 'general/icons/installments-tab-icon.png' %}" title="Λίστα Δόσεων" width="25px" height="25px"/></a>
+                </div>
+                <div class="row">
+
+                </div>
             </td>
         </tr>
         {% endfor %}

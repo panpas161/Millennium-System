@@ -144,3 +144,8 @@ DEFAULT_RECEIPT_TYPES = [
     'Blankpixel'
     'Άλλο'
 ]
+
+#BLANKPIXEL
+DEFAULT_BLANKPIXEL_SERVICES = [
+    "Κατασκευή Ιστοσελίδας"
+]

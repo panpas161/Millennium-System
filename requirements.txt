@@ -6,3 +6,4 @@ django-multiselectfield
 psycopg2-binary
 django-safe-filefield
 unidecode
+gunicorn

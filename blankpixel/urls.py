@@ -8,6 +8,9 @@ urlpatterns = [
     path('clients/edit/<pk>',editClientView,name="edit_blankpixel_client"),
     path('clients/delete/<pk>',deleteClientView,name="delete_blankpixel_client"),
     path('clients/view/services/<pk>',viewClientServicesView,name="view_blankpixel_client_services"),
+    path('clients/services/mark/finished/<pk>',viewClientServicesView,name="mark_blankpixel_service_finished"),
+    path('clients/services/mark/unfinished/<pk>',viewClientServicesView,name="mark_blankpixel_service_unfinished"),
+    path('clients/view/installments/<pk>',viewClientInstallmentsView,name="view_blankpixel_client_installments"),
     path('clients/installments/approve/<pk>',approveInstallmentView,name="approve_blankpixel_installments"),
     path('clients/installments/disapprove/<pk>',disapproveInstallmentView,name="disapprove_blankpixel_installments"),
     #services
