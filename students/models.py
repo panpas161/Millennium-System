@@ -63,7 +63,7 @@ class Student(models.Model):
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
-    studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία")
+    studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία") # maybe extend user model instead of this
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentDiscount")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateField(default=settings.CURRENT_DATE)

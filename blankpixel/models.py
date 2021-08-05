@@ -25,44 +25,54 @@ class Client(models.Model):
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField()
     location = models.CharField(max_length=35,verbose_name="Τοποθεσία")
-    workhours = models.IntegerField(null=True,blank=True,verbose_name="Εργατοώρες")
+    workhours = models.FloatField(null=True,blank=True,verbose_name="Εργατοώρες")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
     services = models.ManyToManyField(Service,verbose_name="Υπηρεσίες",through="Price")
     seller = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True, blank=True, verbose_name="Πωλητής")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
-    # def getTotalCost(self):
-    #     return self.services
+    def getTotalCost(self):
+        total_price = 0
+        for price in self.price_set.all():
+            total_price += price.getTotalPrice()
+        return total_price
 
     def __str__(self):
         return self.lastname + " " + self.firstname
 
-class Price(models.Model):  # intermediate model
+class Price(models.Model):  #intermediate model
     service = models.ForeignKey(Service, on_delete=models.CASCADE,verbose_name="Υπηρεσία")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    price = models.IntegerField(verbose_name="Τιμή")
-    discount = models.IntegerField(verbose_name="Έκπτωση", null=True, blank=True)
+    price = models.FloatField(verbose_name="Τιμή")
+    discount = models.FloatField(verbose_name="Έκπτωση", null=True, blank=True)
 
-    # def getTotalCost(self):
-    #     return int(self.price) - int(self.discount)
+    def getTotalPrice(self):
+        if self.discount:
+            return float(self.price) - float(self.discount)
+        else:
+            return float(self.price)
 
     class Meta:
         unique_together = [['service', 'client']]
 
 class Installment(models.Model):
     payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
-    amount = models.IntegerField()
+    amount = models.FloatField()
     paid = models.BooleanField(default=False) #it should depend if self.fields.receipt is set if it is then it's true else it's false
-    paymentdate = models.DateField()
+    paymentdate = models.DateField(null=True,blank=True)
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_receipt")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
-    def save(self,*args,**kwargs):
-        if self.receipt:
-            self.paid = True
-        else:
-            self.paid = False
+    # def save(self,*args,**kwargs):
+    #     if self.receipt:
+    #         self.paid = True
+    #     else:
+    #         self.paid = False
 
     def __str__(self):
         return str(self.payment_number) + " - " + str(self.client)
+
+class OfferPDF(models.Model):
+    client = models.ForeignKey(Client,on_delete=models.CASCADE)
+    offerfile = models.FileField(upload_to="blankpixel/offers/")

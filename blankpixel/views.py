@@ -7,6 +7,7 @@ from assets.functions.pagination import getPage
 from .filters import *
 from django.contrib import messages
 from django.http import JsonResponse
+from django.shortcuts import HttpResponse
 
 @login_required(login_url="login")
 @staff_only
@@ -29,20 +30,22 @@ def addClientView(request):
             "form-MIN_NUM_FORMS":len(Service.objects.all()),
             "form-MAX_NUM_FORMS":len(Service.objects.all())
     })
+    installmentsform = InstallmentForm
     data = {
-        'form':clientform,
-        'servicesform':servicesform,
-        "services":Service.objects.all(),
-        "services_len": len(Service.objects.all())
+        'form': clientform,
+        'servicesform': servicesform,
+        'services': Service.objects.all(),
+        'services_len': len(Service.objects.all()),
+        'installmentsform': installmentsform
     }
     if request.method == "POST":
         clientform = ClientModelForm(request.POST)
         servicesform = MultiServicesForm(request.POST)
+        installmentsform = InstallmentForm(request.POST)
         if clientform.is_valid():
             is_client_saved = False
             savedclient = clientform.save(commit=False)
             for serviceform in servicesform:
-                print(serviceform)
                 if serviceform.is_valid():
                     if not is_client_saved:
                         savedclient.save()
@@ -50,7 +53,11 @@ def addClientView(request):
                     savedservice = serviceform.save(commit=False)
                     savedservice.client = savedclient
                     savedservice.save()
+            if installmentsform.is_valid() and is_client_saved:
+                if installmentsform.cleaned_data['payment_in_advance'] == savedclient.getTotalCost():
+                    installmentsform.save(client=savedclient)
                     return redirect("list_blankpixel_clients")
+                return HttpResponse("<h5 style='text-align:center;'>Η προκαταβολή πρέπει να είναι ίδια με την συνολική τιμή αν η δόση ειναι 1</h5>")
     return render(request,"Blankpixel_Backend/Clients/add_client.html",data)
 
 @login_required(login_url="login")
@@ -70,6 +77,43 @@ def deleteClientView(request,pk):
     instance.delete()
     messages.success(request,"Ο πελάτης διαγράφτηκε με επιτυχία!")
     return redirect("list_blankpixel_clients")
+
+@login_required(login_url="login")
+@staff_only
+def viewClientServicesView(request,pk):
+    instance = Client.objects.get(id=pk)
+    objects = Service.objects.filter()
+    data ={
+
+    }
+    return render(request,"Blankpixel_Backend/Clients/view_client_services.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def viewClientInstallmentsView(request,pk):
+    instance = Client.objects.get(id=pk)
+    objects = Installment.objects.filter(client=instance)
+    page = getPage(request,objects,None)
+    data = {
+        'objects':page
+    }
+    return render(request,"Blankpixel_Backend/Clients/view_client_installments.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def approveInstallmentView(request,pk):
+    instance = Installment.objects.get(id=pk)
+    instance.paid = True
+    instance.save()
+    return redirect("list_blankpixel_client_installments")
+
+@login_required(login_url="login")
+@staff_only
+def disapproveInstallmentView(request,pk):
+    instance = Installment.objects.get(id=pk)
+    instance.paid = False
+    instance.save()
+    return redirect("list_blankpixel_client_installments")
 
 @login_required(login_url="login")
 @staff_only
@@ -108,7 +152,6 @@ def editServiceView(request,pk):
         if form.is_valid():
             form.save()
             return redirect("list_blankpixel_services")
-
     return render(request,"Blankpixel_Backend/Services/edit_service.html",data)
 
 @login_required(login_url="login")

@@ -46,4 +46,35 @@ class PriceForm(forms.ModelForm):
     #     if commit:
     #         instance.save()
 
+class InstallmentForm(forms.Form):
+    payment_in_advance = forms.IntegerField(initial=0,required=True)
+    total_installments = forms.IntegerField(initial=1,required=True)
+
+    def save(self,client):
+        payment_in_advance = self.cleaned_data['payment_in_advance']
+        total_installments = self.cleaned_data['total_installments']
+        total_price = client.getTotalCost()
+        amount_per_installment = (total_price-payment_in_advance)/total_installments
+        # Mark payment_in_advance as paid if it's zero
+        if payment_in_advance == 0:
+            Installment(
+                client=client,
+                payment_number=0,
+                amount=payment_in_advance,
+                paid=True
+            ).save()
+        else:
+            Installment(
+                client=client,
+                payment_number=0,
+                amount=payment_in_advance
+            ).save()
+        # Save the rest of the installments
+        for i in range(1, total_installments-1):
+            Installment(
+                client=client,
+                payment_number=i,
+                amount=amount_per_installment
+            ).save()
+
 MultiServicesForm = forms.formset_factory(PriceForm,extra=1)

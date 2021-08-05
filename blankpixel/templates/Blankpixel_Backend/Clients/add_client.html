@@ -51,14 +51,14 @@
                                 {{form.discount}}
                             </div>
                             <div class="col-md-3">
-                                <label class="total_price">0.0</label>
+                                <label class="total_price">-</label>
                             </div>
                             {{form.service}}
                         </div>
                       {% endfor %}
                         <div id="total_div" style="border:1px solid black;">
                             <h5>Σύνολο:</h5>
-                            <h5>0.0</h5>
+                            <h5><label id="total_price_label">-</label></h5>
                         </div>
                     {{servicesform.management_form}}
                   </div>
@@ -66,13 +66,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             Προκαταβολή<br>
-                            <input type="number">
+                            {{installmentsform.payment_in_advance}}
                         </div>
                     </div>
                     <div>
                         <div class="col-md-12">
                             Δόσεις<br>
-                            <input type="number" />
+                            {{installmentsform.total_installments}}
                         </div>
                     </div>
                   </div>
@@ -94,7 +94,15 @@
         margin-bottom:7px;
         text-align: center;
     }
+    .services-form input
+    {
+        text-align: center;
+    }
     .installments
+    {
+        text-align: center;
+    }
+    .installments input
     {
         text-align: center;
     }
@@ -105,6 +113,26 @@
     for(i=0;i< services_length;i++)
     {
         inputids.push(document.getElementById("id_form-"+i+"-service"));
+    }
+    function CalculatePrices()
+    {
+        var total_price = 0;
+        for(i=0;i<services_length;i++)
+        {
+            pricefield = document.getElementById("id_form-"+i+"-price");
+            discountfield = document.getElementById("id_form-"+i+"-discount");
+            if(discountfield.value){
+                document.getElementsByClassName("total_price")[i].innerHTML = parseFloat(pricefield.value) - parseFloat(discountfield.value);
+                total_price += parseFloat(pricefield.value) - parseFloat(discountfield.value)
+            }
+            else
+            {
+                document.getElementsByClassName("total_price")[i].innerHTML = pricefield.value;
+                total_price += parseFloat(pricefield.value);
+            }
+        }
+        total_price_label = document.getElementById("total_price_label");
+        total_price_label.innerHTML = total_price;
     }
     let labels = document.getElementsByClassName("service-label");
     window.onload = () => {
@@ -120,5 +148,10 @@
                 }
             }
         )
+        for(i=0;i<services_length;i++)
+        {
+            document.getElementById("id_form-"+i+"-price").addEventListener("change",CalculatePrices);
+            document.getElementById("id_form-"+i+"-discount").addEventListener("change",CalculatePrices);
+        }
     }
 </script>
