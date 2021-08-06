@@ -23,7 +23,7 @@ class Client(models.Model):
     companytype = models.CharField(max_length=40,verbose_name="Τύπος Επιχείρησης")
     afm = models.CharField(max_length=30,verbose_name="ΑΦΜ")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
-    email = models.EmailField()
+    email = models.EmailField(null=True,blank=True)
     location = models.CharField(max_length=35,verbose_name="Τοποθεσία")
     workhours = models.FloatField(null=True,blank=True,verbose_name="Εργατοώρες")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
@@ -44,7 +44,7 @@ class Client(models.Model):
         return self.lastname + " " + self.firstname
 
 class Price(models.Model):  #intermediate model
-    service = models.ForeignKey(Service, on_delete=models.CASCADE,verbose_name="Υπηρεσία")
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL,verbose_name="Υπηρεσία",null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     price = models.FloatField(verbose_name="Τιμή")
     discount = models.FloatField(verbose_name="Έκπτωση", default=0)
@@ -69,20 +69,18 @@ class Installment(models.Model):
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
     def save(self,*args,**kwargs):
-        if self.amount != 0:
-            if self.receipt:
-                self.paid = True
-            else:
-                self.paid = False
-        else:
+        if self.amount == 0:
             self.paid = True
+        super().save(*args,**kwargs)
 
-    def issueReceipt(self, request, amount):
+    def issueReceipt(self, recp_full_name, amount, paymentmethod, paymentway):
         Receipt(
-            recipient=request.user.lastname + " " + request.user.firstname,
-            client=self.lastname + " " + self.firstname,
+            recipient=recp_full_name,
+            client=self.client.lastname + " " + self.client.firstname,
             amount=amount,
-            type=self.__class__,
+            app=__package__,
+            paymentmethod=paymentmethod,
+            paymentway=paymentway
         ).save()
 
     def __str__(self):

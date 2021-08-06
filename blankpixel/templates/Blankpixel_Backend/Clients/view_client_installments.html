@@ -33,7 +33,11 @@
                 {{installment.id}}
             </td>
             <td>
-                {{installment.payment_number}}
+                {% if installment.payment_number == 0 %}
+                    Προκαταβολή
+                {% else %}
+                    {{installment.payment_number}}
+                {% endif %}
             </td>
             <td>
                 {{installment.amount}}

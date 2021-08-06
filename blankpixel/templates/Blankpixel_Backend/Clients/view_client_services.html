@@ -54,9 +54,9 @@
             </td>
             <td>
                 {% if not service.finished %}
-                    <a href="{% url 'edit_blankpixel_client' service.id %}"><img src="{% image 'general/icons/notepad-tick-icon.png' %}" title="Επισήμανση ως ολοκληρωμένου" width="25px" height="25px"/></a>
+                    <a href="{% url 'change_blankpixel_service_finished' service.id %}"><img src="{% image 'general/icons/notepad-tick-icon.png' %}" title="Επισήμανση ως ολοκληρωμένου" width="25px" height="25px"/></a>
                 {% else %}
-                    <a href="{% url 'edit_blankpixel_client' service.id %}"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" title="Επισήμανση ως μη ολοκληρωμένου" width="25px" height="25px"/></a>
+                    <a href="{% url 'change_blankpixel_service_unfinished' service.id %}"><img src="{% image 'general/icons/notepad-cross-icon.png' %}" title="Επισήμανση ως μη ολοκληρωμένου" width="25px" height="25px"/></a>
                 {% endif %}
                 <a href="{% url 'delete_blankpixel_client' service.id %}"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
             </td>

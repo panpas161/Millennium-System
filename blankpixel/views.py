@@ -54,10 +54,10 @@ def addClientView(request):
                     savedservice.client = savedclient
                     savedservice.save()
             if installmentsform.is_valid() and is_client_saved:
-                if installmentsform.cleaned_data['payment_in_advance'] == savedclient.getTotalCost():
-                    installmentsform.save(client=savedclient)
-                    return redirect("list_blankpixel_clients")
-                return HttpResponse("<h5 style='text-align:center;'>Η προκαταβολή πρέπει να είναι ίδια με την συνολική τιμή αν η δόση ειναι 1</h5>")
+                if installmentsform.cleaned_data['payment_in_advance'] != savedclient.getTotalCost() and installmentsform.cleaned_data['total_installments'] == 1:
+                    return HttpResponse("<h5 style='text-align:center;'>Η προκαταβολή πρέπει να είναι ίδια με την συνολική τιμή αν η δόση ειναι 1</h5>")
+                installmentsform.save(client=savedclient)
+                return redirect("list_blankpixel_clients")
     return render(request,"Blankpixel_Backend/Clients/add_client.html",data)
 
 @login_required(login_url="login")
@@ -82,7 +82,7 @@ def deleteClientView(request,pk):
 @staff_only
 def viewClientServicesView(request,pk):
     instance = Client.objects.get(id=pk)
-    objects = Price.objects.all().filter(client=instance)
+    objects = Price.objects.all().filter(client=instance).order_by("-id")
     # page = getPage(request,objects,None)
     data = {
         'instance':instance,
@@ -94,7 +94,7 @@ def viewClientServicesView(request,pk):
 @staff_only
 def viewClientInstallmentsView(request,pk):
     instance = Client.objects.get(id=pk)
-    objects = Installment.objects.filter(client=instance)
+    objects = Installment.objects.filter(client=instance).order_by("-id")
     filter = InstallmentFilter
     page = getPage(request,objects,filter)
     data = {
@@ -173,7 +173,7 @@ def markServiceFinishedView(request,pk):
     instance.finished = True
     instance.save()
     messages.success(request,"Η υπηρεσία ορίστηκε ως ολοκληρωμένη με επιτυχία!")
-    return redirect()
+    return redirect("view_blankpixel_client_services",instance.client.pk)
 
 @login_required(login_url="login")
 @staff_only
@@ -182,7 +182,7 @@ def markServiceUnfinishedView(request,pk):
     instance.finished = False
     instance.save()
     messages.success(request,"Η υπηρεσία ορίστηκε ως μη ολοκληρωμένη με επιτυχία!")
-    return redirect()
+    return redirect("view_blankpixel_client_services",instance.client.pk)
 
 @login_required(login_url="login")
 @staff_only

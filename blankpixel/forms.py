@@ -24,7 +24,6 @@ class PriceForm(forms.ModelForm):
     servicecheck = forms.BooleanField(required=False)
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-        # self.empty_permitted = False
 
     class Meta:
         model = Price
@@ -40,12 +39,6 @@ class PriceForm(forms.ModelForm):
             return True
         return False
 
-    # def save(self,commit=True):
-    #     instance = super().save(commit=False)
-    #     #add to client?
-    #     if commit:
-    #         instance.save()
-
 class InstallmentForm(forms.Form):
     payment_in_advance = forms.IntegerField(initial=0,required=True)
     total_installments = forms.IntegerField(initial=1,required=True)
@@ -55,25 +48,17 @@ class InstallmentForm(forms.Form):
         total_installments = self.cleaned_data['total_installments']
         total_price = client.getTotalCost()
         amount_per_installment = (total_price-payment_in_advance)/total_installments
-        # Mark payment_in_advance as paid if it's zero
-        if payment_in_advance == 0:
-            Installment(
-                client=client,
-                payment_number=0,
-                amount=payment_in_advance,
-                paid=True
-            ).save()
-        else:
-            Installment(
-                client=client,
-                payment_number=0,
-                amount=payment_in_advance
-            ).save()
+        #save payment in advance
+        Installment(
+            client=client,
+            payment_number=0,
+            amount=payment_in_advance
+        ).save()
         # Save the rest of the installments
-        for i in range(1, total_installments-1):
+        for i in range(0, total_installments):
             Installment(
                 client=client,
-                payment_number=i,
+                payment_number=i+1,
                 amount=amount_per_installment
             ).save()
 
