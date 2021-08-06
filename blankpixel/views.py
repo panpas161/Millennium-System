@@ -95,27 +95,29 @@ def viewClientServicesView(request,pk):
 def viewClientInstallmentsView(request,pk):
     instance = Client.objects.get(id=pk)
     objects = Installment.objects.filter(client=instance)
-    # page = getPage(request,objects,None)
+    filter = InstallmentFilter
+    page = getPage(request,objects,filter)
     data = {
-        'objects':objects
+        'objects':page,
+        # 'filter':filter
     }
     return render(request,"Blankpixel_Backend/Clients/view_client_installments.html",data)
 
 @login_required(login_url="login")
 @staff_only
-def approveInstallmentView(request,pk):
+def payInstallmentView(request,pk):
     instance = Installment.objects.get(id=pk)
     instance.paid = True
     instance.save()
     return redirect("list_blankpixel_client_installments")
 
-@login_required(login_url="login")
-@staff_only
-def disapproveInstallmentView(request,pk):
-    instance = Installment.objects.get(id=pk)
-    instance.paid = False
-    instance.save()
-    return redirect("list_blankpixel_client_installments")
+# @login_required(login_url="login")
+# @staff_only
+# def disapproveInstallmentView(request,pk):
+#     instance = Installment.objects.get(id=pk)
+#     instance.paid = False
+#     instance.save()
+#     return redirect("list_blankpixel_client_installments")
 
 @login_required(login_url="login")
 @staff_only
@@ -163,6 +165,24 @@ def deleteServiceView(request,pk):
     instance.delete()
     messages.success(request,"Η υπηρεσία διαγράφτηκε με επιτυχια!")
     return redirect("list_blankpixel_clients")
+
+@login_required(login_url="login")
+@staff_only
+def markServiceFinishedView(request,pk):
+    instance = Price.objects.get(id=pk)
+    instance.finished = True
+    instance.save()
+    messages.success(request,"Η υπηρεσία ορίστηκε ως ολοκληρωμένη με επιτυχία!")
+    return redirect()
+
+@login_required(login_url="login")
+@staff_only
+def markServiceUnfinishedView(request,pk):
+    instance = Price.objects.get(id=pk)
+    instance.finished = False
+    instance.save()
+    messages.success(request,"Η υπηρεσία ορίστηκε ως μη ολοκληρωμένη με επιτυχία!")
+    return redirect()
 
 @login_required(login_url="login")
 @staff_only

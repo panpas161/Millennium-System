@@ -77,6 +77,14 @@ class Installment(models.Model):
         else:
             self.paid = True
 
+    def issueReceipt(self, request, amount):
+        Receipt(
+            recipient=request.user.lastname + " " + request.user.firstname,
+            client=self.lastname + " " + self.firstname,
+            amount=amount,
+            type=self.__class__,
+        ).save()
+
     def __str__(self):
         return str(self.payment_number) + " - " + str(self.client)
 
