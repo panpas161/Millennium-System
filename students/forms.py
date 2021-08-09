@@ -102,17 +102,17 @@ class ExamGradeForm(ModelForm):
 
         }
 
-# class StudentSpecialtyForm(ModelForm):
-#     class Meta:
-#         model = StudentSpecialty
-#         fields = '__all__'
-#         exclude = ['student','specialty']
-#     #
-#     # def save(self,commit=True):
-#     #     instance = forms.ModelForm.save(self,commit)
-#     #     instance.save(send=0)
-#     #     for specialty in self.cleaned_data['specialties']:
-#     #         instance.specialties.add()
+class StudentSpecialtyForm(ModelForm):
+    class Meta:
+        model = StudentSpecialty
+        fields = '__all__'
+        exclude = ['student','specialty']
+    #
+    # def save(self,commit=True):
+    #     instance = forms.ModelForm.save(self,commit)
+    #     instance.save(send=0)
+    #     for specialty in self.cleaned_data['specialties']:
+    #         instance.specialties.add()
 
 class SeminarCertificateForm(forms.Form):
     sexoptions = (
