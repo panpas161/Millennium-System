@@ -1,11 +1,13 @@
 .list-table-header
 {
     background: coral;
+    text-align: center;
 }
 .datarow
 {
     border:1px dotted black;
     background: white;
+    height: 90px;
 }
 .list-table td
 {
@@ -41,7 +43,7 @@
 body
 {
     margin:0 -0.3% -0.3% -0.3%;
-    background: #e9ecef;
+    background: #e9ecef !important;
 }
 .header
 {

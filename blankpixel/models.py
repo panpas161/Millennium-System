@@ -27,7 +27,7 @@ class Client(models.Model):
     location = models.CharField(max_length=35,verbose_name="Τοποθεσία")
     workhours = models.FloatField(null=True,blank=True,verbose_name="Εργατοώρες")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
-    services = models.ManyToManyField(Service,verbose_name="Υπηρεσίες",through="Price")
+    services = models.ManyToManyField(Service,verbose_name="Υπηρεσίες",through="ClientService")
     seller = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True, blank=True, verbose_name="Πωλητής")
     entrydate = models.DateField(default=settings.CURRENT_DATE)
 
@@ -43,7 +43,7 @@ class Client(models.Model):
     def __str__(self):
         return self.lastname + " " + self.firstname
 
-class Price(models.Model):  #intermediate model
+class ClientService(models.Model):  #intermediate model
     service = models.ForeignKey(Service, on_delete=models.SET_NULL,verbose_name="Υπηρεσία",null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     price = models.FloatField(verbose_name="Τιμή")
@@ -60,7 +60,7 @@ class Price(models.Model):  #intermediate model
         unique_together = [['service', 'client']]
 
 class Installment(models.Model):
-    payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
+    payment_number = models.PositiveIntegerField()#which installment it is e.g. first,second,third etc.
     amount = models.FloatField()
     paid = models.BooleanField(default=False) #it should depend if self.fields.receipt is set if it is then it's true else it's false
     paymentdate = models.DateField(null=True,blank=True)

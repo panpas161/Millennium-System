@@ -3,5 +3,4 @@ from .models import *
 
 admin.site.register(Service)
 admin.site.register(Client)
-admin.site.register(Price)
 admin.site.register(Installment)

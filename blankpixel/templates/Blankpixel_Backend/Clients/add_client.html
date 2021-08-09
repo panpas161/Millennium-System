@@ -121,14 +121,15 @@
         {
             pricefield = document.getElementById("id_form-"+i+"-price");
             discountfield = document.getElementById("id_form-"+i+"-discount");
-            if(discountfield.value){
+            if(discountfield.value !== ""){
                 document.getElementsByClassName("total_price")[i].innerHTML = parseFloat(pricefield.value) - parseFloat(discountfield.value);
-                total_price += parseFloat(pricefield.value) - parseFloat(discountfield.value)
+                total_price += parseFloat(pricefield.value) - parseFloat(discountfield.value);
             }
-            else
+            else if(pricefield.value !== "")
             {
                 document.getElementsByClassName("total_price")[i].innerHTML = pricefield.value;
                 total_price += parseFloat(pricefield.value);
+                console.log(total_price);
             }
         }
         total_price_label = document.getElementById("total_price_label");

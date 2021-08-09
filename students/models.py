@@ -31,8 +31,8 @@ class Voucher(models.Model):
 class Specialty(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
     code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
-    duration = models.IntegerField(verbose_name="Διάρκεια")
-    price = models.IntegerField(verbose_name="Ενδεικτική Τιμή")
+    duration = models.FloatField(verbose_name="Διάρκεια")
+    price = models.FloatField(verbose_name="Ενδεικτική Τιμή")
     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
 
     def __str__(self):
@@ -41,7 +41,7 @@ class Specialty(models.Model):
 class StudentDiscount(models.Model):
     specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
     student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
-    discount = models.IntegerField()
+    discount = models.FloatField()
 
 class Student(models.Model):
     sexoptions = (
@@ -59,7 +59,7 @@ class Student(models.Model):
     email = models.EmailField(null=True,blank=True,verbose_name="Email")
     location = models.CharField(max_length=30,verbose_name="Τοποθεσία")
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
-    discount = models.IntegerField(null=True,blank=True,verbose_name="Έκπτωση")
+    discount = models.FloatField(null=True,blank=True,verbose_name="Έκπτωση")
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
@@ -112,8 +112,8 @@ class DepartmentDay(models.Model):
         return self.department.name + "-" + self.weekday
 
 class Installment(models.Model):
-    payment_number = models.IntegerField()#which installment it is e.g. first,second,third etc.
-    amount = models.IntegerField()
+    payment_number = models.PositiveIntegerField()#which installment it is e.g. first,second,third etc.
+    amount = models.FloatField()
     paid = models.BooleanField(default=False)
     paymentdate = models.DateField()#when will it be paid? not null nor blank
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
@@ -143,8 +143,8 @@ class ExamGrade(models.Model):
     department = models.OneToOneField(Department,on_delete=models.CASCADE,verbose_name="Τμήμα",null=True)
     teacher = models.OneToOneField(Teacher,on_delete=models.CASCADE,verbose_name="Καθηγητής")
     student = models.OneToOneField(Student,on_delete=models.CASCADE,verbose_name="Μαθητής")
-    theorygrade = models.IntegerField(verbose_name="Βαθμός Θεωρίας")
-    labgrade = models.IntegerField(verbose_name="Βαθμός Εργαστηρίου")
+    theorygrade = models.FloatField(verbose_name="Βαθμός Θεωρίας")
+    labgrade = models.FloatField(verbose_name="Βαθμός Εργαστηρίου")
     semester = models.CharField(max_length=14,choices=semesteroptions,verbose_name="Εξάμηνο")
     schoolyear = models.CharField(max_length=20,choices=schoolyearoptions,verbose_name="Σχολικό Έτος")
     remarks = models.TextField(verbose_name="Σχόλια")

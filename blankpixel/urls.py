@@ -12,6 +12,8 @@ urlpatterns = [
     path('clients/services/mark/unfinished/<pk>',markServiceUnfinishedView,name="change_blankpixel_service_unfinished"),
     path('clients/view/installments/<pk>',viewClientInstallmentsView,name="view_blankpixel_client_installments"),
     path('clients/installments/pay/<pk>',payInstallmentView,name="pay_blankpixel_installment"),
+    path('clients/assign/service/<pk>',assignClientServiceView,name="assign_blankpixel_client_service"),
+    path('clients/deassign/service/<pk>',deassignClientServiceView,name="deassign_blankpixel_client_service"),
     # path('clients/installments/disapprove/<pk>',disapproveInstallmentView,name="disapprove_blankpixel_installments"),
     #services
     path('services/list',listServicesView,name="list_blankpixel_services"),

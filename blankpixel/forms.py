@@ -26,11 +26,13 @@ class PriceForm(forms.ModelForm):
         super().__init__(*args,**kwargs)
 
     class Meta:
-        model = Price
+        model = ClientService
         fields = '__all__'
         exclude = ['client']
         widgets = {
-            'service':forms.HiddenInput()
+            'service':forms.HiddenInput(),
+            'price':forms.NumberInput(attrs={"min":0}),
+            'discount':forms.NumberInput(attrs={"min":0})
         }
 
     def is_valid(self):
@@ -40,8 +42,15 @@ class PriceForm(forms.ModelForm):
         return False
 
 class InstallmentForm(forms.Form):
-    payment_in_advance = forms.IntegerField(initial=0,required=True)
-    total_installments = forms.IntegerField(initial=1,required=True)
+    payment_in_advance = forms.FloatField(initial=0.0,required=True,widget=forms.NumberInput(attrs={"min":0}))
+    total_installments = forms.IntegerField(initial=0,required=True,widget=forms.NumberInput(attrs={"min":0}))
+
+    def is_valid(self):
+        valid = super().is_valid()
+        if valid:
+            if self.cleaned_data["payment_in_advance"] > 0 and self.cleaned_data["total_installments"] >= 0:
+                return True
+        return False
 
     def save(self,client):
         payment_in_advance = self.cleaned_data['payment_in_advance']
@@ -55,11 +64,17 @@ class InstallmentForm(forms.Form):
             amount=payment_in_advance
         ).save()
         # Save the rest of the installments
-        for i in range(0, total_installments):
+        for i in range(1, total_installments+1):
             Installment(
                 client=client,
-                payment_number=i+1,
+                payment_number=i,
                 amount=amount_per_installment
             ).save()
+
+class ClientServiceForm(forms.ModelForm):
+    class Meta:
+        model = ClientService
+        fields = '__all__'
+        exclude = ['client','finished']
 
 MultiServicesForm = forms.formset_factory(PriceForm,extra=1)

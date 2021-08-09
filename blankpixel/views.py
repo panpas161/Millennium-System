@@ -82,13 +82,53 @@ def deleteClientView(request,pk):
 @staff_only
 def viewClientServicesView(request,pk):
     instance = Client.objects.get(id=pk)
-    objects = Price.objects.all().filter(client=instance).order_by("-id")
+    objects = ClientService.objects.all().filter(client=instance).order_by("-id")
     # page = getPage(request,objects,None)
     data = {
         'instance':instance,
         'objects':objects,
     }
     return render(request,"Blankpixel_Backend/Clients/view_client_services.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def assignClientServiceView(request,pk):
+    instance = Client.objects.get(id=pk)
+    form = ClientServiceForm
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = ClientServiceForm(request.POST)
+        if form.is_valid():
+            savedinstance = form.save(commit=False)
+            savedinstance.client = instance
+            savedinstance.save()
+            messages.success(request,"Η υπηρεσία ανατέθηκε με επιτυχία στον πελάτη!")
+            return redirect("view_blankpixel_client_services",instance.id)
+    return render(request,"Blankpixel_Backend/Clients/assign_client_service.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def editAssignedClientServiceView(request,pk):
+    instance = ClientService.objects.get(id=pk)
+    form = ClientServiceForm(instance=instance)
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = ClientServiceForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect("list_blankpixel_clients",instance.client.id)
+    return render(request,"Blankpixel_Backend/Clients/edit_assigned_client_service.html",data)
+@login_required(login_url="login")
+@staff_only
+def deassignClientServiceView(request,pk):
+    instance = ClientService.objects.get(id=pk)
+    instance.delete()
+    messages.success(request,"Η υπηρεσία διαγράφθηκε με επιτυχία απο τον πελάτη!")
+    return redirect("view_blankpixel_client_services",instance.client.id)
 
 @login_required(login_url="login")
 @staff_only
@@ -169,7 +209,7 @@ def deleteServiceView(request,pk):
 @login_required(login_url="login")
 @staff_only
 def markServiceFinishedView(request,pk):
-    instance = Price.objects.get(id=pk)
+    instance = ClientService.objects.get(id=pk)
     instance.finished = True
     instance.save()
     messages.success(request,"Η υπηρεσία ορίστηκε ως ολοκληρωμένη με επιτυχία!")
@@ -178,7 +218,7 @@ def markServiceFinishedView(request,pk):
 @login_required(login_url="login")
 @staff_only
 def markServiceUnfinishedView(request,pk):
-    instance = Price.objects.get(id=pk)
+    instance = ClientService.objects.get(id=pk)
     instance.finished = False
     instance.save()
     messages.success(request,"Η υπηρεσία ορίστηκε ως μη ολοκληρωμένη με επιτυχία!")
@@ -203,7 +243,7 @@ def getServices(request):
 @login_required(login_url="login")
 @staff_only
 def deletePriceView(request,pk):
-    instance = Price.objects.get(id=pk)
+    instance = ClientService.objects.get(id=pk)
     instance.delete()
     messages.success(request,"Η υπηρεσία διαγράφτηκε με επιτυχία!")
     # return redirect("list_")
