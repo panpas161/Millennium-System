@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from Millennium_System import settings
 from assets.decorators.decorators import loggedInRedirect
-# Create your views here.
+from django.http import JsonResponse
 
 @loggedInRedirect
 def loginView(request):
@@ -46,3 +46,10 @@ def changePasswordView(request):
 
     }
     return render(request,"",data)
+
+
+def getAccountInfo(request):
+    return JsonResponse({
+        'username':request.user.username,
+        'role':'role'
+    })

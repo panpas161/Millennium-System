@@ -24,9 +24,6 @@ class Receipt(models.Model):
     paymentway = models.CharField(max_length=30,choices=paymentway_choices,verbose_name="Τρόπος Πληρωμής")
     entrydate = models.DateField(default=settings.CURRENT_DATE, verbose_name="Ημερομηνία")
 
-    def addReceiptType(self):
-        pass
-
 class Expense(models.Model):
     categories_a = (
         ("Αμοιβές & Έξοδα Προσωπικού", "Αμοιβές & Έξοδα Προσωπικού"),

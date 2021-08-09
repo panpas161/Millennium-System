@@ -1,7 +1,7 @@
 from django.db import models
 from Millennium_System import settings
 from staff.models import Staff
-from cash_register.models import Receipt
+from cash_register.models import Receipt,ReceiptType
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -73,12 +73,15 @@ class Installment(models.Model):
             self.paid = True
         super().save(*args,**kwargs)
 
-    def issueReceipt(self, recp_full_name, amount, paymentmethod, paymentway):
+    def issueReceipt(self, recp_full_name, paymentmethod, paymentway):
+        app_name = __package__
+        if not ReceiptType.objects.filter(name=__package__).exists():
+            ReceiptType(name=app_name).save()
         Receipt(
             recipient=recp_full_name,
             client=self.client.lastname + " " + self.client.firstname,
-            amount=amount,
-            app=__package__,
+            amount=self.amount,
+            app=app_name,
             paymentmethod=paymentmethod,
             paymentway=paymentway
         ).save()
