@@ -1,0 +1,15 @@
+<div class="pages">
+    {% if objects.has_previous %}
+    <a href="?page={{ objects.previous_page_number }}" style="text-decoration:none;">Προηγούμενη Σελίδα</a>
+    {% else %}
+    <a></a>
+    {% endif %}
+    {% if objects.has_next %}
+    <a href="?page={{ objects.next_page_number }}" style="text-decoration:none;">Επόμενη Σελίδα</a>
+    {% else %}
+    <a></a>
+    {% endif %}
+</div>
+<div style="text-align: center">
+     Σελίδα {{ objects.number }} από {{ objects.paginator.num_pages }}
+</div>

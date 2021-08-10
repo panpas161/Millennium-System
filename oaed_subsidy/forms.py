@@ -51,4 +51,8 @@ class DepartmentDayForm(ModelForm):
 
 DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)
 
-# DepartmentDayEditMultipleForm = forms.inlineformset_factory(DepartmentDayForm,fields=("weekday",))
+class DocumentForm(ModelForm):
+    class Meta:
+        model = Document
+        fields = '__all__'
+        exclude = ['entrydate']

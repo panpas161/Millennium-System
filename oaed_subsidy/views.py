@@ -68,6 +68,26 @@ def viewSubsidizedIndividualView(request,pk):
 
 @login_required(login_url="login")
 @staff_only
+def viewubsidizedIndividualDocuments(request,pk):
+    pass
+
+@login_required(login_url="login")
+@staff_only
+def addSubsidizedIndividualDocuments(request,pk):
+    pass
+
+@login_required(login_url="login")
+@staff_only
+def editSubsidizedIndividualDocuments(request,pk):
+    pass
+
+@login_required(login_url="login")
+@staff_only
+def deleteSubsidizedIndividualDocuments(request,pk):
+    pass
+
+@login_required(login_url="login")
+@staff_only
 def listDepartmentView(request):
     objects = Department.objects.order_by("-id")
     page = getPage(request,objects,DepartmentFilter)

@@ -134,11 +134,12 @@ def deassignClientServiceView(request,pk):
 @staff_only
 def viewClientInstallmentsView(request,pk):
     instance = Client.objects.get(id=pk)
-    objects = Installment.objects.filter(client=instance).order_by("-id")
+    objects = Installment.objects.filter(client=instance).order_by("id")
     filter = InstallmentFilter
     page = getPage(request,objects,filter)
     data = {
         'objects':page,
+        'instance':instance
         # 'filter':filter
     }
     return render(request,"Blankpixel_Backend/Clients/view_client_installments.html",data)
