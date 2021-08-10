@@ -36,8 +36,8 @@ class Client(models.Model):
 
     def getTotalCost(self):
         total_price = 0
-        for price in self.price_set.all():
-            total_price += price.getTotalPrice()
+        for service in self.clientservice_set.all():
+            total_price += service.getTotalPrice()
         return total_price
 
     def __str__(self):
