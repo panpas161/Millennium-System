@@ -107,12 +107,7 @@ class StudentSpecialtyForm(ModelForm):
         model = StudentSpecialty
         fields = '__all__'
         exclude = ['student','specialty']
-    #
-    # def save(self,commit=True):
-    #     instance = forms.ModelForm.save(self,commit)
-    #     instance.save(send=0)
-    #     for specialty in self.cleaned_data['specialties']:
-    #         instance.specialties.add()
+
 
 class SeminarCertificateForm(forms.Form):
     sexoptions = (
@@ -157,8 +152,34 @@ class PraiseCertificateForm(forms.Form):
     date = forms.DateField()
 
 class InstallmentForm(forms.Form):
-    payment_in_advance = forms.IntegerField()
-    payment_number = forms.IntegerField()
+    payment_in_advance = forms.FloatField(initial=0.0,required=True,widget=forms.NumberInput(attrs={"min":0}))
+    total_installments = forms.IntegerField(initial=0,required=True,widget=forms.NumberInput(attrs={"min":0}))
+
+    def is_valid(self):
+        valid = super().is_valid()
+        if valid:
+            if self.cleaned_data["payment_in_advance"] > 0 and self.cleaned_data["total_installments"] >= 0 and self.cleaned_data["total_installments"] <= 24:
+                return True
+        return False
+
+    def save(self,client):
+        payment_in_advance = self.cleaned_data['payment_in_advance']
+        total_installments = self.cleaned_data['total_installments']
+        total_price = client.getTotalCost()
+        amount_per_installment = (total_price-payment_in_advance)/total_installments
+        #save payment in advance
+        Installment(
+            client=client,
+            payment_number=0,
+            amount=payment_in_advance
+        ).save()
+        # Save the rest of the installments
+        for i in range(1, total_installments+1):
+            Installment(
+                client=client,
+                payment_number=i,
+                amount=amount_per_installment
+            ).save()
 
 class GeneralSettingsForm(forms.Form):
     email = forms.CharField()

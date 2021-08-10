@@ -22,3 +22,8 @@
 {
     display: grid;
 }
+
+.form-group
+{
+    background: white;
+}

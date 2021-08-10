@@ -8,6 +8,7 @@ from assets.decorators.decorators import staff_only
 from django.contrib.auth.decorators import login_required
 from assets.functions.pagination import getPage
 from .filters import *
+from django.http import JsonResponse
 
 #receipts
 @login_required(login_url="login")
@@ -140,3 +141,10 @@ def registerOverviewView(request):
     }
 
     return render(request,"Backend/Register/register_overview.html",data)
+
+def getProfits(request,day):
+    if day == "today":
+        data = {
+            '':''
+        }
+    return JsonResponse(data)
