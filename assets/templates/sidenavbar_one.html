@@ -1,28 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load tags %}
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% style 'sidenavbar/sidenavbar_one.css' %}">
-    <script src="{% script 'sidenavbar/sidenavbar_one.js' %}"></script>
-</head>
-<body>
-    {% block navone %}
-        <div id="sidenavone" class="sidenavone">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-              <a href="{% url 'home' %}">Αρχική</a>
-              <a href="{% url 'list-students' %}">Σπουδαστές</a>
-              <a href="{% url 'list_receipts' %}">Ταμείο</a>
-              <a href="{% url 'list_robotic_students' %}">Ρομποτική</a>
-              <a href="{% url 'list_teachers' %}">Καθηγητές</a>
-              <a href="{% url 'list_farmers' %}">Αγροτικά</a>
-              <a href="{% url 'list_efet_students' %}">ΕΦΕΤ</a>
-              <a href="{% url 'list_espa_interested_businesses' %}">Επιδοτήσεις ΕΣΠΑ</a>
-              <a href="{% url 'list_oaed_subsidized_individuals' %}">Κοινωφελής Εργασία</a>
-              <a href="#">Τεχνικός Ασφαλείας</a>
-              <a href="{% url 'list_blankpixel_clients' %}">Blankpixel</a>
-              <a href="#">Ρυθμίσεις</a>
-        </div>
-    {% endblock %}
-</body>
-</html>
+{% block sidebar %}
+    {%  load tags %}
+<link rel="stylesheet" href="{% style 'sidebar/sidebar.css' %}">
+<script src="{% script 'sidebar/sidebar.js' %}"></script>
+<div class="d-flex flex-column flex-shrink-0 text-white bg-dark" id="sidebar">
+    <a class="closebutton" onclick="closeNav()">
+        X
+    </a>
+    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"></svg>
+      <span class="fs-4">Κατηγορίες</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="{% url 'home' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Αρχική
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list-students' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Σπουδαστές
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_receipts' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Ταμείο
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_robotic_students' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Ρομποτική
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_teachers' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Καθηγητές
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_farmers' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Αγροτικά
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_efet_students' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          ΕΦΕΤ
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_espa_interested_businesses' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Επιδοτήσεις ΕΣΠΑ
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_oaed_subsidized_individuals' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Κοινωφελής Εργασία
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Τεχνικός Ασφαλείας
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'list_blankpixel_clients' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          Blankpixel
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      {% if request.user.picture %}
+        <img src="{{ request.user.picture }}" alt="" width="32" height="32" class="rounded-circle me-2">
+      {% else %}
+        <svg class="bi me-2" width="32" height="32"></svg>
+      {% endif %}
+        <strong>{{ request.user.username }}</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Προφίλ</a></li>
+        <li><a class="dropdown-item" href="#">Ρυθμίσεις</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Αποσύνδεση</a></li>
+      </ul>
+    </div>
+</div>
+{% endblock %}

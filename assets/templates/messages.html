@@ -1,0 +1,30 @@
+{% block messages %}
+    {% load tags %}
+    <link rel="stylesheet" href="{% style 'messages/top-messages.css' %}">
+    <script src="{% script 'messages/top-messages.js' %}"></script>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+                <div class="message success" id="success_message">
+                    <a class="cancel" onclick="hideMessages('success_message')">X</a>
+                    {{message}}
+                </div>
+            {% elif message.tags == "error" %}
+                <div class="message error" id="error_message">
+                    <a class="cancel" onclick="hideMessages('error_message')">X</a>
+                    {{message}}
+                </div>
+            {% elif message.tags == "info" %}
+                <a class="message info" id="info_message">
+                    <a class="cancel" onclick="hideMessages('info_message')">X</a>
+                    {{message}}
+                </a>
+            {% elif message.tags == "warning" %}
+                <a class="message warning" id="warning_message">
+                    <a class="cancel" onclick="hideMessages('warning_message')">X</a>
+                    {{message}}
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

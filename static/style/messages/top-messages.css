@@ -1,0 +1,26 @@
+.message
+{
+    text-align: center;
+    height: 67px;
+}
+
+.success
+{
+    background-color: green;
+
+}
+
+.error
+{
+    background-color: red;
+}
+
+.info
+{
+    background-color: yellow;
+}
+
+.warning
+{
+
+}

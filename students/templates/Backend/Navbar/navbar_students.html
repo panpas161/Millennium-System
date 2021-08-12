@@ -3,23 +3,9 @@
     {% load tags %}
     <link rel="stylesheet" href="{% style 'students/navbar.css' %}" />
     <script src="{% script 'students/navbar.js' %}"></script>
+    {% loadBootstrap %}
     {% block nav %}
-    {% if messages %}
-            {% for message in messages %}
-                <div class="successmessages" id="successmessage">
-                    <div class="cancel" onclick="hideMessages()">X</div>
-                    {{message}}
-                </div>
-            {% endfor %}
-    {% endif %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="successmessages" id="successmessage">
-                    <div class="cancel" onclick="hideMessages()">X</div>
-                    {{message}}
-                </div>
-            {% endfor %}
-        {% endif %}
+        {% include 'messages.html' %}
         <div class="navbar_container">
             <div onclick="openNav()">
                 <a class="menuitem">☰</a>

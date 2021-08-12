@@ -1,0 +1,32 @@
+#sidebar
+{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+#sidebar .nav-link:hover
+{
+  background: #0d6efd;
+}
+.closebutton
+{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  text-decoration: none;
+  color: white;
+}
+.closebutton:hover
+{
+  color: red;
+  cursor: pointer;
+}
