@@ -26,14 +26,14 @@ class Voucher(models.Model):
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField(verbose_name="Email")
     profession = models.CharField(max_length=30,verbose_name="Επάγγελμα")
-    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")
 
 class Specialty(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
     code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
     duration = models.FloatField(verbose_name="Διάρκεια")
     price = models.FloatField(verbose_name="Ενδεικτική Τιμή")
-    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(null=True,auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -66,7 +66,7 @@ class Student(models.Model):
     studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία") # maybe extend user model instead of this
     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentSpecialty")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.lastname + " " + self.firstname
@@ -74,7 +74,7 @@ class Student(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
     participants = models.ManyToManyField(Student,verbose_name="Συμμετέχοντες")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def getParticipants(self):
         participants = {}
@@ -118,7 +118,7 @@ class Installment(models.Model):
     paymentdate = models.DateField()#when will it be paid? not null nor blank
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     # def save(self,*args,**kwargs):
     #     if self.receipt:
@@ -148,4 +148,4 @@ class ExamGrade(models.Model):
     semester = models.CharField(max_length=14,choices=semesteroptions,verbose_name="Εξάμηνο")
     schoolyear = models.CharField(max_length=20,choices=schoolyearoptions,verbose_name="Σχολικό Έτος")
     remarks = models.TextField(verbose_name="Σχόλια")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)

@@ -10,7 +10,7 @@ class Teacher(models.Model):
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     email = models.EmailField(verbose_name="Email")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
-    entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")
 
     def __str__(self):
         return self.lastname + " " + self.firstname
@@ -25,7 +25,7 @@ class SubjectReport(models.Model):
     # wage_per_hour = models.FloatField()
     # total_hours = models.IntegerField()
     # total_wage = models.FloatField()
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")
 
 class AttendanceReport(models.Model):
     department = models.ForeignKey("students.Department",on_delete=models.SET_NULL,null=True,verbose_name="Τμήμα")
@@ -36,4 +36,4 @@ class AttendanceReport(models.Model):
     cooperation = models.FloatField()
     averagegrade = models.FloatField()
     attendance = models.BooleanField()
-    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")

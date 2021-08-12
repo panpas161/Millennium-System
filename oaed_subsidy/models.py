@@ -28,7 +28,7 @@ class SubsidizedIndividual(models.Model):
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     oaed_id = models.CharField(max_length=30,verbose_name="Αριθμός Αίτησης ΟΑΕΔ")
     beneficiary_id = models.CharField(max_length=30,verbose_name="Αριθμός ID Ωφελουμένου")
-    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")
 
     def __str__(self):
         return self.lastname + " " + self.firstname
@@ -36,7 +36,7 @@ class SubsidizedIndividual(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Τμήματος")
     participants = models.ManyToManyField(SubsidizedIndividual,verbose_name="Συμμετέχοντες")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -71,4 +71,4 @@ class Document(models.Model):
     gdpr_application = models.FileField(verbose_name="Αίτηση GDPR")
     oaed_application = models.FileField(verbose_name="Αίτηση ΟΑΕΔ")
     individual = models.ForeignKey(SubsidizedIndividual,on_delete=models.CASCADE)
-    entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+    entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")

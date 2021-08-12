@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 
 class EspaService(models.Model):
     service = models.CharField(max_length=50,verbose_name="Υπηρεσία")
-    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
 
     def __str__(self):
         return self.service
@@ -17,7 +17,7 @@ class EspaAssociate(models.Model):
     phonenumber = models.CharField(max_length=40,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=40,null=True,blank=True,verbose_name="Κινητό")
     email = models.EmailField()
-    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class InterestedBusiness(models.Model):
     email = models.EmailField(null=True)
     services = models.ManyToManyField(EspaService,verbose_name="Υπηρεσίες",null=True,blank=False)
     referrer = models.ForeignKey(EspaAssociate,on_delete=models.CASCADE,null=True,blank=True,verbose_name="Συστάθηκε Από")
-    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
 
     def __str__(self):
         return self.companyname
@@ -54,7 +54,7 @@ class SubsidizedBusiness(models.Model):
     referrer = models.ForeignKey(EspaAssociate,on_delete=models.CASCADE,verbose_name="Συστάθηκε Από",blank=True,null=True)
     username = models.CharField(max_length=50,null=True,blank=True)
     password = models.CharField(max_length=50,null=True,blank=True)
-    entrydate = models.DateField(verbose_name="Ημερομηνία Καταχώρησης",default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
@@ -65,4 +65,4 @@ class Document(models.Model):
     inspected = models.BooleanField(default=False,verbose_name="Επιθεωρήθηκε")
     comments = models.TextField(blank=True,null=True,verbose_name="Σχόλια")
     company = models.ForeignKey(SubsidizedBusiness, on_delete=models.CASCADE)
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)

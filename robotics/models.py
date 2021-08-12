@@ -32,7 +32,7 @@
 #     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
 #     email = models.EmailField(verbose_name="Email")
 #     profession = models.CharField(max_length=30,verbose_name="Επάγγελμα")
-#     entrydate = models.DateField(default=settings.CURRENT_DATE,verbose_name="Ημερομηνία Καταχώρησης")
+#     entrydate = models.DateTimeField(auto_now_add=True,verbose_name="Ημερομηνία Καταχώρησης")
 #     #student = models.ForeignKey(Student,on_delete=models.CASCADE)
 #
 # class Specialty(models.Model):
@@ -41,7 +41,7 @@
 #     specialty = models.CharField(max_length=30,verbose_name="Όνομα Ειδικότητας")
 #     duration = models.IntegerField(verbose_name="Διάρκεια")
 #     price = models.IntegerField(verbose_name="Ενδεικτική Τιμή")
-#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+#     entrydate = models.DateTimeField(null=True,auto_now_add=True)
 #     def __str__(self):
 #         return self.specialty
 #
@@ -80,7 +80,7 @@
 #     installments = models.IntegerField(null=True,blank=True)
 #     studentImage = models.ImageField(null=True,blank=True,verbose_name="Φωτογραφία")
 #     username = models.CharField(max_length=50,null=True,blank=True,verbose_name="Username")# not null nor blank
-#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+#     entrydate = models.DateTimeField(null=True,auto_now_add=True)
 #     specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα")
 #
 #     def __str__(self):
@@ -93,7 +93,7 @@
 #     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
 #     email = models.EmailField(verbose_name="Email")
 #     username = models.CharField(max_length=30,verbose_name="Όνομα Χρήστη")
-#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+#     entrydate = models.DateTimeField(null=True,auto_now_add=True)
 #     def __str__(self):
 #         return self.lastname + " " + self.firstname
 #
@@ -109,7 +109,7 @@
 #     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 #     program = models.CharField(choices=programchoices,max_length=50)
 #     weekday = models.CharField(max_length=30,choices=weekdays,null=True)# not null
-#     entrydate = models.DateField(null=True,default=settings.CURRENT_DATE)
+#     entrydate = models.DateTimeField(null=True,auto_now_add=True)
 #
 # class Installment(models.Model):
 #     id = models.IntegerField(primary_key=True)

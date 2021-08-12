@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 
 class Service(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Υπηρεσίας")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def getServices(self):
         return {
@@ -29,7 +29,7 @@ class Client(models.Model):
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
     services = models.ManyToManyField(Service,verbose_name="Υπηρεσίες",through="ClientService")
     seller = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True, blank=True, verbose_name="Πωλητής")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def getTotalServices(self):
         return len(self.services.all())
@@ -66,7 +66,7 @@ class Installment(models.Model):
     paymentdate = models.DateField(null=True,blank=True)
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="blankpixel_client_receipt")
-    entrydate = models.DateField(default=settings.CURRENT_DATE)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def save(self,*args,**kwargs):
         if self.amount == 0:

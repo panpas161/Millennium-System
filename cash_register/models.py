@@ -22,7 +22,7 @@ class Receipt(models.Model):
     app = models.CharField(max_length=30,verbose_name="Τύπος Απόδειξης",default="Άλλο",null=True,blank=True)
     paymentmethod = models.CharField(max_length=30,choices=paymentmethod_choices,verbose_name="Μέθοδος Πληρωμής")
     paymentway = models.CharField(max_length=30,choices=paymentway_choices,verbose_name="Τρόπος Πληρωμής")
-    entrydate = models.DateField(default=settings.CURRENT_DATE, verbose_name="Ημερομηνία")
+    entrydate = models.DateTimeField(auto_now_add=True, verbose_name="Ημερομηνία")
 
 class Expense(models.Model):
     categories_a = (
@@ -61,4 +61,4 @@ class Expense(models.Model):
     paymentmethod = models.CharField(max_length=30,choices=paymentmethod_choices,verbose_name="Μέθοδος Πληρωμής")
     type = models.CharField(max_length=30,choices=typechoices,verbose_name="Είδος")
     paymentway = models.CharField(max_length=30,choices=paymentway_choices,verbose_name="Τρόπος Πληρωμής")
-    entrydate = models.DateField(default=settings.CURRENT_DATE, verbose_name="Ημερομηνία")
+    entrydate = models.DateTimeField(auto_now_add=True, verbose_name="Ημερομηνία")
