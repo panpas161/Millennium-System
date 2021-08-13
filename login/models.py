@@ -3,4 +3,4 @@
 #
 # class User(AbstractUser):
 #     # role = models.CharField()
-#     image = models.ImageField()
+#     picture = models.ImageField()

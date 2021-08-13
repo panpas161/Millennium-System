@@ -37,9 +37,6 @@ urlpatterns = [
     path('admin/users/list/',adminviews.listUsersView,name="admin_list_users"),
     path('admin/users/add/<str:pk>',adminviews.addUserView,name="admin_add_user"),
     path('admin/users/edit/<str:pk>',adminviews.editUserView,name="admin_edit_user"),
-    #------------GENERAL_SETTINGS APP------------
-    path('settings/profile/main',gensettingsview.showProfileView,name="show_profile"),
-    path('settings/profile/edit',gensettingsview.editProfileView,name="edit_profile"),
     #----------REST----------
     path('students/',include("students.urls")),
     path('teachers/',include("teachers.urls")),

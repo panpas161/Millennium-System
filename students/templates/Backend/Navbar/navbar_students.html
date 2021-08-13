@@ -1,33 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% block nav %}
     {% load tags %}
-    <link rel="stylesheet" href="{% style 'students/navbar.css' %}" />
-    <script src="{% script 'students/navbar.js' %}"></script>
+    <meta charset="UTF-8">
     {% loadBootstrap %}
-    {% block nav %}
-        {% include 'messages.html' %}
-        <div class="navbar_container">
-            <div onclick="openNav()">
-                <a class="menuitem">☰</a>
+    <link rel="stylesheet" href="{% style 'navbars/navbar_one.css' %}">
+    {% include 'messages.html' %}
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" onclick="openNav();">☰</a>
+            <div class="collapse navbar-collapse">
+              <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'list-students' %}">Σπουδαστές</a>
+                <a class="nav-link" href="{% url 'list_student_specialties' %}">Ειδικότητες</a>
+                <a class="nav-link" href="{% url 'list_student_departments' %}">Τμήματα</a>
+                <a class="nav-link" href="#">Πρόγραμμα</a>
+              </div>
             </div>
-            <div>
-                <a href="{% url 'list-students' %}" class="menuitem">Σπουδαστές</a>
-            </div>
-            <div>
-                <a href="{% url 'list_student_specialties' %}" class="menuitem">Ειδικότητες</a>
-            </div>
-            <div>
-                <a href="{% url 'list_student_departments' %}" class="menuitem">Τμήματα</a>
-            </div>
-            <div>
-                <a href="#" class="menuitem">Πρόγραμμα</a>
-            </div>
-            <div>
-                <a href="#" class="menuitem"></a>
-            </div>
-            {% include 'dropdown_user_one.html' %}
-
         </div>
-    {% include 'sidenavbar_one.html'%}
-    {% endblock %}
-</html>
+    </nav>
+    {% include 'sidebar.html' %}
+{% endblock %}

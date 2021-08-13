@@ -1,7 +1,10 @@
 .message
 {
+    position: fixed;
+    top:0;
+    width: 100%;
     text-align: center;
-    height: 67px;
+    height: 30px;
 }
 
 .success
@@ -23,4 +26,14 @@
 .warning
 {
 
+}
+
+.cancel
+{
+    text-align: right;
+}
+.cancel:hover
+{
+    cursor: pointer;
+    color:red;
 }

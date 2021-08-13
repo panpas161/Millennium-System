@@ -18,8 +18,8 @@ def loginView(request):
             login(request,user)
             messages.success(request,"Επιτυχής Σύνδεση!")
             return redirect("home")
-        # else:
-        #     messages.error(request,"Λάθος Στοιχεία Σύνδεσης")
+        else:
+            messages.error(request,"Λάθος Στοιχεία Σύνδεσης")
         if "1=1" in request.POST['username']:
             file = open("suspicious_activity.txt","a")
             file.write("\n" + settings.CURRENT_DATE + " " + settings.CURRENT_TIME + "\nENTERIP entered possible sql injection query: " + request.POST['username'])
@@ -33,7 +33,7 @@ def viewProfile(request):
     data = {
 
     }
-    return render(request,"",data)
+    return render(request,"profile/view_profile.html",data)
 
 
 def generalSettingsView(request):

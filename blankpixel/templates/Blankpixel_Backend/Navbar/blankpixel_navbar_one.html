@@ -2,32 +2,18 @@
     {% load tags %}
     <meta charset="UTF-8">
     {% loadBootstrap %}
-    {% loadJQuery %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="successmessages" id="successmessage">
-                <div class="cancel" onclick="hideMessages()">X</div>
-                {{message}}
+    <link rel="stylesheet" href="{% style 'navbars/navbar_one.css' %}">
+    {% include 'messages.html' %}
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" onclick="openNav();">☰</a>
+            <div class="collapse navbar-collapse">
+              <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'list_blankpixel_clients' %}">Πελάτες</a>
+                <a class="nav-link" href="{% url 'list_blankpixel_services' %}">Υπηρεσίες</a>
+              </div>
             </div>
-        {% endfor %}
-    {% endif %}
-    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#" onclick="openNav();">☰</a>
-    <div class="collapse navbar-collapse">
-      <div class="navbar-nav">
-        <a class="nav-link" href="#">Πελάτες</a>
-        <a class="nav-link" href="#">Υπηρεσίες</a>
-        <a class="nav-link" href="#">Pricing</a>
-      </div>
-    </div>
-  </div>
-</nav>
-{% include 'sidenavbar_one.html' %}
-<style>
-    #navbar
-    {
-        background-color: #38414a !important;
-    }
-</style>
+        </div>
+    </nav>
+    {% include 'sidebar.html' %}
 {% endblock %}
