@@ -7,3 +7,7 @@
 {
     color:white;
 }
+#navbar .nav-link:hover,.navbar-brand:hover
+{
+    color: red;
+}

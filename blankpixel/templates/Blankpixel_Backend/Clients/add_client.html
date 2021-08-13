@@ -4,8 +4,9 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Προσθήκη Πελάτη Blankpixel</title>
-    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
-    {% loadBootstrap %}
+    {% loadJQuery %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
@@ -15,9 +16,9 @@
     </div>
     <form method="POST">
         {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
+        <div class="form-group">
+            <div class="inputs">
+              <div class="col-md-6 form-group mx-auto">
                   {{form}}
                 <div class="services-form">
                     <h3>ΥΠΗΡΕΣΙΕΣ</h3>

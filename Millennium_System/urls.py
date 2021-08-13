@@ -18,9 +18,6 @@ from django.urls import path
 from login import views as loginviews
 from main import views as mainviews
 from administrator import views as adminviews
-from robotics import views as roboticviews
-from farmingcert import views as farmingviews
-from general_settings import views as gensettingsview
 from Millennium_System import settings
 from django.conf.urls.static import static
 from django.urls import include
@@ -31,6 +28,7 @@ urlpatterns = [
     #------------LOGIN APP------------
     path('login', loginviews.loginView, name="login"),
     path('logout', loginviews.logoutView, name="logout"),
+    path('profile/', include("login.urls")),
     #------------ADMINISTRATOR APP------------
     path('admin/home',adminviews.homePageView,name="admin_home"),
     #users
