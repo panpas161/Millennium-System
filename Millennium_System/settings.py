@@ -94,7 +94,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Millennium_System.wsgi.application'
-
+AUTH_USER_MODEL = 'login.User'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

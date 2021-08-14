@@ -3,7 +3,6 @@ from .forms import loginForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.shortcuts import redirect
-from Millennium_System import settings
 from assets.decorators.decorators import loggedInRedirect
 from django.http import JsonResponse
 
@@ -24,6 +23,7 @@ def loginView(request):
 
 def logoutView(request):
     logout(request)
+    messages.success(request,"Η αποσύνδεση ολοκληρώθηκε με επιτυχία!")
     return redirect("home")
 
 def viewProfile(request):
