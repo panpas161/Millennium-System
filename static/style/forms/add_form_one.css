@@ -1,8 +1,12 @@
-.inputs
+.fields
 {
+    background-color: white;
+    padding-left:20px;
+    padding-right:20px;
+    border:1px solid black;
     text-align: center;
 }
-.inputs input,select
+.fields input,select
 {
     text-align: center;
 }
@@ -19,4 +23,17 @@
 .submit:hover
 {
     background: red;
+}
+.header
+{
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+body
+{
+
+}
+form
+{
+    margin-top:20px;
 }

@@ -4,29 +4,23 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Προσθήκη Καθηγητή</title>
-    <link rel="stylesheet" href="{% style 'students/add_teacher.css' %}" />
-    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
-    {% loadBootstrap %}
+    {% loadJQuery %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
     {% renderTeacherBackendNavbar request %}
-    <div class="header">
+   <form method="POST">
+        {% csrf_token %}
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
         Προσθήκη Καθηγητή
-    </div>
-        <form method="POST">
-            {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
-                  {{form}}
-<!--                  <label for="id_username">Όνομα Χρήστη:</label>-->
-<!--                  <input type="text" name="username" maxlength="30" class="form-control" required="" id="id_username">-->
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
         </div>
-    </form>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+   </form>
 </body>
 </html>
 <script>

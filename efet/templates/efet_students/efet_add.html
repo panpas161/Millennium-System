@@ -10,19 +10,15 @@
 <body>
     {% load render %}
     {% renderEfetNavbar request %}
-    <div class="header">
-        Προσθήκη ΕΦΕΤ
-    </div>
     <form method="POST">
-            {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+        {% csrf_token %}
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+            Προσθήκη Μαθητή ΕΦΕΤ
         </div>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
     </form>
 </body>
 </html>

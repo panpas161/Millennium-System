@@ -4,25 +4,22 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Επεξεργασία Υπηρεσίας Blankpixel</title>
+    {% loadJQuery %}
     <link rel="stylesheet" href="{% style 'forms/edit_form_one.css' %}"/>
-    {% loadBootstrap %}
+    <script src="{% script 'forms/edit_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
     {% renderBlankpixelNavbar request %}
-    <div class="header">
-        Επεξεργασία Υπηρεσίας
-    </div>
     <form method="POST">
         {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+        Επεξεργασία Υπηρεσίας
         </div>
-    </form>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+   </form>
 </body>
 </html>

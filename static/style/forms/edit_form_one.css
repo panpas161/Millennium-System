@@ -1,24 +1,39 @@
-.form
+.fields
 {
-    display: grid;
-    grid-template-columns: 30% 40% 30%;
-    margin-top:1px;
+    background-color: white;
+    padding-left:20px;
+    padding-right:20px;
+    border:1px solid black;
+    text-align: center;
 }
-.form-group
+.fields input,select
 {
-    grid-column: 2;
-    border: 1px solid black;
-    border-radius: 5px;
+    text-align: center;
+}
+.form-control
+{
+    margin-top:5px;
+    margin-bottom:15px;
 }
 .submit
 {
-    background: black;
-    margin-top:5px;
-    margin-bottom:5px;
     background: black !important;
     color:white !important;
 }
-.inputs
+.submit:hover
 {
-    display: grid;
+    background: red;
+}
+.header
+{
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+body
+{
+
+}
+form
+{
+    margin-top:20px;
 }

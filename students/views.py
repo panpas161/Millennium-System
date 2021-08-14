@@ -301,7 +301,7 @@ def addDepartmentView(request):
             form.save()
             messages.success(request,"Το τμήμα δημιουργήθηκε επιτυχώς!")
             return redirect("list_student_departments")
-    return render(request,"Backend/Departments/add_department_2.html",data)
+    return render(request,"Backend/Departments/add_department.html",data)
 
 @login_required(login_url="login")
 @staff_only

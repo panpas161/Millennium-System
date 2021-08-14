@@ -11,7 +11,7 @@ class EspaService(models.Model):
         return self.service
 
 class EspaAssociate(models.Model):
-    associatename = models.CharField(max_length=30,verbose_name="Συνεργάτης")
+    associatename = models.CharField(max_length=30,verbose_name="Επωνυμία Συνεργάτη")
     firstname = models.CharField(max_length=30,verbose_name="Όνομα")
     lastname = models.CharField(max_length=30,verbose_name="Επώνυμο")
     phonenumber = models.CharField(max_length=40,null=True,blank=True,verbose_name="Τηλέφωνο")

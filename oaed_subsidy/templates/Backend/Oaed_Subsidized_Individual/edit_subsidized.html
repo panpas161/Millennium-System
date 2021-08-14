@@ -10,19 +10,15 @@
 <body>
     {% load render %}
     {% renderOaedSubsidyBackendNavbar request %}
-    <div class="header">
-        Επεξεργασία Επιδοτούμενου
-    </div>
     <form method="POST">
         {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+            Επεξεργασία Επιδοτούμενου
         </div>
-    </form>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+   </form>
 </body>
 </html>

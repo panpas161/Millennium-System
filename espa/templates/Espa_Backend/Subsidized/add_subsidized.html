@@ -4,26 +4,25 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Προσθήκη Επιχείρησης ΕΣΠΑ</title>
-    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
-    {% loadBootstrap %}
+    {% loadJQuery %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
     {% renderEspaBackendNavbar request %}
-    <div class="header">
-        Προσθήκη Επιχείρησης
-    </div>
-        <form method="POST">
-            {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
-                  {{form}}
-                  <label for="create_credentials">Δημιουργία Στοιχείων Σύνδεσης</label>
-                  <input type="checkbox" id="create_credentials" name="create_credentials" />
-                  <input type="submit" class="form-control submit" />
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <div class="col-md-6 form-group mx-auto fields">
+              <div class="header">
+                Προσθήκη Επιχείρησης
               </div>
-            </div>
+              {{form}}
+              <label for="create_credentials">Δημιουργία Στοιχείων Σύνδεσης</label>
+              <input type="checkbox" id="create_credentials" name="create_credentials" />
+              <input type="submit" class="form-control submit" />
+          </div>
         </div>
     </form>
 </body>

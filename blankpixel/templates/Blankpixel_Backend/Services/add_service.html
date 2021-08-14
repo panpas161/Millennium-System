@@ -11,19 +11,15 @@
 <body>
     {% load render %}
     {% renderBlankpixelNavbar request %}
-    <div class="header">
-        Προσθήκη Υπηρεσίας
-    </div>
     <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <div class="inputs">
-              <div class="col-md-6 form-group mx-auto">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+            Προσθήκη Υπηρεσίας
         </div>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
     </form>
 </body>
 </html>

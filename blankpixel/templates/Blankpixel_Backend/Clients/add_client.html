@@ -11,75 +11,73 @@
 <body>
     {% load render %}
     {% renderBlankpixelNavbar request %}
-    <div class="header">
-        Προσθήκη Ενδιαφερόμενου
-    </div>
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
-            <div class="inputs">
-              <div class="col-md-6 form-group mx-auto">
-                  {{form}}
-                <div class="services-form">
-                    <h3>ΥΠΗΡΕΣΙΕΣ</h3>
-                  <div class="row" style="border:1px solid black;">
-                      <div class="col-md-1"></div>
-                      <div class="col-md-2">
-                          Υπηρεσία
-                      </div>
-                      <div class="col-md-3">
-                        Τιμή
-                      </div>
-                      <div class="col-md-3">
-                        Έκπτωση
-                      </div>
-                      <div class="col-md-3">
-                          Σύνολο
-                      </div>
-                    </div>
-                      {% for form in servicesform %}
-                        <div class="row">
-                            <div class="col-md-1">
-                                {{form.servicecheck}}
-                            </div>
-                            <div class="col-md-2">
-                                <label class="service-label"></label>
-                            </div>
-                            <div class="col-md-3">
-                                {{form.price}}
-                            </div>
-                            <div class="col-md-3">
-                                {{form.discount}}
-                            </div>
-                            <div class="col-md-3">
-                                <label class="total_price">-</label>
-                            </div>
-                            {{form.service}}
-                        </div>
-                      {% endfor %}
-                        <div id="total_div" style="border:1px solid black;">
-                            <h5>Σύνολο:</h5>
-                            <h5><label id="total_price_label">-</label></h5>
-                        </div>
-                    {{servicesform.management_form}}
-                  </div>
-                  <div class="installments">
-                    <div class="row">
-                        <div class="col-md-12">
-                            Προκαταβολή<br>
-                            {{installmentsform.payment_in_advance}}
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col-md-12">
-                            Δόσεις<br>
-                            {{installmentsform.total_installments}}
-                        </div>
-                    </div>
-                  </div>
-                <input type="submit" class="form-control submit" />
-              </div>
+          <div class="col-md-6 mx-auto fields">
+            <div class="header">
+                Προσθήκη Ενδιαφερόμενου
             </div>
+              {{form}}
+            <div class="services-form">
+                <h3>ΥΠΗΡΕΣΙΕΣ</h3>
+              <div class="row" style="border:1px solid black;">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2">
+                      Υπηρεσία
+                  </div>
+                  <div class="col-md-3">
+                    Τιμή
+                  </div>
+                  <div class="col-md-3">
+                    Έκπτωση
+                  </div>
+                  <div class="col-md-3">
+                      Σύνολο
+                  </div>
+                </div>
+                  {% for form in servicesform %}
+                    <div class="row">
+                        <div class="col-md-1">
+                            {{form.servicecheck}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="service-label"></label>
+                        </div>
+                        <div class="col-md-3">
+                            {{form.price}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form.discount}}
+                        </div>
+                        <div class="col-md-3">
+                            <label class="total_price">-</label>
+                        </div>
+                        {{form.service}}
+                    </div>
+                  {% endfor %}
+                    <div id="total_div" style="border:1px solid black;">
+                        <h5>Σύνολο:</h5>
+                        <h5><label id="total_price_label">-</label></h5>
+                    </div>
+                {{servicesform.management_form}}
+              </div>
+              <div class="installments">
+                <div class="row">
+                    <div class="col-md-12">
+                        Προκαταβολή<br>
+                        {{installmentsform.payment_in_advance}}
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-12">
+                        Δόσεις<br>
+                        {{installmentsform.total_installments}}
+                    </div>
+                </div>
+              </div>
+            <input type="submit" class="form-control submit" />
+          </div>
         </div>
     </form>
 </body>
