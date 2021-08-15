@@ -1,6 +1,6 @@
 from django.db import models
 from Millennium_System import settings
-from django.contrib.auth.models import User
+from login.models import User
 from django.core.validators import FileExtensionValidator
 
 class EspaService(models.Model):

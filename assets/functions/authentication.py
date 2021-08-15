@@ -1,5 +1,5 @@
 from system_settings.config import roles
-from django.contrib.auth.models import User
+from login.models import User
 from django.contrib.auth.models import Group
 
 def hasRole(request,role):

@@ -7,12 +7,11 @@ from django.contrib import messages
 from assets.decorators.decorators import allowed_roles,staff_only,admin_only
 from django.contrib.auth.decorators import login_required
 from assets.functions.authentication import isStaff,hasRole,isAdmin
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.shortcuts import HttpResponse
 from assets.functions.authentication import addUser
 from .filters import *
 from assets.functions.pagination import getPage
-from django.contrib.auth.models import User
+from login.models import User
 from assets.functions.crypto import getRandomString
 from unidecode import unidecode
 import os

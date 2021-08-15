@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from login.models import User
 from students.models import Student
 
 def getUserID(username):

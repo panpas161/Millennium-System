@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse
-from django.contrib.auth.models import User
+from login.models import User
 from .filters import UserFilter
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from assets.decorators.decorators import staff_only

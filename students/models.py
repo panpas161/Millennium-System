@@ -1,7 +1,7 @@
 from django.db import models
 from Millennium_System import settings
 from cash_register.models import Receipt
-from django.contrib.auth.models import User
+from login.models import User
 from teachers.models import Teacher
 from options.models import Prefecture,Doy
 

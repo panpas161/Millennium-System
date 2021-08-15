@@ -2,7 +2,7 @@ from django.db import models
 from Millennium_System import settings
 from cash_register.models import Receipt
 #from students.models import Student,Specialty
-from django.contrib.auth.models import User
+from login.models import User
 
 class Teacher(models.Model):
     firstname = models.CharField(max_length=30,verbose_name="Όνομα")
