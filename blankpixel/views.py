@@ -8,9 +8,10 @@ from .filters import *
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse
+from django.contrib.auth.decorators import permission_required
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.view_client")
 def listClientsView(request):
     objects = Client.objects.order_by("-id")
     page = getPage(request,objects,ClientFilter)
@@ -21,7 +22,7 @@ def listClientsView(request):
     return render(request,"Blankpixel_Backend/Clients/list_clients.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.add_client")
 def addClientView(request):
     clientform = ClientModelForm()
     servicesform = MultiServicesForm({
@@ -61,7 +62,7 @@ def addClientView(request):
     return render(request,"Blankpixel_Backend/Clients/add_client.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_client")
 def editClientView(request,pk):
     instance = Client.objects.get(id=pk)
     form = ClientModelForm(instance=instance)
@@ -71,7 +72,7 @@ def editClientView(request,pk):
     return render(request,"Blankpixel_Backend/Clients/edit_client.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.delete_client")
 def deleteClientView(request,pk):
     instance = Client.objects.get(id=pk)
     instance.delete()
@@ -79,7 +80,7 @@ def deleteClientView(request,pk):
     return redirect("list_blankpixel_clients")
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.view_clientservice")
 def viewClientServicesView(request,pk):
     instance = Client.objects.get(id=pk)
     objects = ClientService.objects.all().filter(client=instance).order_by("-id")
@@ -91,7 +92,7 @@ def viewClientServicesView(request,pk):
     return render(request,"Blankpixel_Backend/Clients/view_client_services.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.add_clientservice")
 def assignClientServiceView(request,pk):
     instance = Client.objects.get(id=pk)
     form = ClientServiceForm
@@ -109,7 +110,7 @@ def assignClientServiceView(request,pk):
     return render(request,"Blankpixel_Backend/Clients/assign_client_service.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_clientservice")
 def editAssignedClientServiceView(request,pk):
     instance = ClientService.objects.get(id=pk)
     form = ClientServiceForm(instance=instance)
@@ -123,7 +124,7 @@ def editAssignedClientServiceView(request,pk):
             return redirect("list_blankpixel_clients",instance.client.id)
     return render(request,"Blankpixel_Backend/Clients/edit_assigned_client_service.html",data)
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.delete_clientservice")
 def deassignClientServiceView(request,pk):
     instance = ClientService.objects.get(id=pk)
     instance.delete()
@@ -131,7 +132,7 @@ def deassignClientServiceView(request,pk):
     return redirect("view_blankpixel_client_services",instance.client.id)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.view_installment")
 def viewClientInstallmentsView(request,pk):
     instance = Client.objects.get(id=pk)
     objects = Installment.objects.filter(client=instance).order_by("id")
@@ -145,7 +146,7 @@ def viewClientInstallmentsView(request,pk):
     return render(request,"Blankpixel_Backend/Clients/view_client_installments.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_installment") #custom rule?
 def payInstallmentView(request,pk):
     instance = Installment.objects.get(id=pk)
     instance.paid = True
@@ -161,7 +162,7 @@ def payInstallmentView(request,pk):
 #     return redirect("list_blankpixel_client_installments")
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.view_service")
 def listServicesView(request):
     objects = Service.objects.order_by("-id")
     page = getPage(request,objects,ServiceFilter)
@@ -171,7 +172,7 @@ def listServicesView(request):
     return render(request,"Blankpixel_Backend/Services/list_services.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.add_installment")
 def addServiceView(request):
     form = ServiceForm
     data = {
@@ -185,7 +186,7 @@ def addServiceView(request):
     return render(request,"Blankpixel_Backend/Services/add_service.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_installment")
 def editServiceView(request,pk):
     instance = Service.objects.get(id=pk)
     form = ServiceForm(instance=instance)
@@ -200,7 +201,7 @@ def editServiceView(request,pk):
     return render(request,"Blankpixel_Backend/Services/edit_service.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.delete_installment")
 def deleteServiceView(request,pk):
     instance = Service.objects.get(id=pk)
     instance.delete()
@@ -208,7 +209,7 @@ def deleteServiceView(request,pk):
     return redirect("list_blankpixel_clients")
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_clientservice") #add rule or custom permission change_finished_clientservice
 def markServiceFinishedView(request,pk):
     instance = ClientService.objects.get(id=pk)
     instance.finished = True
@@ -217,7 +218,7 @@ def markServiceFinishedView(request,pk):
     return redirect("view_blankpixel_client_services",instance.client.pk)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("blankpixel.edit_clientservice") #add rule or custom permission change_finished_clientservice
 def markServiceUnfinishedView(request,pk):
     instance = ClientService.objects.get(id=pk)
     instance.finished = False
@@ -226,7 +227,7 @@ def markServiceUnfinishedView(request,pk):
     return redirect("view_blankpixel_client_services",instance.client.pk)
 
 @login_required(login_url="login")
-@staff_only
+# @staff_only
 def listDomainsView(request):
     data = {
 
@@ -234,7 +235,7 @@ def listDomainsView(request):
     return render(request,"Blankpixel_Backend/Domains/list_domains.html",data)
 
 @login_required(login_url="login")
-@staff_only
+# @staff_only
 def getServices(request):
     services = {}
     for service in Service.objects.all():
@@ -242,7 +243,7 @@ def getServices(request):
     return JsonResponse(services)
 
 @login_required(login_url="login")
-@staff_only
+# @staff_only
 def deletePriceView(request,pk):
     instance = ClientService.objects.get(id=pk)
     instance.delete()

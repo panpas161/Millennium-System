@@ -3,8 +3,26 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext as _
 from .config import roles
 
+# class Role(models.Model):
+#     ADMIN = 0
+#     STAFF = 1
+#     STUDENT = 2
+#     TEACHER = 3
+#     ESPA_USER = 4
+#     ASSOCIATE = 5
+#     ESPA_ASSOCIATE = 6
+#     ROLES = (
+#         (ADMIN, "Administrator"),
+#         (STAFF, "Staff"),
+#         (STUDENT, "Student"),
+#         (TEACHER, "Teacher"),
+#         (ESPA_USER, "EspaUser"),
+#         (ASSOCIATE, "Associate"),
+#         (ESPA_ASSOCIATE, "EspaAssociate")
+#     )
+#     role = models.PositiveSmallIntegerField(choices=ROLES)
 
-class Role(models.Model):
+class User(AbstractUser):
     ADMIN = 0
     STAFF = 1
     STUDENT = 2
@@ -21,10 +39,7 @@ class Role(models.Model):
         (ASSOCIATE, "Associate"),
         (ESPA_ASSOCIATE, "EspaAssociate")
     )
-    role = models.PositiveSmallIntegerField(choices=ROLES)
-
-class User(AbstractUser):
-    roles = models.ManyToManyField(Role)
+    roles = models.PositiveSmallIntegerField(choices=ROLES,null=True,blank=True)
     picture = models.ImageField(blank=True,null=True)
 
     def getRoles(self):

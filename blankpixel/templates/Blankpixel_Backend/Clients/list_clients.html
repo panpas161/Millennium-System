@@ -57,15 +57,10 @@
                 {{client.getTotalServices}}
             </td>
             <td>
-                <div class="row">
-                    <a href="{% url 'edit_blankpixel_client' client.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
-                    <a href="{% url 'delete_blankpixel_client' client.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτόν τον πελάτη;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
-                    <a href="{% url 'view_blankpixel_client_services' client.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Λίστα Υπηρεσιών" width="25px" height="25px"/></a>
-                    <a href="{% url 'view_blankpixel_client_installments' client.id %}"><img src="{% image 'general/icons/installments-tab-icon.png' %}" title="Λίστα Δόσεων" width="25px" height="25px"/></a>
-                </div>
-                <div class="row">
-
-                </div>
+                <a href="{% url 'edit_blankpixel_client' client.id %}"><img src="{% image 'general/icons/edit-icon.png' %}" title="Επεξεργασία" width="25px" height="25px"/></a>
+                <a href="{% url 'delete_blankpixel_client' client.id %}" onclick="return confirm('Είστε σίγουροι πως θέλετε να διαγράψετε αυτόν τον πελάτη;')"><img src="{% image 'general/icons/delete-icon.png' %}" title="Διαγραφή" width="25px" height="25px"/></a>
+                <a href="{% url 'view_blankpixel_client_services' client.id %}"><img src="{% image 'general/icons/view-icon.png' %}" title="Λίστα Υπηρεσιών" width="25px" height="25px"/></a>
+                <a href="{% url 'view_blankpixel_client_installments' client.id %}"><img src="{% image 'general/icons/installments-tab-icon.png' %}" title="Λίστα Δόσεων" width="25px" height="25px"/></a>
             </td>
         </tr>
         {% endfor %}

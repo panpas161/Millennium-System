@@ -7,7 +7,8 @@ from options.models import Prefecture,Doy
 
 class Voucher(models.Model):
     sexoptions = (
-        ("Άνδρας", "Άνδρας"), ("Γυναίκα", "Γυναίκα")
+        ("Άνδρας", "Άνδρας"),
+        ("Γυναίκα", "Γυναίκα")
     )
     firstname = models.CharField(max_length=50,verbose_name="Όνομα")
     lastname = models.CharField(max_length=50,verbose_name="Επώνυμο")
@@ -33,7 +34,7 @@ class Specialty(models.Model):
     code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
     duration = models.FloatField(verbose_name="Διάρκεια")
     price = models.FloatField(verbose_name="Ενδεικτική Τιμή")
-    entrydate = models.DateTimeField(null=True,auto_now_add=True)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -119,12 +120,6 @@ class Installment(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
     entrydate = models.DateTimeField(auto_now_add=True)
-
-    # def save(self,*args,**kwargs):
-    #     if self.receipt:
-    #         self.paid = True
-    #     else:
-    #         self.paid = False
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)
