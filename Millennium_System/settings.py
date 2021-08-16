@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'efet',
     'farmingcert',
     'teachers',
-    'securityexperts',
+    'security_technicians',
     'robotics',
     'blankpixel',
     'staff',

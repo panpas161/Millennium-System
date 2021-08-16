@@ -38,6 +38,11 @@ class Specialty(models.Model):
     def __str__(self):
         return self.name
 
+    def getJSONSpecialty(self):
+        return {
+            self.pk:self.__str__()
+        }
+
 class StudentSpecialty(models.Model):
     specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
     student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
@@ -100,7 +105,6 @@ class DepartmentDay(models.Model):
     start_time = models.TimeField(verbose_name="Ώρα Έναρξης")
     end_time = models.TimeField(verbose_name="Ώρα Λήξης")
     remarks = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
-    # program = models.CharField(choices=(("Απόγευμα",'Απόγευμα'),("Πρωί","Πρωί")),max_length=50,verbose_name="Πρόγραμμα")
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name="student_departmentdays",null=True)
 
     def getDepartment(self):
@@ -120,11 +124,11 @@ class Installment(models.Model):
     receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
     entrydate = models.DateTimeField(auto_now_add=True)
 
-    # def save(self,*args,**kwargs):
-    #     if self.receipt:
-    #         self.paid = True
-    #     else:
-    #         self.paid = False
+    def save(self,*args,**kwargs):
+        if self.receipt:
+            self.paid = True
+        else:
+            self.paid = False
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

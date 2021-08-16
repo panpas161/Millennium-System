@@ -3,7 +3,7 @@ from options.models import Prefecture,Doy
 
 class EfetBusiness(models.Model):
     businesstypes = (
-        ("singlebusiness","Ατομική Επιχείρηση"),("oe",'ΟΕ'),("ae","ΑΕ")
+        ("Ατομική Επιχείρηση","Ατομική Επιχείρηση"),("ΟΕ",'ΟΕ'),("ΑΕ","ΑΕ")
     )
     name = models.CharField(max_length=40,verbose_name="Επωνυμία επιχειρησης")
     type = models.CharField(max_length=20,verbose_name="Νομική Μορφή") #choices
@@ -28,6 +28,7 @@ class EfetBusiness(models.Model):
     oaedmanagment = models.BooleanField(verbose_name="Ανακοίνωση προγράμματος στον ΟΑΕΔ από Millennium Education Centre")
     laekusername = models.CharField(max_length=40,verbose_name="Username ΛΑΕΚ επιχείρησης")
     laekpassword = models.CharField(max_length=40,verbose_name="Password ΛΑΕΚ επιχείρησης")
+    entrydate = models.DateTimeField(auto_now_add=True)
 
 class EfetStudent(models.Model):
     sexoptions = (
@@ -54,3 +55,15 @@ class EfetStudent(models.Model):
     referenceby = models.CharField(max_length=40,verbose_name="Σύσταση από")
     business = models.ForeignKey(EfetBusiness,on_delete=models.CASCADE,verbose_name="Επιχείρηση")
     oldapplication = models.BooleanField(verbose_name="Παλιά αίτηση")
+    entrydate = models.DateTimeField(auto_now_add=True)
+
+class Department(models.Model):
+    code = models.CharField(max_length=30)
+    first_day_date = models.DateField()
+    second_day_date = models.DateField(null=True,blank=True)
+    location = models.CharField(max_length=30)
+    classroom = models.CharField(max_length=30)
+    # first_teacher = models.ForeignKey()
+    # second_teacher = models.ForeignKey()
+    # first_substitute_teacher = models.ForeignKey()
+    # second_substitute_teacher = models.ForeignKey()

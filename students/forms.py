@@ -23,10 +23,6 @@ class StudentUploadPictureForm(ModelForm):
         fields = ['studentimage']
 
 class SpecialtyModelForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(SpecialtyModelForm,self).__init__(*args,**kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
         model = Specialty
         fields = '__all__'
@@ -103,10 +99,17 @@ class ExamGradeForm(ModelForm):
         }
 
 class StudentSpecialtyForm(ModelForm):
+    specialtycheck = forms.BooleanField(required=False)
     class Meta:
         model = StudentSpecialty
         fields = '__all__'
         exclude = ['student','specialty']
+
+    def is_valid(self):
+        valid = super().is_valid()
+        if valid and self.cleaned_data['specialtycheck']:
+            return True
+        return False
 
 
 class SeminarCertificateForm(forms.Form):
@@ -188,4 +191,5 @@ class ChangePassword(forms.Form):
     password = forms.CharField()
     confirm_password = forms.CharField()
 
-DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm,extra=7)
+DepartmentDayMultipleForm = forms.formset_factory(DepartmentDayForm, extra=7)
+MultiSpecialtiesForm = forms.formset_factory(StudentSpecialtyForm, extra=1)

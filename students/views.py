@@ -8,6 +8,7 @@ from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
 from .functions.installments import calculateInstallments
+from django.http import JsonResponse
 
 @login_required(login_url="login")
 @staff_only
@@ -35,15 +36,23 @@ def listStudentsView(request):
 def addStudentView(request):
     studentform = StudentModelForm
     voucherform = VoucherModelForm
-    specialtyform = StudentSpecialtyForm
+    specialtiesform = MultiSpecialtiesForm({
+        "form-TOTAL_FORMS": len(Specialty.objects.all()),
+        "form-INITIAL_FORMS": len(Specialty.objects.all()),
+        "form-MIN_NUM_FORMS": len(Specialty.objects.all()),
+        "form-MAX_NUM_FORMS": len(Specialty.objects.all())
+    })
+    installmentsform = InstallmentForm
     vouchersame = False
     if request.GET.get("vouchersame"):
         vouchersame = True
     data = {
         'studentform':studentform,
         'voucherform':voucherform,
-        'specialtyform':specialtyform,
-        'vouchersame':vouchersame
+        'vouchersame':vouchersame,
+        'installmentsform':installmentsform,
+        'specialtiesform':specialtiesform,
+        'specialties_len':len(Specialty.objects.all())
     }
     if request.method == "POST":
         studentform = StudentModelForm(request.POST)
@@ -379,3 +388,11 @@ def examsStudentView(request):
         'objects': objects
     }
     return render(request,"Frontend/Students/exams_tab.html",data)
+
+@login_required(login_url="login")
+@staff_only
+def getSpecialties(request):
+    specialties = {}
+    for specialty in Specialty.objects.all():
+        specialty.update(specialty.getJSONSpecialty())
+    return JsonResponse(specialties)

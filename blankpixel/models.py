@@ -2,14 +2,12 @@ from django.db import models
 from Millennium_System import settings
 from staff.models import Staff
 from cash_register.models import Receipt,ReceiptType
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 
 class Service(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Υπηρεσίας")
     entrydate = models.DateTimeField(auto_now_add=True)
 
-    def getServices(self):
+    def getJSONService(self):
         return {
             self.pk: self.__str__()
         }
@@ -75,7 +73,7 @@ class Installment(models.Model):
 
     def issueReceipt(self, recp_full_name, paymentmethod, paymentway):
         app_name = __package__
-        if not ReceiptType.objects.filter(name=__package__).exists():
+        if not ReceiptType.objects.filter(name=app_name).exists():
             ReceiptType(name=app_name).save()
         Receipt(
             recipient=recp_full_name,

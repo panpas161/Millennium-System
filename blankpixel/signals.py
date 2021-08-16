@@ -9,3 +9,6 @@ def updateInstallmentPaidStatus(sender,instance,**kwargs):
     else:
         instance.paid = False
     instance.save()
+
+# @receiver(pre_migrate)
+# def registerAsReceiptPackage()

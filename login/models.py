@@ -19,5 +19,5 @@ class User(AbstractUser):
         (ASSOCIATE,"Associate"),
         (ESPA_ASSOCIATE,"EspaAssociate")
     )
-    role = models.PositiveSmallIntegerField(choices=ROLES)
+    role = models.PositiveSmallIntegerField(choices=ROLES,null=True,blank=True)
     picture = models.ImageField(blank=True,null=True)

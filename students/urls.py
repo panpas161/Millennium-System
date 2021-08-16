@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-#------------STUDENTS APP(backend)------------
+    #backend
     path('list/', listStudentsView, name="list-students"),
     path('add/', addStudentView, name="add-student"),
     path('edit/<str:pk>/', editStudentView, name="edit-student"),
@@ -21,17 +21,16 @@ urlpatterns = [
     path('specialties/add/', addSpecialtiesView, name="add_student_specialty"),
     path('specialties/edit/<str:pk>', editSpecialtiesView, name="edit_student_specialty"),
     path('specialties/delete/<str:pk>',deleteSpecialtyView,name="delete_student_specialty"),
+    path('specialties/get',getSpecialties,name="get_student_specialties"),
     #departments
     path('departments/list', listDepartmentsView, name="list_student_departments"),
     path('departments/add', addDepartmentView, name="add_student_department"),
     path('departments/edit/<str:pk>', editDepartmentView, name="edit_student_department"),
     path('departments/delete/<str:pk>', deleteDepartmentView, name="delete_student_department"),
     path('departments/schedules/create/<pk>', createDepartmentScheduleView, name="create_student_department_schedule"),
-    #------------STUDENTS APP(frontend)------------
+    #frontend
     #students
     path('home/',mainStudentView, name="students_front_home"),
     path('installments/', installmentsFrontTabView, name="students_front_installments"),
     path('exams/',examsStudentView,name="student_front_exams_tab"),
-    #settings
-    path('settings/general',examsStudentView,name="student_settings_general"),
 ]

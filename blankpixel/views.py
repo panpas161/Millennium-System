@@ -238,7 +238,7 @@ def listDomainsView(request):
 def getServices(request):
     services = {}
     for service in Service.objects.all():
-        services.update(service.getServices())
+        services.update(service.getJSONService())
     return JsonResponse(services)
 
 @login_required(login_url="login")

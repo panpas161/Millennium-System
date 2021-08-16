@@ -20,7 +20,7 @@ class ServiceForm(forms.ModelForm):
             'entrydate':forms.DateInput(format=settings.DATE_FORMAT)
         }
 
-class PriceForm(forms.ModelForm):
+class ClientServiceForm(forms.ModelForm):
     servicecheck = forms.BooleanField(required=False)
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -48,7 +48,7 @@ class InstallmentForm(forms.Form):
     def is_valid(self):
         valid = super().is_valid()
         if valid:
-            if self.cleaned_data["payment_in_advance"] > 0 and self.cleaned_data["total_installments"] >= 0:
+            if self.cleaned_data["payment_in_advance"] > 0 and self.cleaned_data["total_installments"] >= 0 and self.cleaned_data['total_installments'] <= 24:
                 return True
         return False
 
@@ -71,10 +71,4 @@ class InstallmentForm(forms.Form):
                 amount=amount_per_installment
             ).save()
 
-class ClientServiceForm(forms.ModelForm):
-    class Meta:
-        model = ClientService
-        fields = '__all__'
-        exclude = ['client','finished']
-
-MultiServicesForm = forms.formset_factory(PriceForm,extra=1)
+MultiServicesForm = forms.formset_factory(ClientServiceForm,extra=1)
