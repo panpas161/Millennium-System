@@ -9,10 +9,11 @@ from django.contrib.auth.decorators import login_required
 from assets.functions.pagination import getPage
 from .filters import *
 from django.http import JsonResponse
+from django.contrib.auth.decorators import permission_required
 
 #receipts
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.view_receipt")
 def listReceiptsView(request):
     objects = Receipt.objects.all().order_by("-id")
     page = getPage(request,objects,ReceiptFilter)
@@ -22,7 +23,7 @@ def listReceiptsView(request):
     return render(request,"Backend/Receipts/list_receipts.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.add_receipt")
 def addReceiptView(request):
     form = ReceiptModelForm()
     recipient = request.user.last_name + " " + request.user.first_name
@@ -43,7 +44,7 @@ def addReceiptView(request):
     return render(request,"Backend/Receipts/add_receipt.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.edit_receipt")
 def editReceiptView(request,pk):
     forminstance = Receipt.objects.get(id=pk)
     form = ReceiptModelForm(instance=forminstance)
@@ -59,7 +60,7 @@ def editReceiptView(request,pk):
     return render(request,"Backend/Receipts/edit_receipt.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.delete_receipt")
 def deleteReceiptView(request,pk):
     instance = Receipt.objects.get(id=pk)
     instance.delete()
@@ -67,7 +68,7 @@ def deleteReceiptView(request,pk):
     return redirect("list_receipts")
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.view_receipt")
 def printReceiptView(request,pk):
     instance = Receipt.objects.get(id=pk)
     data = {
@@ -77,7 +78,7 @@ def printReceiptView(request,pk):
 
 #expenses
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.view_expense")
 def listExpensesView(request):
     expenses = Expense.objects.all().order_by("-id")
     page = getPage(request,expenses,ExpenseFilter)
@@ -87,7 +88,7 @@ def listExpensesView(request):
     return render(request,"Backend/Expenses/list_expenses.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.add_expense")
 def addExpenseView(request):
     form = ExpenseModelForm()
     data = {
@@ -102,7 +103,7 @@ def addExpenseView(request):
     return render(request,"Backend/Expenses/add_expense.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.edit_expense")
 def editExpenseView(request,pk):
     forminstance = Expense.objects.get(id=pk)
     form = ExpenseModelForm(instance=forminstance)
@@ -118,7 +119,7 @@ def editExpenseView(request,pk):
     return render(request,"Backend/Expenses/edit_expense.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("cash_register.delete_expense")
 def deleteExpenseView(request,pk):
     instance = Expense.objects.get(id=pk)
     data = {

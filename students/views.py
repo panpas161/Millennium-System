@@ -7,10 +7,11 @@ from Millennium_System import settings
 from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
-from .functions.installments import calculateInstallments
+from django.contrib.auth.decorators import permission_required
+
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student")
 def listStudentsView(request):
     studentobjects = Student.objects.order_by("-id")
     page_get = request.GET.get("page")
@@ -31,7 +32,7 @@ def listStudentsView(request):
     return render(request, "Backend/Students/list_students.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.add_student")
 def addStudentView(request):
     studentform = StudentModelForm
     voucherform = VoucherModelForm
@@ -67,7 +68,7 @@ def addStudentView(request):
     return render(request, "Backend/Students/add_student.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.edit_student")
 def editStudentView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     studentform = StudentModelForm(instance=studentinstance)
@@ -91,7 +92,7 @@ def editStudentView(request, pk):
     return render(request, "Backend/Students/edit_student.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.delete_student")
 def deleteStudentView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     data = {
@@ -112,7 +113,7 @@ def deleteStudentView(request, pk):
     return render(request, "Backend/Students/delete_student.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student") #custom permission?
 def economicContractView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     data = {
@@ -122,7 +123,7 @@ def economicContractView(request, pk):
     return render(request, "Backend/Students/Miscellaneous/economic_contract.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student") #custom permission?
 def studentCardView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     data = {
@@ -135,7 +136,7 @@ def studentCardView(request, pk):
     return render(request, "Backend/Miscellaneous/student_card.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_installment")
 def installmentsTabView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     #if type(studentinstance.mothersname) != "string":#something like that
@@ -149,7 +150,7 @@ def installmentsTabView(request, pk):
     return render(request,"Backend/Miscellaneous/installments_tab.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student")
 def printCertificateMenuView(request,pk):
     instance = Student.objects.get(id=pk)
     data = {
@@ -158,7 +159,7 @@ def printCertificateMenuView(request,pk):
     return render(request,"Backend/Miscellaneous/certificate_menu.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student")
 def printSeminarCertificateView(request,pk):
     instance = Student.objects.get(id=pk)
     form = SeminarCertificateForm()
@@ -182,7 +183,7 @@ def printSeminarCertificateView(request,pk):
     return render(request,"Backend/Miscellaneous/print_seminar_certificate_form.html",data)
 
 @login_required(login_url='login')
-@staff_only
+@permission_required("students.view_student")
 def printCommendationCertificateView(request,pk):
     instance = Student.objects.get(id=pk)
     form = CommendationCertificateForm
@@ -199,7 +200,7 @@ def printCommendationCertificateView(request,pk):
     return render(request,"Backend/Miscellaneous/print_commendation_certificate_form.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_student")
 def printPraiseCertificateView(request,pk):
     instance = Student.objects.get(id=pk)
     form = PraiseCertificateForm
@@ -215,7 +216,7 @@ def printPraiseCertificateView(request,pk):
             return render(request,"Backend/Miscellaneous/print_praise_certificate.html",formdata)
     return render(request,"Backend/Miscellaneous/print_praise_certificate_form.html",data)
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.edit_student")
 def uploadStudentPicture(request,pk):
     instance = Student.objects.get(id=pk)
     form = StudentUploadPictureForm(instance=instance)
@@ -231,7 +232,7 @@ def uploadStudentPicture(request,pk):
     return render(request,"Backend/Students/upload_student_photo.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_specialty")
 def listSpecialtiesView(request):
     objects = Specialty.objects.all()
     data = {
@@ -240,7 +241,7 @@ def listSpecialtiesView(request):
     return render(request, "Backend/Specialties/list_specialties.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.add_specialty")
 def addSpecialtiesView(request):
     form = SpecialtyModelForm()
     data = {
@@ -255,7 +256,7 @@ def addSpecialtiesView(request):
     return render(request, "Backend/Specialties/add_specialty.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.edit_specialty")
 def editSpecialtiesView(request, pk):
     instance = Specialty.objects.get(id=pk)
     form = SpecialtyModelForm(instance=instance)
@@ -272,7 +273,7 @@ def editSpecialtiesView(request, pk):
     return render(request, "Backend/Specialties/edit_specialty.html", data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_specialty")
 def deleteSpecialtyView(request,pk):
     instance = Specialty.objects.get(id=pk)
     instance.delete()
@@ -280,7 +281,7 @@ def deleteSpecialtyView(request,pk):
     return redirect("delete_student_specialty")
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.view_department")
 def listDepartmentsView(request):
     objects = Department.objects.all().order_by("-id")
     data = {
@@ -289,7 +290,7 @@ def listDepartmentsView(request):
     return render(request,"Backend/Departments/list_departments.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.add_department")
 def addDepartmentView(request):
     form = DepartmentModelForm
     data = {
@@ -304,7 +305,7 @@ def addDepartmentView(request):
     return render(request,"Backend/Departments/add_department.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.edit_department")
 def editDepartmentView(request,pk):
     instance = Department.objects.get(id=pk)
     form = DepartmentModelForm(instance=instance)
@@ -320,13 +321,15 @@ def editDepartmentView(request,pk):
     return render(request,"Backend/Departments/edit_department.html",data)
 
 @login_required(login_url="login")
-@staff_only
+@permission_required("students.delete_department")
 def deleteDepartmentView(request,pk):
     instance = Department.objects.get(id=pk)
     instance.delete()
     messages.success(request,"Το τμήμα διαγράφθηκε με επιτυχία!")
     return redirect("list_student_departments")
 
+@login_required(login_url="login")
+@staff_only
 def createDepartmentScheduleView(request,pk):
     instance = Department.objects.get(id=pk)
     forms = DepartmentDayMultipleForm()
