@@ -1,0 +1,205 @@
+[
+  {
+    "model": "options.Prefecture",
+    "pk": 0,
+    "fields": {
+      "name": "Αιτωλοκαρνανίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 1,
+    "fields": {
+      "name": "Αργολίδας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 2,
+    "fields": {
+      "name": "Αρκαδίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 3,
+    "fields": {
+      "name": "Άρτας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 4,
+    "fields": {
+      "name": "Αττικής"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 5,
+    "fields": {
+      "name": "Αχαΐας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 6,
+    "fields": {
+      "name": "Βοιωτίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 7,
+    "fields": {
+      "name": "Γρεβενών"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 8,
+    "fields": {
+      "name": "Δράμας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 9,
+    "fields": {
+      "name": "Δωδεκανήσου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 10,
+    "fields": {
+      "name": "Έβρου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 11,
+    "fields": {
+      "name": "Εύβοιας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 12,
+    "fields": {
+      "name": "Ευρυτανίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 13,
+    "fields": {
+      "name": "Ζακύνθου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 14,
+    "fields": {
+      "name": "Ηλείας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 15,
+    "fields": {
+      "name": "Ημαθίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 16,
+    "fields": {
+      "name": "Ηρακλείου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 17,
+    "fields": {
+      "name": "Θεσπρωτίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 18,
+    "fields": {
+      "name": "Θεσσαλονίκης"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 19,
+    "fields": {
+      "name": "Ιωαννίνων"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 20,
+    "fields": {
+      "name": "Καβάλας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 21,
+    "fields": {
+      "name": "Καρδίτσας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 22,
+    "fields": {
+      "name": "Καστοριάς"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 23,
+    "fields": {
+      "name": "Κέρκυρας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 24,
+    "fields": {
+      "name": "Κεφαλληνίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 25,
+    "fields": {
+      "name": "Κιλκίς"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 26,
+    "fields": {
+      "name": "Κοζάνης"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 27,
+    "fields": {
+      "name": "Κορινθίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 28,
+    "fields": {
+      "name": "Κυκλάδων"
+    }
+  }
+]

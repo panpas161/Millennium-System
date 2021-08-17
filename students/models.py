@@ -40,13 +40,18 @@ class Specialty(models.Model):
 
     def getJSONSpecialty(self):
         return {
-            self.pk:self.__str__()
+            "id":self.pk,
+            "name":self.__str__(),
+            "price":self.price
         }
 
 class StudentSpecialty(models.Model):
     specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
     student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
-    discount = models.FloatField()
+    discount = models.FloatField(default=0)
+
+    def getTotalPrice(self):
+        return float(self.specialty.price) - float(self.discount)
 
 class Student(models.Model):
     sexoptions = (
@@ -73,6 +78,11 @@ class Student(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateTimeField(auto_now_add=True)
 
+    def getTotalCost(self):
+        total_price = 0
+        for specialty in self.studentspecialty_set.all():
+            total_price += specialty.getTotalPrice()
+        return total_price
     def __str__(self):
         return self.lastname + " " + self.firstname
 

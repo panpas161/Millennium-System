@@ -7,7 +7,6 @@ from Millennium_System import settings
 from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
-from .functions.installments import calculateInstallments
 from django.http import JsonResponse
 
 @login_required(login_url="login")
@@ -57,20 +56,17 @@ def addStudentView(request):
     if request.method == "POST":
         studentform = StudentModelForm(request.POST)
         voucherform = VoucherModelForm(request.POST)
+        installmentsform = InstallmentForm(request.POST)
         if studentform.is_valid():
             studentinstance = studentform.save(commit=False)
             if not vouchersame:
                 if voucherform.is_valid():
                     voucherinstance = voucherform.save()
-                    studentinstance.voucher = voucherinstance
-            studentinstance.save()
-            # calculateInstallments(
-            #     int(request.POST.get("price")),
-            #     int(request.POST.get("discount")),
-            #     int(request.POST.get("prokataboli")),
-            #     int(request.POST.get("installment_number")),
-            #     studentinstance
-            # )
+                    if installmentsform.is_valid():
+                        studentinstance.voucher = voucherinstance
+            if installmentsform.is_valid():
+                studentinstance.save()
+                installmentsform.save(student=studentinstance)
             messages.success(request, "Ο μαθητής προστέθηκε με επιτυχία!")
             return redirect("list-students")
     return render(request, "Backend/Students/add_student.html",data)
@@ -392,7 +388,15 @@ def examsStudentView(request):
 @login_required(login_url="login")
 @staff_only
 def getSpecialties(request):
-    specialties = {}
+    specialties = []
     for specialty in Specialty.objects.all():
-        specialty.update(specialty.getJSONSpecialty())
-    return JsonResponse(specialties)
+        specialties.append(specialty.getJSONSpecialty())
+    return JsonResponse(specialties,safe=False)
+
+@login_required(login_url="login")
+@staff_only
+def getSpecialtyPrices(request):
+    prices = {}
+    for price in Specialty.objects.all():
+        prices.update(price.getJSONPrice())
+    return JsonResponse(prices)

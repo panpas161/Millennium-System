@@ -1,0 +1,44 @@
+[
+  {
+    "model": "options.Municipality",
+    "pk": 0,
+    "fields": {
+      "name": "Προποντίδας"
+    }
+  },
+  {
+    "model": "options.Municipality",
+    "pk": 1,
+    "fields": {
+      "name": "Κασσάνδρας"
+    }
+  },
+  {
+    "model": "options.Municipality",
+    "pk": 2,
+    "fields": {
+      "name": "Σιθωνίας"
+    }
+  },
+  {
+    "model": "options.Municipality",
+    "pk": 3,
+    "fields": {
+      "name": "Αριστοτέλη"
+    }
+  },
+  {
+    "model": "options.Municipality",
+    "pk": 4,
+    "fields": {
+      "name": "Πολυγύρου"
+    }
+  },
+  {
+    "model": "options.Municipality",
+    "pk": 5,
+    "fields": {
+      "name": "Περιφεριακή Ενότητα Χαλκδικής"
+    }
+  }
+]

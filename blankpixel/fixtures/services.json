@@ -1,0 +1,9 @@
+[
+  {
+    "model": "blankpixel.Service",
+    "pk": 0,
+    "fields": {
+      "name": "Κατασκευή Ιστοσελίδας"
+    }
+  }
+]

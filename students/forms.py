@@ -4,6 +4,7 @@ from django import forms
 from Millennium_System import settings
 # from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.shortcuts import render
+
 class StudentModelForm(ModelForm):
     class Meta:
         model = Student
@@ -39,8 +40,6 @@ class VoucherModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(VoucherModelForm, self).__init__(*args, **kwargs)
         self.empty_permitted = False
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
     class Meta:
         model = Voucher
         fields = '__all__'
@@ -103,7 +102,11 @@ class StudentSpecialtyForm(ModelForm):
     class Meta:
         model = StudentSpecialty
         fields = '__all__'
-        exclude = ['student','specialty']
+        exclude = ['student']
+        widgets = {
+            'specialty':forms.HiddenInput(),
+            'discount': forms.NumberInput(attrs={"min": 0})
+        }
 
     def is_valid(self):
         valid = super().is_valid()
@@ -165,21 +168,21 @@ class InstallmentForm(forms.Form):
                 return True
         return False
 
-    def save(self,client):
+    def save(self,student):
         payment_in_advance = self.cleaned_data['payment_in_advance']
         total_installments = self.cleaned_data['total_installments']
-        total_price = client.getTotalCost()
+        total_price = student.getTotalCost()
         amount_per_installment = (total_price-payment_in_advance)/total_installments
         #save payment in advance
         Installment(
-            client=client,
+            student=student,
             payment_number=0,
             amount=payment_in_advance
         ).save()
         # Save the rest of the installments
         for i in range(1, total_installments+1):
             Installment(
-                client=client,
+                student=student,
                 payment_number=i,
                 amount=amount_per_installment
             ).save()

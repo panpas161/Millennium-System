@@ -21,7 +21,8 @@ urlpatterns = [
     path('specialties/add/', addSpecialtiesView, name="add_student_specialty"),
     path('specialties/edit/<str:pk>', editSpecialtiesView, name="edit_student_specialty"),
     path('specialties/delete/<str:pk>',deleteSpecialtyView,name="delete_student_specialty"),
-    path('specialties/get',getSpecialties,name="get_student_specialties"),
+    path('specialties/get/specialties',getSpecialties,name="get_student_specialties"),
+    path('specialties/get/prices',getSpecialtyPrices,name="get_student_specialty_prices"),
     #departments
     path('departments/list', listDepartmentsView, name="list_student_departments"),
     path('departments/add', addDepartmentView, name="add_student_department"),

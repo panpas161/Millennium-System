@@ -31,6 +31,48 @@
         </div>
         <div class="voucherform" id="voucherform">
         </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-2">
+                        Ειδικότητα
+                    </div>
+                    <div class="col-md-2">
+                        Τιμή
+                    </div>
+                    <div class="col-md-3">
+                        Έκπτωση
+                    </div>
+                    <div class="col-md-2">
+                        Τελική Τιμή
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                {% for form in specialtiesform %}
+                    <div class="row">
+                        <div class="col-md-1">
+                            {{form.specialtycheck}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="specialty-label"></label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="price-label"></label>
+                        </div>
+                        <div class="col-md-3">
+                            {{form.discount}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="total_price">-</label>
+                        </div>
+                        {{form.specialty}}
+                    </div>
+                {% endfor %}
+            </div>
+        {{specialtiesform.management_form}}
          <div class="bottomdiv">
                 <label class="bottomlabels">Σύνολα</label>
                 <label class="bottomlabels">Δόσεις</label>
@@ -41,7 +83,7 @@
                     <br />
                     <label style="color:green">Τελικό Σύνολο: </label><label id="total_show">0</label>
                     <div class="checkfpa">
-                        <label for="fpabox">ΦΠΑ</label>
+                        <label for="fpachekbox">ΦΠΑ</label>
                         <input type="checkbox" id="fpacheckbox" name="fpabox" onchange="calculateFPA(true)" checked />
                     </div>
                 </div>
@@ -78,24 +120,6 @@
 <!--                        <a style="margin-top:20px;" onclick="calculateInstallments()">Υπολογισμός</a>-->
                 </div>
         </div>
-        {% for form in specialtiesform %}
-            <div class="row">
-                <div class="col-md-1">
-                    {{form.specialtycheck}}
-                </div>
-                <div class="col-md-2">
-                    <label class="service-label"></label>
-                </div>
-                <div class="col-md-3">
-                    {{form.discount}}
-                </div>
-                <div class="col-md-3">
-                    <label class="total_price">-</label>
-                </div>
-                {{form.service}}
-            </div>
-          {% endfor %}
-        {{specialtiesform.management_form}}
         <div class="submit">
             <input type="submit" value="Υποβολή" />
         </div>
@@ -126,7 +150,7 @@ let specialties_length = {{specialties_len}};
 inputids = [];
 for(i=0;i< specialties_length;i++)
 {
-    inputids.push(document.getElementById("id_form-"+i+"-service"));
+    inputids.push(document.getElementById("id_form-"+i+"-specialty"));
 }
 function CalculatePrices()
 {
@@ -149,7 +173,9 @@ function CalculatePrices()
     total_price_label = document.getElementById("total_price_label");
     total_price_label.innerHTML = total_price;
 }
-let labels = document.getElementsByClassName("service-label");
+
+let specialty_labels = document.getElementsByClassName("specialty-label");
+let price_labels = document.getElementsByClassName("price-label");
 window.onload = () => {
     fetch("{% url 'get_student_specialties' %}").then(
         response => response.json()
@@ -157,15 +183,14 @@ window.onload = () => {
         data => {
             for(i=0;i<inputids.length;i++)
             {
-                let keys = Object.keys(data);
-                inputids[i].value = keys[i];
-                labels[i].innerHTML = data[keys[i]];
+                inputids[i].value = data[i]["id"];
+                specialty_labels[i].innerHTML = data[i]["name"];
+                price_labels[i].innerHTML = data[i]["price"];
             }
         }
     )
     for(i=0;i<specialties_length;i++)
     {
-        document.getElementById("id_form-"+i+"-price").addEventListener("change",CalculatePrices);
         document.getElementById("id_form-"+i+"-discount").addEventListener("change",CalculatePrices);
     }
 }
