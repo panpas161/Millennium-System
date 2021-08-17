@@ -201,5 +201,159 @@
     "fields": {
       "name": "Κυκλάδων"
     }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 29,
+    "fields": {
+      "name": "Λακωνίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 30,
+    "fields": {
+      "name": "Λάρισας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 31,
+    "fields": {
+      "name": "Λασιθίου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 32,
+    "fields": {
+      "name": "Λέσβου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 33,
+    "fields": {
+      "name": "Λευκάδας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 34,
+    "fields": {
+      "name": "Μαγνησίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 35,
+    "fields": {
+      "name": "Μεσσηνίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 36,
+    "fields": {
+      "name": "Ξάνθης"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 37,
+    "fields": {
+      "name": "Πέλλας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 38,
+    "fields": {
+      "name": "Πιερίας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 39,
+    "fields": {
+      "name": "Πρέβεζας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 40,
+    "fields": {
+      "name": "Ρεθύμνης"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 41,
+    "fields": {
+      "name": "Ροδόπης"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 42,
+    "fields": {
+      "name": "Σάμου"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 43,
+    "fields": {
+      "name": "Σερρών"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 44,
+    "fields": {
+      "name": "Τρικάλων"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 45,
+    "fields": {
+      "name": "Φθιώτιδας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 46,
+    "fields": {
+      "name": "Φλώρινας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 47,
+    "fields": {
+      "name": "Φωκίδας"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 48,
+    "fields": {
+      "name": "Χαλκιδικής"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 49,
+    "fields": {
+      "name": "Χανίων"
+    }
+  },
+  {
+    "model": "options.Prefecture",
+    "pk": 49,
+    "fields": {
+      "name": "Χίου"
+    }
   }
 ]

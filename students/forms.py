@@ -9,9 +9,8 @@ class StudentModelForm(ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
-        exclude = ['voucher', 'studentimage', 'user', 'entrydate']
+        exclude = ['specialties', 'voucher', 'studentimage', 'user', 'entrydate']
         widgets = {
-            'specialty':forms.CheckboxSelectMultiple(),
             'phonenumber':forms.NumberInput(),
             'cellphone':forms.NumberInput(),
             'entrydate':forms.DateInput(format=settings.DATE_FORMAT),
@@ -33,13 +32,7 @@ class SpecialtyModelForm(ModelForm):
             'phonenumber':forms.NumberInput()
         }
 
-# class SpecialtiesForm(forms.Form):
-#     name = forms.MultipleChoiceField()
-
 class VoucherModelForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(VoucherModelForm, self).__init__(*args, **kwargs)
-        self.empty_permitted = False
     class Meta:
         model = Voucher
         fields = '__all__'
@@ -85,8 +78,6 @@ class ExamGradeForm(ModelForm):
     def __init__(self,*args,**kwargs):
         authorized = kwargs.pop('authorized', None)
         super(ExamGradeForm,self).__init__(*args,**kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
         if not authorized:
             self.fields.pop("teacher")
     class Meta:
@@ -172,6 +163,7 @@ class InstallmentForm(forms.Form):
         payment_in_advance = self.cleaned_data['payment_in_advance']
         total_installments = self.cleaned_data['total_installments']
         total_price = student.getTotalCost()
+        print(total_price)
         amount_per_installment = (total_price-payment_in_advance)/total_installments
         #save payment in advance
         Installment(

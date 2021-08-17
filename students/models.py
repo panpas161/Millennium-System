@@ -33,7 +33,7 @@ class Specialty(models.Model):
     code = models.CharField(max_length=30,verbose_name="Κωδικός Ειδικότητας")
     duration = models.FloatField(verbose_name="Διάρκεια")
     price = models.FloatField(verbose_name="Ενδεικτική Τιμή")
-    entrydate = models.DateTimeField(null=True,auto_now_add=True)
+    entrydate = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -48,10 +48,16 @@ class Specialty(models.Model):
 class StudentSpecialty(models.Model):
     specialty = models.ForeignKey(Specialty,on_delete=models.CASCADE)
     student = models.ForeignKey("students.Student",on_delete=models.CASCADE,default=None,null=True)
-    discount = models.FloatField(default=0)
+    discount = models.FloatField(default=0,null=True,blank=True)
 
     def getTotalPrice(self):
-        return float(self.specialty.price) - float(self.discount)
+        if not self.discount:
+            return float(self.specialty.price)
+        else:
+            return float(self.specialty.price) - float(self.discount)
+
+    class Meta:
+        unique_together = [['specialty', 'student']]
 
 class Student(models.Model):
     sexoptions = (
@@ -69,12 +75,11 @@ class Student(models.Model):
     email = models.EmailField(null=True,blank=True,verbose_name="Email")
     location = models.CharField(max_length=30,verbose_name="Τοποθεσία")
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
-    discount = models.FloatField(null=True,blank=True,verbose_name="Έκπτωση")
     voucher = models.OneToOneField(Voucher,on_delete=models.CASCADE,null=True,blank=True)
     birthdate = models.DateField(null=True,blank=True,verbose_name="Ημερομηνία Γέννησης")
     sex = models.CharField(max_length=7,choices=sexoptions,null=True,verbose_name="Φύλο")
     studentimage = models.ImageField(upload_to="student_images",null=True,blank=True,verbose_name="Φωτογραφία") # maybe extend user model instead of this
-    specialty = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentSpecialty")
+    specialties = models.ManyToManyField(Specialty, verbose_name="Ειδικότητα",through="StudentSpecialty")
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     entrydate = models.DateTimeField(auto_now_add=True)
 
@@ -83,6 +88,7 @@ class Student(models.Model):
         for specialty in self.studentspecialty_set.all():
             total_price += specialty.getTotalPrice()
         return total_price
+
     def __str__(self):
         return self.lastname + " " + self.firstname
 
@@ -129,16 +135,15 @@ class Installment(models.Model):
     payment_number = models.PositiveIntegerField()#which installment it is e.g. first,second,third etc.
     amount = models.FloatField()
     paid = models.BooleanField(default=False)
-    paymentdate = models.DateField()#when will it be paid? not null nor blank
+    paymentdate = models.DateField(null=True,blank=True)#when will it be paid? not null nor blank
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
-    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True)
+    receipt = models.ForeignKey(Receipt,on_delete=models.CASCADE,blank=True,null=True,related_name="students_student_receipt")
     entrydate = models.DateTimeField(auto_now_add=True)
 
     def save(self,*args,**kwargs):
-        if self.receipt:
+        if self.amount == 0:
             self.paid = True
-        else:
-            self.paid = False
+        super().save(*args,**kwargs)
 
     def __str__(self):
         return str(self.payment_number) + " " + str(self.student)

@@ -56,6 +56,7 @@ def addStudentView(request):
     if request.method == "POST":
         studentform = StudentModelForm(request.POST)
         voucherform = VoucherModelForm(request.POST)
+        specialtiesform = MultiSpecialtiesForm(request.POST)
         installmentsform = InstallmentForm(request.POST)
         if studentform.is_valid():
             studentinstance = studentform.save(commit=False)
@@ -66,9 +67,14 @@ def addStudentView(request):
                         studentinstance.voucher = voucherinstance
             if installmentsform.is_valid():
                 studentinstance.save()
+                for specialtyform in specialtiesform:
+                    if specialtyform.is_valid():
+                        savedspecialty = specialtyform.save(commit=False)
+                        savedspecialty.student = studentinstance
+                        savedspecialty.save()
                 installmentsform.save(student=studentinstance)
-            messages.success(request, "Ο μαθητής προστέθηκε με επιτυχία!")
-            return redirect("list-students")
+                messages.success(request, "Ο μαθητής προστέθηκε με επιτυχία!")
+                return redirect("list-students")
     return render(request, "Backend/Students/add_student.html",data)
 
 @login_required(login_url="login")

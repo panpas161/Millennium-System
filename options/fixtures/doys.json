@@ -1,0 +1,170 @@
+[
+  {
+    "model": "options.Doy",
+    "pk": 0,
+    "fields": {
+      "name":"Α' Αθηνών (1101)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 1,
+    "fields": {
+      "name": "Α' Θεσσαλονίκης (4211)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 2,
+    "fields": {
+      "name": "Α' Λάρισσας (3231)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 3,
+    "fields": {
+      "name": "Α' Πατρών (2331)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 4,
+    "fields": {
+      "name": "Α' Περιστεριού (1138)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 5,
+    "fields": {
+      "name": "Α' Πειραιά (1201)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 6,
+    "fields": {
+      "name": "Αγίου Δημητρίου (1129)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 7,
+    "fields": {
+      "name": "Αγίου Νικολάου (8221)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 8,
+    "fields": {
+      "name": "Αγίων Ανάργυρων (1136)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 9,
+    "fields": {
+      "name": "Αγρινίου (1552)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 10,
+    "fields": {
+      "name": "Αιγάλεω (1137)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 11,
+    "fields": {
+      "name": "Αιγαίου (2311)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 12,
+    "fields": {
+      "name": "Αλεξανδρούπολης (5211)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 13,
+    "fields": {
+      "name": "Αμαλιάδας (2411)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 14,
+    "fields": {
+      "name": "Αμαρουσίου (1135)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 15,
+    "fields": {
+      "name": "Αμπελόκηπων (4233)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 16,
+    "fields": {
+      "name": "Άμφισσας (1912)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 17,
+    "fields": {
+      "name": "Αργοστολίου (9311)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 18,
+    "fields": {
+      "name": "Άργους (2111)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 19,
+    "fields": {
+      "name": "Άρτας (6111)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 20,
+    "fields": {
+      "name": "Αχαρνών (1302)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 21,
+    "fields": {
+      "name": "Β' Περιστεριού (1157)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 22,
+    "fields": {
+      "name": "Β' Λάρισας (3232)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 23,
+    "fields": {
+      "name": "Βέροιας (4112)"
+    }
+  }
+]

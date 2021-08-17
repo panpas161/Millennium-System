@@ -61,6 +61,14 @@ INSTALLED_APPS = [
     'options'
 ]
 
+#which apps will interact with cash_register
+RECEIPT_APPS = [
+    'students',
+    'efet',
+    'espa'
+    'blankpixel'
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
