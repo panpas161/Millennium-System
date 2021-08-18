@@ -1,12 +1,12 @@
 from django.forms.models import ModelForm
 from .models import *
 
-class EfetStudentModelForm(ModelForm):
+class StudentForm(ModelForm):
     class Meta:
-        model = EfetStudent
+        model = Student
         fields = "__all__"
 
-class EfetBusinessModelForm(ModelForm):
+class BusinessForm(ModelForm):
     class Meta:
-        model = EfetBusiness
+        model = Business
         fields = "__all__"

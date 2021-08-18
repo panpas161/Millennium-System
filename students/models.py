@@ -18,7 +18,7 @@ class Voucher(models.Model):
     doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ")
     adt = models.CharField(max_length=30,verbose_name="Α.Δ.Τ./ Α.Δ")
     location = models.CharField(max_length=30,verbose_name="Πόλη")
-    publishfile = models.CharField(max_length=30,verbose_name="Αρχ. Έκδοσης")
+    issuing_authority = models.CharField(max_length=30,verbose_name="Αρχ. Έκδοσης")
     address = models.CharField(max_length=30,verbose_name="Διεύθυνση")
     tk = models.CharField(max_length=30,verbose_name="Τ.Κ.")
     prefecture = models.ForeignKey(Prefecture,on_delete=models.CASCADE,verbose_name="Νομός")

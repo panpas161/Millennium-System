@@ -47,15 +47,15 @@ class SubsidizedBusiness(models.Model):
     companyname = models.CharField(max_length=40,verbose_name="Επωνυμία")
     location = models.CharField(max_length=40,verbose_name="Τοποθεσία")
     comments = models.TextField(verbose_name="Σχόλια",null=True,blank=True)
-    phonenumber = models.CharField(max_length=40,verbose_name="Τηλέφωνο")
+    phonenumber = models.CharField(max_length=40,null=True,blank=True,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=40,verbose_name="Κινητό",null=True,blank=True)
     email = models.EmailField()
     services = models.ManyToManyField(EspaService,verbose_name="Υπηρεσίες")
     referrer = models.ForeignKey(EspaAssociate,on_delete=models.CASCADE,verbose_name="Συστάθηκε Από",blank=True,null=True)
     username = models.CharField(max_length=50,null=True,blank=True)
     password = models.CharField(max_length=50,null=True,blank=True)
-    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
+    entrydate = models.DateTimeField(verbose_name="Ημερομηνία Καταχώρησης",auto_now_add=True)
 
     def __str__(self):
         return self.companyname

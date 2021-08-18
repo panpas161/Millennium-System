@@ -94,13 +94,6 @@
         </tr>
         {% endfor %}
     </table>
-    <div class="pages">
-        {% if objects.has_previous %}
-        <a href="?page={{ objects.previous_page_number }}" style="text-decoration:none;">Προηγούμενη Σελίδα</a>
-        {% endif %}
-        {% if objects.has_next %}
-        <a href="?page={{ objects.next_page_number }}" style="text-decoration:none;">Επόμενη Σελίδα</a>
-        {% endif %}
-    </div>
+    {% include "pagination.html" %}
 </body>
 </html>

@@ -18,7 +18,7 @@ class SubsidizedIndividual(models.Model):
     mothersname = models.CharField(max_length=30,verbose_name="Μητρώνυμο")
     phonenumber1 = models.IntegerField(verbose_name="Τηλέφωνο 1",null=True,blank=True)
     phonenumber2 = models.IntegerField(verbose_name="Τηλέφωνο 2",null=True,blank=True)
-    email = models.EmailField()
+    email = models.EmailField(null=True,blank=True)
     municipality = models.ForeignKey(Municipality,on_delete=models.CASCADE,verbose_name="Περιφέρεια")
     diofantos = models.ForeignKey(DiofantosID,on_delete=models.CASCADE,verbose_name="Επιλογή Διόφαντου")
     financials = models.ForeignKey(FinancialSituation,on_delete=models.CASCADE,verbose_name="Οικονομική Κατάσταση")

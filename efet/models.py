@@ -1,20 +1,20 @@
 from django.db import models
 from options.models import Prefecture,Doy
 
-class EfetBusiness(models.Model):
+class Business(models.Model):
     businesstypes = (
         ("Ατομική Επιχείρηση","Ατομική Επιχείρηση"),("ΟΕ",'ΟΕ'),("ΑΕ","ΑΕ")
     )
     name = models.CharField(max_length=40,verbose_name="Επωνυμία επιχειρησης")
     type = models.CharField(max_length=20,verbose_name="Νομική Μορφή") #choices
     afm = models.CharField(max_length=40,verbose_name="ΑΦΜ")
-    doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ")
+    doy = models.ForeignKey(Doy,on_delete=models.CASCADE,verbose_name="ΔΟΥ",related_name="efet_business")
     branch = models.CharField(max_length=30,verbose_name="Κλάδος") #choices
     description = models.TextField(verbose_name="Περιγραφή δραστηριότητας / επαγγέλματος")
     address = models.CharField(max_length=120,verbose_name="Διεύθυνση")
     tk = models.CharField(max_length=10,verbose_name="Τ.Κ.")
     city = models.CharField(max_length=50,verbose_name="Πόλη")
-    prefecture = models.ForeignKey(Prefecture,on_delete=models.CASCADE,verbose_name="Νομός")
+    prefecture = models.ForeignKey(Prefecture,on_delete=models.CASCADE,verbose_name="Νομός",related_name="efet_business")
     phonenumber = models.CharField(max_length=30,verbose_name="Τηλέφωνο")
     cellphone = models.CharField(max_length=30,verbose_name="Κινητό")
     fax = models.CharField(max_length=50,verbose_name="Fax")
@@ -30,7 +30,7 @@ class EfetBusiness(models.Model):
     laekpassword = models.CharField(max_length=40,verbose_name="Password ΛΑΕΚ επιχείρησης")
     entrydate = models.DateTimeField(auto_now_add=True)
 
-class EfetStudent(models.Model):
+class Student(models.Model):
     sexoptions = (
         ("male","Άνδρας"),("female","Γυναίκα")
     )
@@ -53,7 +53,7 @@ class EfetStudent(models.Model):
     protocolnumber = models.CharField(max_length=40,verbose_name="Αριθμός Πρωτοκόλου")
     departmentnumber = models.CharField(max_length=40,verbose_name="Τμήμα")
     referenceby = models.CharField(max_length=40,verbose_name="Σύσταση από")
-    business = models.ForeignKey(EfetBusiness,on_delete=models.CASCADE,verbose_name="Επιχείρηση")
+    business = models.ForeignKey(Business,on_delete=models.CASCADE,verbose_name="Επιχείρηση",related_name="efet_student")
     oldapplication = models.BooleanField(verbose_name="Παλιά αίτηση")
     entrydate = models.DateTimeField(auto_now_add=True)
 
@@ -63,6 +63,7 @@ class Department(models.Model):
     second_day_date = models.DateField(null=True,blank=True)
     location = models.CharField(max_length=30)
     classroom = models.CharField(max_length=30)
+    students = models.ManyToManyField(Student)
     # first_teacher = models.ForeignKey()
     # second_teacher = models.ForeignKey()
     # first_substitute_teacher = models.ForeignKey()

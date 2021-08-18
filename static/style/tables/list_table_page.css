@@ -23,8 +23,8 @@
 .search
 {
     text-align: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 /*.datarow:nth-child(3)*/

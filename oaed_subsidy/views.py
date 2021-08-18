@@ -69,17 +69,47 @@ def viewSubsidizedIndividualView(request,pk):
 @login_required(login_url="login")
 @staff_only
 def viewubsidizedIndividualDocuments(request,pk):
-    pass
+    individual = SubsidizedIndividual.objects.get(id=pk)
+    instance = Document.objects.get(individual=individual)
+    data = {
+        'instance':instance
+    }
+    return render(request,"Backend/Oaed_Subsidized_Individual/list_subsidized_document.html",data)
 
 @login_required(login_url="login")
 @staff_only
 def addSubsidizedIndividualDocuments(request,pk):
-    pass
+    individual = SubsidizedIndividual.objects.get(id=pk)
+    form = DocumentForm
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = DocumentForm(request.POST)
+        if form.is_valid():
+            savedinstance = form.save()
+            savedinstance.individual = individual
+            savedinstance.save()
+            messages.success(request,"Τα έγγραφα προστέθηκαν με επιτυχία!")
+            return redirect("")
+    return render(request,"Oaed_Subsidized_Individual/add_subsidized_document.html",data)
 
 @login_required(login_url="login")
 @staff_only
 def editSubsidizedIndividualDocuments(request,pk):
-    pass
+    individual = SubsidizedIndividual.objects.get(id=pk)
+    instance = Document.objects.get(individual=individual)
+    form = DocumentForm(instance=instance)
+    data = {
+        'form':form
+    }
+    if request.method == "POST":
+        form = DocumentForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"")
+            return redirect(request,"")
+    return render(request,"Oaed_Subsidized_Individual/add_subsidized_document.html",data)
 
 @login_required(login_url="login")
 @staff_only

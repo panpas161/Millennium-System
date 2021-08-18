@@ -1,14 +1,18 @@
 from django.shortcuts import render,redirect
-from .forms import EfetStudentModelForm,EfetBusinessModelForm
+from .forms import *
 from assets.decorators.decorators import staff_only
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .filters import *
+from assets.functions.pagination import getPage
 
 @login_required(login_url="login")
 @staff_only
 def listStudents(request):
+    objects = Student.objects.all().order_by("-id")
+    page = getPage(request,objects,None)
     data = {
-
+        'objects':page
     }
     return render(request,"efet_students/efet_list.html",data)
 
@@ -29,7 +33,7 @@ def addStudent(request):
 @login_required(login_url="login")
 @staff_only
 def editStudent(request,pk):
-    instance = EfetStudent.objects.get(id=pk)
+    instance = Student.objects.get(id=pk)
     form = EfetStudentModelForm(instance=instance)
     data = {
         'form':form
@@ -53,7 +57,7 @@ def deleteStudent(request,pk):
 @login_required(login_url="login")
 @staff_only
 def viewStudyCertificateView(request,pk):
-    instance = efetStudent.objects.get(id=pk)
+    instance = Student.objects.get(id=pk)
     data = {
         'instance':instance
     }
@@ -62,7 +66,7 @@ def viewStudyCertificateView(request,pk):
 @login_required(login_url="login")
 @staff_only
 def viewParticiationCertificateView(request,pk):
-    instance = efetStudent.objects.get(id=pk)
+    instance = Student.objects.get(id=pk)
     data = {
         'instance':instance
     }

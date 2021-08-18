@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load tags %}
     <meta charset="UTF-8">
-    <title>Επεξεργασία Επιδοτούμενου</title>
+    <title>Επεξεργασία Τμήματος ΕΦΕΤ</title>
     {% loadJQuery %}
     <link rel="stylesheet" href="{% style 'forms/edit_form_one.css' %}"/>
     <script src="{% script 'forms/edit_form.js' %}"></script>
 </head>
 <body>
-    {% load render %}
-    {% renderOaedSubsidyBackendNavbar request %}
     <form method="POST">
         {% csrf_token %}
       <div class="col-md-6 form-group mx-auto fields">
         <div class="header">
-            Επεξεργασία Επιδοτούμενου
+            Επεξεργασία Τμήματος ΕΦΕΤ
         </div>
         {{form}}
         <input type="submit" class="form-control submit" />

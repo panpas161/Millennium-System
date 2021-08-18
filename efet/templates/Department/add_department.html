@@ -3,18 +3,19 @@
 <head>
     {% load tags %}
     <meta charset="UTF-8">
-    <title>Προσθήκη Δικαιλογητικών</title>
+    <title>Προσθήκη Τμήματος ΕΦΕΤ</title>
+    {% loadJQuery %}
     <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
     <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
-    {% renderEspaBackendNavbar request %}
+    {% renderEfetNavbar request %}
     <form method="POST">
         {% csrf_token %}
       <div class="col-md-6 form-group mx-auto fields">
         <div class="header">
-            Προσθήκη Δικαιλογητικών
+            Προσθήκη Τμήματος ΕΦΕΤ
         </div>
         {{form}}
         <input type="submit" class="form-control submit" />
