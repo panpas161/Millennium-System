@@ -4,27 +4,23 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Βαθμολογία Εξετάσεων - {{lastname}} {{firstname}}</title>
-    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
     {% loadJQuery %}
-    {% loadBootstrap %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
     {% renderTeacherFrontendNavbar request %}
-    <div class="header">
-        Προσθήκη Βαθμού Εξέτασης
-    </div>
     <form method="POST">
-            {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+        {% csrf_token %}
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+        Προσθήκη Βαθμού Εξέτασης
         </div>
-    </form>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+   </form>
 </body>
 </html>
 {% if request.user.teacher %}

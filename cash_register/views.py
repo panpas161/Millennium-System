@@ -142,9 +142,31 @@ def registerOverviewView(request):
 
     return render(request,"Backend/Register/register_overview.html",data)
 
-def getProfits(request,day):
-    if day == "today":
-        data = {
-            '':''
-        }
+def getRevenue(request,app,date):
+    revenue = 0
+    loss = 0
+    if date == "today":
+        receipts = Receipt.objects.filter(entrydate__range="today")
+        expenses = Expense.objects.filter(entrydate__range="")
+    elif date == "month":
+        receipts = Receipt.objects.filter(entrydate__range="month")
+        expenses = Expense.objects.filter(entrydate__range="")
+    elif date == "year":
+        receipts = Receipt.objects.filter(entrydate__range="")
+        expenses = Expense.objects.filter(entrydate__range="")
+    if app == "all":
+        final_receipts = receipts
+        final_expenses = expenses
+    else:
+        if app is not None:
+            final_receipts = receipts.filter(app=app)
+            final_expenses = expenses.filter(app=app)
+    for receipt in final_receipts:
+        revenue += receipt.amount
+    for expense in final_expenses:
+        loss += expense.amount
+    data = {
+        'revenue': revenue,
+        'expenses':loss
+    }
     return JsonResponse(data)

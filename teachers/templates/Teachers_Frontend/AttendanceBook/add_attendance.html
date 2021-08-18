@@ -4,26 +4,23 @@
     {% load tags %}
     <meta charset="UTF-8">
     <title>Προσθήκη Δελτίου Παρουσιολογίου</title>
-    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}"/>
-    {% loadBootstrap %}
+    {% loadJQuery %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
 </head>
 <body>
     {% load render %}
     {% renderTeacherFrontendNavbar request %}
-   <div class="header">
-        Προσθήκη Δελτίου Παρουσιολογίου
-    </div>
     <form method="POST">
         {% csrf_token %}
-        <div class="form">
-            <div class="form-group">
-              <div class="col-md-12 inputs">
-                  {{form}}
-                  <input type="submit" class="form-control submit" />
-              </div>
-            </div>
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+        Προσθήκη Δελτίου Παρουσιολογίου
         </div>
-    </form>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+   </form>
 </body>
 </html>
 {% if request.user.teacher %}
