@@ -89,6 +89,9 @@ class Student(models.Model):
             total_price += specialty.getTotalPrice()
         return total_price
 
+    def getCardExpirationDate(self):
+        pass
+
     def __str__(self):
         return self.lastname + " " + self.firstname
 

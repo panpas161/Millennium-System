@@ -35,3 +35,10 @@ class Farmer(models.Model):
     book = models.BooleanField()
     price = models.IntegerField(default=25)
     notes = models.TextField()
+
+class Department(models.Model):
+    code = models.CharField(max_length=30)
+    date = models.DateTimeField()
+    location = models.CharField(max_length=30,default="Ν. Μουδανιά")
+    room = models.TextField()
+    entrydate = models.DateTimeField(auto_now_add=True)

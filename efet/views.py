@@ -10,21 +10,21 @@ from assets.functions.pagination import getPage
 @staff_only
 def listStudents(request):
     objects = Student.objects.all().order_by("-id")
-    page = getPage(request,objects,None)
+    # page = getPage(request,objects,None)
     data = {
-        'objects':page
+        'objects':objects
     }
     return render(request,"efet_students/efet_list.html",data)
 
 @login_required(login_url="login")
 @staff_only
 def addStudent(request):
-    form = EfetStudentModelForm()
+    form = StudentForm()
     data = {
         'form':form
     }
     if request.method == "POST":
-        form = EfetStudentModelForm(request.POST)
+        form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
             redirect("list_efet_students")
@@ -34,12 +34,12 @@ def addStudent(request):
 @staff_only
 def editStudent(request,pk):
     instance = Student.objects.get(id=pk)
-    form = EfetStudentModelForm(instance=instance)
+    form = StudentForm(instance=instance)
     data = {
         'form':form
     }
     if request.method == "POST":
-        form = EfetStudentModelForm(request.POST,instance=instance)
+        form = StudentForm(request.POST,instance=instance)
         if form.is_valid():
             form.save()
             redirect("list_efet_students")
@@ -83,12 +83,12 @@ def listBusinessesView(request):
 @login_required(login_url="login")
 @staff_only
 def addBusinessView(request):
-    form = EfetBusinessModelForm()
+    form = BusinessForm()
     data = {
         'form':form
     }
     if request.method == "POST":
-        form = EfetBusinessModelForm(request.POST)
+        form = BusinessForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("list_efet_businesses")

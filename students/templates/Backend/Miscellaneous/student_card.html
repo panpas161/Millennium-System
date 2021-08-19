@@ -72,7 +72,7 @@ textarea {
           <tr>
             <td width="280" height="201" align="center" valign="top" class="box1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="110" align="left" valign="top">                  <img src="{% media photoname %}" width="64" height="82" style="padding-left:23px; padding-top:20px;" />
+                <td width="110" align="left" valign="top">                  <img src="{{instance.studentimage}}" width="64" height="82" style="padding-left:23px; padding-top:20px;" />
                   </td>
                 <td width="10" align="left" valign="top">&nbsp;</td>
                 <td align="left" valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="0">
@@ -84,34 +84,35 @@ textarea {
                   </tr>
                   <tr>
                     <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
-                      {{firstname}}</div></td>
+                      {{instance.firstname|upper}}</div></td>
                   </tr>
                   <tr>
                     <td align="left" valign="top">ΕΠΙΘΕΤΟ</td>
                   </tr>
                   <tr>
                     <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
-                      {{lastname}}</div></td>
+                      {{instance.lastname|upper}}</div></td>
                   </tr>
                   <tr>
                     <td align="left" valign="top">ΗΜ. ΓΕΝΝΗΣΗΣ</td>
                   </tr>
                   <tr>
-                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">31-03-1972</div></td>
+                    <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
+                      {{instance.birthdate}}</div></td>
                   </tr>
                   <tr>
                     <td align="left" valign="top">ΤΟΜΕΑΣ</td>
                   </tr>
                   <tr>
                     <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
-                      {{specialty}}}</div></td>
+                      {{instance.specialties.all.0|upper}}</div></td>
                   </tr>
                   <tr>
                     <td align="left" valign="top">ΠΕΡΙΟΧΗ ΔΙΑΜΟΝΗΣ</td>
                   </tr>
                   <tr>
                     <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
-                        {{ location }}</div></td>
+                      {{instance.location|upper}}</div></td>
                   </tr>
                   <tr>
                     <td align="left" valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="0">
@@ -121,8 +122,8 @@ textarea {
                       </tr>
                       <tr>
                         <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:90%;">
-                          {{id}}</div></td>
-                        <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:80%;">30-05-2021</div></td>
+                          {{instance.id}}</div></td>
+                        <td align="left" valign="top"><div style="background:#FFF; color:#000; height:15px; vertical-align:middle; line-height:15px; padding-left:5px; width:80%;">{{instance.getCardExpirationDate}}</div></td>
                       </tr>
                     </table></td>
                   </tr>

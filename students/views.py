@@ -8,6 +8,7 @@ from .filters import *
 from django.contrib import messages
 from assets.decorators.decorators import staff_only,allowed_roles
 from django.http import JsonResponse
+import qrcode
 
 @login_required(login_url="login")
 @staff_only
@@ -137,13 +138,20 @@ def economicContractView(request, pk):
 def studentCardView(request, pk):
     studentinstance = Student.objects.get(id=pk)
     data = {
-        'id': pk,
         'photoname': pk + ".jpg",
-        'firstname':studentinstance.firstname.upper(),
-        'lastname':studentinstance.lastname.upper(),
-        'specialty':studentinstance.specialty,
+        'instance':studentinstance
     }
     return render(request, "Backend/Miscellaneous/student_card.html", data)
+
+def generateStudentCardQR(request,pk):
+    instance = Student.objects.get(id=pk)
+    img = qrcode.make(
+        instance.id + " * " + instance.lastname + " * " + instance.specialties[0] + " * " + instance.birthdate + \
+        " * " + instance.getCardExpirationDate
+    )
+
+def generateStudentCardBarcode(request):
+    pass
 
 @login_required(login_url="login")
 @staff_only

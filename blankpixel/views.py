@@ -196,6 +196,7 @@ def editServiceView(request,pk):
         form = ServiceForm(request.POST,instance=instance)
         if form.is_valid():
             form.save()
+            messages.success(request, "Το τμήμα προστέθηκε με επιτυχία!")
             return redirect("list_blankpixel_services")
     return render(request,"Blankpixel_Backend/Services/edit_service.html",data)
 

@@ -13,7 +13,6 @@ class StudentModelForm(ModelForm):
         widgets = {
             'phonenumber':forms.NumberInput(),
             'cellphone':forms.NumberInput(),
-            'entrydate':forms.DateInput(format=settings.DATE_FORMAT),
             'birthdate':forms.DateInput(format=settings.DATE_FORMAT)
         }
 

@@ -14,4 +14,5 @@ urlpatterns =[
     path('expenses/delete/<str:pk>',deleteExpenseView,name="delete_expense"),
     #register
     path('overview',registerOverviewView,name="register_overview"),
+    path('overview/get_logistics/<app>/<date>',getRevenue,name="get_logistics"),
 ]
