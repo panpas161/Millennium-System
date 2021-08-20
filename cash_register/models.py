@@ -1,7 +1,7 @@
 from django.db import models
 from Millennium_System import settings
 
-class ReceiptType(models.Model):
+class ReceiptApp(models.Model):
     name = models.CharField(max_length=30)
 
 class Receipt(models.Model):
@@ -19,7 +19,7 @@ class Receipt(models.Model):
     client = models.CharField(max_length=25,verbose_name="Πελάτης")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
     amount = models.FloatField(verbose_name="Ποσό")
-    app = models.CharField(max_length=30,verbose_name="Τύπος Απόδειξης",default="Άλλο",null=True,blank=True)
+    app = models.ForeignKey(ReceiptApp,on_delete=models.CASCADE,max_length=30,verbose_name="Τύπος Απόδειξης",default="Άλλο")
     paymentmethod = models.CharField(max_length=30,choices=paymentmethod_choices,verbose_name="Μέθοδος Πληρωμής")
     paymentway = models.CharField(max_length=30,choices=paymentway_choices,verbose_name="Τρόπος Πληρωμής")
     entrydate = models.DateTimeField(auto_now_add=True, verbose_name="Ημερομηνία")

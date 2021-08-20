@@ -98,7 +98,7 @@ def viewInterestedBusinessView(request,pk):
 @allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def approveInterestedBusiness(request,pk):
     instance = InterestedBusiness.objects.get(id=pk)
-    username = unidecode(instance.companyname)
+    username = unidecode(instance.companyname).replace(" ","_")
     password = getRandomString(15)
     role = "EspaUser"
     addUser(
@@ -176,12 +176,12 @@ def addSubsidizedBusinessView(request):
                     password=password,
                     role='EspaUser'
                 )
-                savedform.user = User.objects.get(username=unidecode(form.cleaned_data['companyname']))
+                savedform.user = User.objects.get(username=unidecode(form.cleaned_data['companyname'].replace(" ","_")))
                 if not authorized:
                     savedform.referrer = request.user.espaassociate
                 savedform.save()
                 sendEspaCredentials(
-                    username=unidecode(form.cleaned_data['companyname']),
+                    username=unidecode(form.cleaned_data['companyname']).replace(" ","_"),
                     password=password,
                     email=form.cleaned_data['email'],
                     role="EspaUser"
@@ -252,7 +252,7 @@ def documentsSubsidizedBusinessView(request,pk):
 @admin_only
 def createEspaUserCredentials(request,pk):
     instance = SubsidizedBusiness.objects.get(id=pk)
-    username = unidecode(instance.companyname)
+    username = unidecode(instance.companyname).replace(" ","_")
     password = getRandomString(15)
     role = "EspaUser"
     addUser(
@@ -388,7 +388,7 @@ def deleteEspaAssociateView(request,pk):
 @admin_only
 def createEspaAssociateCredentials(request,pk):
     associateinstance = EspaAssociate.objects.get(id=pk)
-    username = unidecode(associateinstance.associatename)
+    username = unidecode(associateinstance.associatename).replace(" ","_")
     password = getRandomString(15)
     role = "EspaAssociate"
     addUser(
@@ -427,10 +427,15 @@ def inspectDocumentView(request,pk):
 @allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def deleteDocument(request,pk):
     instance = Document.objects.get(id=pk)
-    if instance.company.referrer == request.user.espaassociate or isStaff(request) or hasRole(request,"EspaAssociate"):
+    if hasRole(request,"EspaAssociate"):
+        if instance.company.referrer == request.user.espaassociate:
+            os.remove(instance.file.path)
+            instance.delete()
+            messages.success(request,"Το έγγραφο διαγράφθηκε με επιτυχία!")
+    elif isStaff(request):
         os.remove(instance.file.path)
         instance.delete()
-        messages.success(request,"Το έγγραφο διαγράφθηκε με επιτυχία!")
+        messages.success(request, "Το έγγραφο διαγράφθηκε με επιτυχία!")
     else:
         messages.error(request,"Το έγγραφο δεν διαγράφθηκε!")
     return redirect("documents_espa_subsidized_businesses",instance.company.id)
@@ -438,6 +443,7 @@ def deleteDocument(request,pk):
 @login_required(login_url="login")
 @allowed_roles(total_roles=['Admin','Staff','Associate','EspaAssociate'])
 def addDocumentView(request,pk):
+    instance = SubsidizedBusiness.objects.get(id=pk)
     form = UploadDocumentBackendForm()
     data = {
         'form':form
@@ -445,11 +451,11 @@ def addDocumentView(request,pk):
     if request.method == "POST":
         form = UploadDocumentBackendForm(request.POST,request.FILES)
         if form.is_valid():
-            savedform = form.save(commit=False)
-            savedform.company = SubsidizedBusiness.objects.get(id=pk)
-            savedform.save()
-            messages.success(request,"Το έγγραφο προστέθηκε με επιτυχία!")
-            return redirect("list_espa_subsidized_businesses")
+            uploadEspaDocumentFiles(request,company=instance)
+            messages.success(request,"Τα έγγραφα προστέθηκαν με επιτυχία!")
+            return redirect("documents_espa_subsidized_businesses",pk)
+        else:
+            messages.error(request,"Παρακαλώ ελέγξτε τα στοιχεία της φόρμας και δοκιμάστε ξανά.")
     return render(request,"Espa_Backend/Subsidized/add_document.html",data)
 
 #Frontend
@@ -480,7 +486,9 @@ def uploadDocuments(request):
     if request.method == 'POST':
         form = UploadDocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            uploadEspaDocumentFiles(request)
+            uploadEspaDocumentFiles(request,company=request.user.subsidizedbusiness)
             messages.success(request,"Τα αρχεία ανέβηκαν επιτυχώς!")
             return redirect('espauser_list_documents')
+        else:
+            messages.error(request,"Παρακαλώ ελέγξτε τα στοιχεία της φόρμας και δοκιμάστε ξανά")
     return render(request,"Espa_Frontend/Subsidized/upload_documents.html",data)

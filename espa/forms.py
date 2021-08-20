@@ -48,7 +48,9 @@ class UploadDocumentBackendForm(ModelForm):
         model = Document
         fields = '__all__'
         exclude = ['company','entrydate']
-        widgets = {}
+        widgets = {
+            'file': forms.ClearableFileInput(attrs={'multiple': True})
+        }
 
 class EspaAssociateForm(ModelForm):
     class Meta:

@@ -3,7 +3,56 @@
     "model": "blankpixel.Service",
     "pk": 0,
     "fields": {
-      "name": "Κατασκευή Ιστοσελίδας"
+      "name": "Δημιουργία Site / E-shop"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 1,
+    "fields": {
+      "name": "Δημιουργία και Διαχείριση Social Media"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 2,
+    "fields": {
+      "name": "Δημιουργία Συστήματος Κρατήσεων"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 3,
+    "fields": {
+      "name": "Τιμοκατάλογος"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 4,
+    "fields": {
+      "name": "Δημιουργία Ραδιοφωνικού Spot για την επιχείρηση σας"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 5,
+    "fields": {
+      "name": "Δημιουργία Promo Video"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 6,
+    "fields": {
+      "name": "Φωτογραφικές λήψεις"
+    }
+  },
+  {
+    "model": "blankpixel.Service",
+    "pk": 7,
+    "fields": {
+      "name": "Live Streaming"
     }
   }
 ]

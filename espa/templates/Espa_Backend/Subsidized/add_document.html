@@ -11,13 +11,13 @@
 <body>
     {% load render %}
     {% renderEspaBackendNavbar request %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
       <div class="col-md-6 form-group mx-auto fields">
         <div class="header">
             Προσθήκη Δικαιλογητικών
         </div>
-        {{form}}
+        {{form.as_p}}
         <input type="submit" class="form-control submit" />
       </div>
     </form>
