@@ -162,8 +162,10 @@ class InstallmentForm(forms.Form):
         payment_in_advance = self.cleaned_data['payment_in_advance']
         total_installments = self.cleaned_data['total_installments']
         total_price = student.getTotalCost()
-        print(total_price)
-        amount_per_installment = (total_price-payment_in_advance)/total_installments
+        if total_installments != 0:
+            amount_per_installment = (total_price-payment_in_advance)/total_installments
+        else:
+            amount_per_installment = total_price-payment_in_advance
         #save payment in advance
         Installment(
             student=student,
