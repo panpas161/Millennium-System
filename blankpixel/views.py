@@ -55,7 +55,7 @@ def addClientView(request):
                     savedservice.save()
             if installmentsform.is_valid() and is_client_saved:
                 if installmentsform.cleaned_data['payment_in_advance'] != savedclient.getTotalCost() and installmentsform.cleaned_data['total_installments'] == 1:
-                    return HttpResponse("<h5 style='text-align:center;'>Η προκαταβολή πρέπει να είναι ίδια με την συνολική τιμή αν η δόση ειναι 1</h5>")
+                    messages.error(request,"Η προκαταβολή πρέπει να είναι ίδια με την συνολική τιμή αν η δόση ειναι 1")
                 installmentsform.save(client=savedclient)
                 return redirect("list_blankpixel_clients")
     return render(request,"Blankpixel_Backend/Clients/add_client.html",data)
@@ -146,22 +146,6 @@ def viewClientInstallmentsView(request,pk):
 
 @login_required(login_url="login")
 @staff_only
-def payInstallmentView(request,pk):
-    instance = Installment.objects.get(id=pk)
-    instance.paid = True
-    instance.save()
-    return redirect("list_blankpixel_client_installments")
-
-# @login_required(login_url="login")
-# @staff_only
-# def disapproveInstallmentView(request,pk):
-#     instance = Installment.objects.get(id=pk)
-#     instance.paid = False
-#     instance.save()
-#     return redirect("list_blankpixel_client_installments")
-
-@login_required(login_url="login")
-@staff_only
 def listServicesView(request):
     objects = Service.objects.order_by("-id")
     page = getPage(request,objects,ServiceFilter)
@@ -249,3 +233,21 @@ def deletePriceView(request,pk):
     instance.delete()
     messages.success(request,"Η υπηρεσία διαγράφτηκε με επιτυχία!")
     # return redirect("list_")
+
+@login_required(login_url="login")
+@staff_only
+def payInstallmentReceiptView(request,pk):
+    instance = Installment.objects.get(id=pk)
+    form = ReceiptForm
+    data = {
+        "form":form
+    }
+    if request.method == "POST":
+        form = ReceiptForm(request.POST)
+        if form.is_valid():
+            form.save(client=instance)
+            instance.paid = True
+            instance.save()
+            messages.success(request,"Η απόδειξη εκδόθηκε με επιτυχία!")
+            return redirect("")
+    return render(request,"Blankpixel_Backend/Installments/issue_receipt.html",data)

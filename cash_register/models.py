@@ -15,7 +15,7 @@ class Receipt(models.Model):
         ('Άμεση Εξόφληση', 'Άμεση Εξόφληση'),
         ('Επι Πιστώσει', 'Επι Πιστώσει')
     )
-    recipient = models.CharField(max_length=25,verbose_name="Ονοματεπώνυμο εισπράκτορα")
+    recipient = models.CharField(max_length=25,verbose_name="Ονοματεπώνυμο εισπράκτορα") #foreign key?
     client = models.CharField(max_length=25,verbose_name="Πελάτης")
     remarks = models.TextField(verbose_name="Παρατηρήσεις",null=True,blank=True)
     amount = models.FloatField(verbose_name="Ποσό")

@@ -1,0 +1,100 @@
+[
+  {
+    "model": "options.EducationLevel",
+    "pk": 0,
+    "fields": {
+      "name": "ΑΕΙ"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 1,
+    "fields": {
+      "name": "Γενικό Λύκειο"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 2,
+    "fields": {
+      "name": "Γυμνάσιο"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 3,
+    "fields": {
+      "name": "Ενιαίο Πολυκλαδικό Λύκειο (ΕΠΛ)"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 4,
+    "fields": {
+      "name": "Επαγγελματικό Λύκειο (ΕΠΑ.Λ.)"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 5,
+    "fields": {
+      "name": "Εσπερινό Γυμνάσιο"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 6,
+    "fields": {
+      "name": "Εσπερινό Λύκειο"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 7,
+    "fields": {
+      "name": "ΙΕΚ"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 8,
+    "fields": {
+      "name": "ΚΔΒΜ 1"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 9,
+    "fields": {
+      "name": "ΚΔΒΜ 2"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 10,
+    "fields": {
+      "name": "ΤΕΙ"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 11,
+    "fields": {
+      "name": "Τεχνικό Επαγγελματικό Εκπαιδευτήριο (ΤΕΕ)"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 12,
+    "fields": {
+      "name": "Τεχνικό Επαγγελματικό Λύκειο"
+    }
+  },
+  {
+    "model": "options.EducationLevel",
+    "pk": 13,
+    "fields": {
+      "name": "Τεχνικό Λύκειο"
+    }
+  }
+]

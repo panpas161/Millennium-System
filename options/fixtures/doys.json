@@ -166,5 +166,117 @@
     "fields": {
       "name": "Βέροιας (4112)"
     }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 24,
+    "fields": {
+      "name": "Βόλου (3321)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 25,
+    "fields": {
+      "name": "Βυρώνος (1152)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 26,
+    "fields": {
+      "name": "Γ' Πατρών (2334)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 27,
+    "fields": {
+      "name": "Γ' Πειραιά (1203)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 28,
+    "fields": {
+      "name": "Γαλατσίου (1179)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 29,
+    "fields": {
+      "name": "Γιαννιτσών (4621)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 30,
+    "fields": {
+      "name": "Γλυφάδας (1139)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 31,
+    "fields": {
+      "name": "Γρεβενών (4521)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 32,
+    "fields": {
+      "name": "Δ' Αθηνών (1104)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 33,
+    "fields": {
+      "name": "Δ' Θεσσαλονίκης (4214)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 34,
+    "fields": {
+      "name": "Δ' Πειραιά (1204)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 35,
+    "fields": {
+      "name": "Δράμας (5111)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 36,
+    "fields": {
+      "name": "Ε' Θεσσαλονίκης (4215)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 37,
+    "fields": {
+      "name": "Ε' Πειραιά (1205)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 38,
+    "fields": {
+      "name": "Έδεσσας (4631)"
+    }
+  },
+  {
+    "model": "options.Doy",
+    "pk": 39,
+    "fields": {
+      "name": "Ελευσίνας (1303)"
+    }
   }
 ]

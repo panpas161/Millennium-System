@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load tags %}
+    <meta charset="UTF-8">
+    <title>Έκδοση Απόδειξης</title>
+    {% loadJQuery %}
+    <link rel="stylesheet" href="{% style 'forms/add_form_one.css' %}">
+    <script src="{% script 'forms/add_form.js' %}"></script>
+</head>
+<body>
+    {% load render %}
+    {% renderBlankpixelNavbar request %}
+    <form method="POST">
+        {% csrf_token %}
+      <div class="col-md-6 form-group mx-auto fields">
+        <div class="header">
+            Έκδοση Απόδειξης
+        </div>
+        {{form}}
+        <input type="submit" class="form-control submit" />
+      </div>
+    </form>
+</body>
+</html>

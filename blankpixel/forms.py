@@ -1,6 +1,7 @@
 from .models import *
 from django import forms
 from Millennium_System import settings
+from cash_register.models import Receipt
 
 class ClientModelForm(forms.ModelForm):
     class Meta:
@@ -70,5 +71,17 @@ class InstallmentForm(forms.Form):
                 payment_number=i,
                 amount=amount_per_installment
             ).save()
+
+class ReceiptForm(forms.Form):
+    recipient = forms.CharField() #automatically?
+    paymentmethod = forms.CharField()
+    paymentway = forms.CharField()
+
+    def save(self,client):
+        client.issueReceipt(
+            recp_full_name=self.cleaned_data['recipient'],
+            paymentmethod=self.cleaned_data['paymentmethod'],
+            paymentway=self.cleaned_data['paymentway']
+        )
 
 MultiServicesForm = forms.formset_factory(ClientServiceForm,extra=1)

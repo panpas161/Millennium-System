@@ -1,11 +1,10 @@
 from django.db import models
 from Millennium_System import settings
 from staff.models import Staff
-from cash_register.models import Receipt,ReceiptType
+from cash_register.models import Receipt,ReceiptApp
 
 class Service(models.Model):
     name = models.CharField(max_length=30,verbose_name="Όνομα Υπηρεσίας")
-    entrydate = models.DateTimeField(auto_now_add=True)
 
     def getJSONService(self):
         return {
@@ -73,8 +72,8 @@ class Installment(models.Model):
 
     def issueReceipt(self, recp_full_name, paymentmethod, paymentway):
         app_name = __package__
-        if not ReceiptType.objects.filter(name=app_name).exists():
-            ReceiptType(name=app_name).save()
+        if not ReceiptApp.objects.filter(name=app_name).exists():
+            ReceiptApp(name=app_name).save()
         Receipt(
             recipient=recp_full_name,
             client=self.client.lastname + " " + self.client.firstname,
