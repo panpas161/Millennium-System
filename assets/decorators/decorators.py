@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .functions import *
 from ..functions.authentication import *
-from system_settings.config import roles
+from Millennium_System import roles
 
 #allows only specific groups to access a page
 def allowed_groups(groups=[]):
@@ -65,7 +65,11 @@ def homeRedirect(viewfunc):
         for i in range(0,len(staff_roles)):
             if hasRole(request,staff_roles[i]):
                 return viewfunc(request,*args,**kwargs)
-        return redirectToHome(request)
+        user = request.user
+        validroles = user.getRoles()
+        if validroles is not None:
+            return redirect(validroles[0]['HomePage'])
+        return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
     return wrapper
 
 #if user is logged in redirect him to his group's home page

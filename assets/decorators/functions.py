@@ -1,6 +1,6 @@
 from django.shortcuts import redirect,HttpResponse
 from ..functions.authentication import getUserRoles
-from system_settings.config import roles
+from Millennium_System import roles
 
 def redirectToHome(request):
     validroles = getUserRoles(request)

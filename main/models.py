@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from system_settings.config import roles
+from Millennium_System import roles
 from system_settings.config import values
 from espa.models import EspaService
 

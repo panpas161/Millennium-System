@@ -1,4 +1,4 @@
-from system_settings.config import roles
+from Millennium_System import roles
 from login.models import User
 from django.contrib.auth.models import Group
 

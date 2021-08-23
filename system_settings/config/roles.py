@@ -11,43 +11,43 @@ try:#ignore if Group.objects.get function returns doesnotexist error
     ROLES = {
         0: {
             'Name':'Admin',
-            'Group':Group.objects.get(name="Administrator"),
+            'Group':Group.objects.get_or_create(name="Administrator"),
             'Model':Administrator,
             'HomePage':'home'
         },
         1: {
             'Name':'Staff',
-            'Group':Group.objects.get(name="Staff"),
+            'Group':Group.objects.get_or_create(name="Staff"),
             'Model':Staff,
             'HomePage':'home'
         },
         2: {
             'Name':'Student',
-            'Group':Group.objects.get(name="Student"),
+            'Group':Group.objects.get_or_create(name="Student"),
             'Model':Student,
             'HomePage':'students_front_home'
         },
         3: {
             'Name':'Teacher',
-            'Group':Group.objects.get(name="Teacher"),
+            'Group':Group.objects.get_or_create(name="Teacher"),
             'Model':Teacher,
             'HomePage':'teacher_home_page'
         },
         4: {
             'Name':'EspaUser',
-            'Group':Group.objects.get(name="EspaUser"),
+            'Group':Group.objects.get_or_create(name="EspaUser"),
             'Model':SubsidizedBusiness,
             'HomePage':'espa_home'
         },
         5: {
             'Name':'Associate',
-            'Group':Group.objects.get(name="Associate"),
+            'Group':Group.objects.get_or_create(name="Associate"),
             'Model':Associate,
             'HomePage':'list_interested_businesses'
         },
         6: {
             'Name':'EspaAssociate',
-            'Group':Group.objects.get(name="EspaAssociate"),
+            'Group':Group.objects.get_or_create(name="EspaAssociate"),
             'Model':EspaAssociate,
             'HomePage':'list_interested_businesses'
         },
