@@ -18,7 +18,7 @@ class User(AbstractUser):
         for i in range(0, len(rolesdict)):
             if self.hasGroup(rolesdict[i]['Group']) and self.hasModel(rolesdict[i]['Model']):
                 validroles.append(rolesdict[i]['Name'])
-            return validroles
+        return validroles
 
     def hasRole(self,role):
         validroles = self.getRoles()

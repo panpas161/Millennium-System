@@ -3,7 +3,7 @@ from login.models import User
 from django.contrib.auth.models import Group
 
 def hasRole(request,role):
-    validroles = getUserRoles(request)
+    validroles = request.user.getRoles()
     if validroles is not None:
         if role in validroles:
             return True
@@ -22,15 +22,6 @@ def isStaff(request):
         if hasRole(request, staff_roles[i]):
             return True
     return False
-
-def isInGroup(request,group):
-    return group in request.user.groups.all()
-
-def hasUserModel(request,model):
-    return hasattr(request.user,model.__name__.lower())
-
-def getUserDetails(request):
-    return hasUserModel(request)#not
 
 #Grabs the first valid role
 def getUserRole(request):

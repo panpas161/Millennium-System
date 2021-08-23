@@ -9,11 +9,7 @@ register = template.Library()
 @register.simple_tag(name="renderStudentFrontendNavbar")
 def studentFrontendNavbarView(request):
     template = 'Frontend/Navbar/frontend_students_navbar.html'
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -22,10 +18,7 @@ def studentFrontendNavbarView(request):
 
 @register.simple_tag(name="renderStudentBackendNavbar")
 def studentBackendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -34,10 +27,7 @@ def studentBackendNavbarView(request):
 #cash_register
 @register.simple_tag(name="renderRegisterBackendNavbar")
 def cashRegisterBackendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -45,10 +35,7 @@ def cashRegisterBackendNavbarView(request):
 
 @register.simple_tag(name="renderBlankpixelNavbar")
 def blankpixelNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -56,22 +43,14 @@ def blankpixelNavbarView(request):
 
 @register.simple_tag(name="renderEfetNavbar")
 def efetNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
-    data  ={
-
-        'usertype':usertype,
+    data = {
         'request':request,
         'messages': messages.get_messages(request)
     }
     return render_to_string("Navbar/efet_navbar_one.html",data)
 @register.simple_tag(name="renderTeacherBackendNavbar")
 def teacherBackendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -79,11 +58,7 @@ def teacherBackendNavbarView(request):
 
 @register.simple_tag(name="renderTeacherFrontendNavbar")
 def teacherFrontendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request)
     }
@@ -91,10 +66,7 @@ def teacherFrontendNavbarView(request):
 
 @register.simple_tag(name="renderEspaBackendNavbar")
 def espaBackendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype,
         'request':request,
         'messages':messages.get_messages(request),
         'isStaff':isStaff(request),
@@ -103,11 +75,7 @@ def espaBackendNavbarView(request):
 
 @register.simple_tag(name="renderEspaFrontendNavbar")
 def espaFrontendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-
-        'usertype':usertype,
         'request':request,
         'companyname':request.user.subsidizedbusiness.companyname,
         'messages': messages.get_messages(request),
@@ -116,11 +84,7 @@ def espaFrontendNavbarView(request):
 
 @register.simple_tag(name="renderOaedSubsidyBackendNavbar")
 def oaedSubsidyBackendNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-
-        'usertype':usertype,
         'request':request,
         'messages': messages.get_messages(request),
     }
@@ -128,19 +92,13 @@ def oaedSubsidyBackendNavbarView(request):
 
 @register.simple_tag(name="renderProfileNavbar")
 def profileNavbarView(request):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype
     }
     return render_to_string("Profiles/navbar.html",data)
 
 @register.simple_tag(name="renderNavbar")
 def renderNavbar(request,path):
-    role = getUserRoles(request)[0]
-    usertype = translateUserRole(role)
     data = {
-        'usertype':usertype,
         'request':request,
         'messages':messages.get_messages(request)
     }

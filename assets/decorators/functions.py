@@ -3,10 +3,7 @@ from ..functions.authentication import getUserRoles
 from Millennium_System import roles
 
 def redirectToHome(request):
-    validroles = getUserRoles(request)
-    allroles = roles.ROLES
+    validroles = request.user.getRoles()
     if validroles is not None:
-        for i in range(0,len(validroles)):
-            if validroles[0] == allroles[i]['Name']:
-                return redirect(allroles[i]['HomePage'])
+        return redirect(validroles[0]['HomePage'])
     return HttpResponse("<h2 style='text-align:center;'>Δεν επιτρέπεται η πρόσβαση</h2>")
