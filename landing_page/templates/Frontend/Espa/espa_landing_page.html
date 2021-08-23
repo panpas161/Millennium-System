@@ -1,38 +1,113 @@
-{% block content %}
-{% if messages %}
-    {% for message in messages %}
-        <div class="successmessages" id="successmessage">
-            <div class="cancel" onclick="hideMessages()">X</div>
-            {{message}}
-        </div>
-    {% endfor %}
-{% endif %}
-{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Εκδήλωση Ενδιαφέροντος</title>
+	{% load tags %}
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Εκδήλωση Ενδιαφέροντος</title>
+	{% loadBootstrap %}
 </head>
 <body>
-Εκδήλωση ενδιαφέροντος <a href="{% url 'landing_espa_register' %}">εδώ</a>
+	<div class="col">
+		<div class="container-01"><h1>Εκδηλωση Ενδιαφεροντος</h1></div>
+		<div class="container-02"><p>Κάντε κλικ στο παρακάτω κουμπί για να συμπληρώσετε την φόρμα εκδήλωσης ενδιαφέροντος.</p></div>
+		<div class="container-03" ><span class="button"><a href="{% url 'landing_espa_register' %}"></a></span></div>
+    </div>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background:#fff;
+  background-image: url('{% image 'espa/espa-bg-1366x768.jpg' %}');
+  background-position: center center;
+  background-size: 100% 100%;
+}
+body, h1, h2, h3, h4, h5, h6, p, a {
+  font-family: Roboto, sans-serif;
+}
+.col {
+  height: 100%;
+  width: 100%;
+}
+div[class*=container] {
+  text-align: center;
+  width: 100%;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container-01 {
+	font-size: 19px;
+	letter-spacing: 1px;
+	font-weight: 900;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	background: #ff0000;
+	width: 100%;
+}
+.container-02 {
+	font-size: 16px;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #000;
+	background: #CBCBCB;
+	width: 100%;
+}
+.container-03 {
+	letter-spacing: 1px;
+	width: 100%;
+}
+.button{
+  position: relative;
+  display: inline-flex;
+  width: 200px;
+  height: 55px;
+  margin: 0 25px;
+  perspective: 1000px;
+}
+.button a{
+  font-size: 19px;
+  letter-spacing: 1px;
+  font-weight: 900;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;
+  font-family: 'Roboto', sans-serif;
+
+}
+.button a:before,
+.button a:after{
+  position: absolute;
+  content: "Εγγραφή";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #ff0000;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.button a:before{
+  color: #fff;
+  background: #ff0000;
+  transform: rotateY(0deg) translateZ(25px);
+}
+.button a:after{
+  color: #ff0000;
+  transform: rotateX(90deg) translateZ(25px);
+}
+.button a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+</style>
 </body>
 </html>
-<style>
-    .successmessages
-{
-    text-align: center;
-    background-color: green;
-    height:67px;
-    margin: -0.3% -0.3% -0.3% -0.3%;
-}
-.cancel
-{
-    text-align: right;
-}
-.cancel:hover
-{
-    cursor: pointer;
-    color:red;
-}
-</style>
