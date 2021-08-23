@@ -9,13 +9,48 @@ from associate.models import Associate
 #All roles available here
 try:#ignore if Group.objects.get function returns doesnotexist error
     ROLES = {
-        0: {'Name':'Admin','Group':Group.objects.get(name="Administrator"),'Model':Administrator,'HomePage':'home'},
-        1: {'Name':'Staff','Group':Group.objects.get(name="Staff"),'Model':Staff,'HomePage':'home'},
-        2: {'Name':'Student','Group':Group.objects.get(name="Student"),'Model':Student,'HomePage':'students_front_home'},
-        3: {'Name':'Teacher','Group':Group.objects.get(name="Teacher"),'Model':Teacher,'HomePage':'teacher_home_page'},
-        4: {'Name':'EspaUser','Group':Group.objects.get(name="EspaUser"),'Model':SubsidizedBusiness,'HomePage':'espa_home'},
-        5: {'Name':'Associate','Group':Group.objects.get(name="Associate"),'Model':Associate,'HomePage':'list_interested_businesses'},
-        6: {'Name':'EspaAssociate','Group':Group.objects.get(name="EspaAssociate"),'Model':EspaAssociate,'HomePage':'list_interested_businesses'},
+        0: {
+            'Name':'Admin',
+            'Group':Group.objects.get(name="Administrator"),
+            'Model':Administrator,
+            'HomePage':'home'
+        },
+        1: {
+            'Name':'Staff',
+            'Group':Group.objects.get(name="Staff"),
+            'Model':Staff,
+            'HomePage':'home'
+        },
+        2: {
+            'Name':'Student',
+            'Group':Group.objects.get(name="Student"),
+            'Model':Student,
+            'HomePage':'students_front_home'
+        },
+        3: {
+            'Name':'Teacher',
+            'Group':Group.objects.get(name="Teacher"),
+            'Model':Teacher,
+            'HomePage':'teacher_home_page'
+        },
+        4: {
+            'Name':'EspaUser',
+            'Group':Group.objects.get(name="EspaUser"),
+            'Model':SubsidizedBusiness,
+            'HomePage':'espa_home'
+        },
+        5: {
+            'Name':'Associate',
+            'Group':Group.objects.get(name="Associate"),
+            'Model':Associate,
+            'HomePage':'list_interested_businesses'
+        },
+        6: {
+            'Name':'EspaAssociate',
+            'Group':Group.objects.get(name="EspaAssociate"),
+            'Model':EspaAssociate,
+            'HomePage':'list_interested_businesses'
+        },
     }
 except:
     pass
