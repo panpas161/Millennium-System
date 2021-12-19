@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'general_settings',
     'system_settings',
     'oaed_subsidy',
-    'options'
+    'options',
+    'roles'
 ]
 
 #which apps will interact with cash_register
@@ -175,7 +176,7 @@ STYLE_ROOT = os.path.join(BASE_DIR, "static/style")
 SCRIPT_URL = "/scripts/"
 SCRIPT_ROOT = os.path.join(BASE_DIR, "static/script")
 BOOTSTRAP_URL = "/bootstrap/"
-BOOTSTRAP_ROOT = os.path.join(BASE_DIR,"static/bootstrap/")
+BOOTSTRAP_ROOT = os.path.join(BASE_DIR, "static/bootstrap/")
 
 #Date settings
 DATE_FORMAT = '%d/%m/%Y'

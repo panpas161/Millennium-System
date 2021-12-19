@@ -7,53 +7,64 @@ from espa.models import SubsidizedBusiness,EspaAssociate
 from associate.models import Associate
 
 #All roles available here
-try:
-    ROLES = {
-        0: {
-            'Name':'Admin',
-            'Group':Group.objects.get_or_create(name="Administrator")[0],
-            'Model':Administrator,
-            'HomePage':'home'
-        },
-        1: {
-            'Name':'Staff',
-            'Group':Group.objects.get_or_create(name="Staff")[0],
-            'Model':Staff,
-            'HomePage':'home'
-        },
-        2: {
-            'Name':'Student',
-            'Group':Group.objects.get_or_create(name="Student")[0],
-            'Model':Student,
-            'HomePage':'students_front_home'
-        },
-        3: {
-            'Name':'Teacher',
-            'Group':Group.objects.get_or_create(name="Teacher")[0],
-            'Model':Teacher,
-            'HomePage':'teacher_home_page'
-        },
-        4: {
-            'Name':'EspaUser',
-            'Group':Group.objects.get_or_create(name="EspaUser")[0],
-            'Model':SubsidizedBusiness,
-            'HomePage':'espa_home'
-        },
-        5: {
-            'Name':'Associate',
-            'Group':Group.objects.get_or_create(name="Associate")[0],
-            'Model':Associate,
-            'HomePage':'list_interested_businesses'
-        },
-        6: {
-            'Name':'EspaAssociate',
-            'Group':Group.objects.get_or_create(name="EspaAssociate")[0],
-            'Model':EspaAssociate,
-            'HomePage':'list_interested_businesses'
-        },
-    }
-except:
-    pass
+ROLES = {
+    0: {
+        'Name':'Admin',
+        'Group':'Administrator',
+        'Model':Administrator,
+        'HomePage':'home',
+        'isStaff':True,
+        'isAdmin':True
+    },
+    1: {
+        'Name':'Staff',
+        'Group':'Staff',
+        'Model':Staff,
+        'HomePage':'home',
+        'isStaff':True,
+        'isAdmin':False
+    },
+    2: {
+        'Name':'Student',
+        'Group':'Student',
+        'Model':Student,
+        'HomePage':'students_front_home',
+        'isStaff':False,
+        'isAdmin':False
+    },
+    3: {
+        'Name':'Teacher',
+        'Group':'Teacher',
+        'Model':Teacher,
+        'HomePage':'teacher_home_page',
+        'isStaff': False,
+        'isAdmin': False
+    },
+    4: {
+        'Name':'EspaUser',
+        'Group':'EspaUser',
+        'Model':SubsidizedBusiness,
+        'HomePage':'espa_home',
+        'isStaff': False,
+        'isAdmin': False
+    },
+    5: {
+        'Name':'Associate',
+        'Group':'Associate',
+        'Model':Associate,
+        'HomePage':'list_interested_businesses',
+        'isStaff': False,
+        'isAdmin': False
+    },
+    6: {
+        'Name':'EspaAssociate',
+        'Group':'EspaAssociate',
+        'Model':EspaAssociate,
+        'HomePage':'list_interested_businesses',
+        'isStaff': False,
+        'isAdmin': False
+    },
+}
 
 #Add admin roles here
 
